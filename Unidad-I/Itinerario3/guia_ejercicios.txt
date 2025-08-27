@@ -1,0 +1,17 @@
+Guía de ejercicios
+
+Los siguientes ejercicios son conceptuales y no se deben desarrollar en código. Para su elaboración puede utilizar cualquier graficador (por ejemplo draw.io). Para representar una clase, sus propiedades, métodos y las relaciones entre ellas utilice la simbología UML que su profesor le indicará en clase.
+
+1. Desarrollar una jerarquía de clases relacionadas por herencia y agregación que represente la estructura necesaria para identificar claramente los elementos encontrados en un sistema de calificaciones de una universidad. En cada clase detallar métodos y propiedades.
+
+2. Defina una situación donde se desee llegar desde un estado inicia a uno final, por ejemplo, una cuenta bancaria que posee un saldo inicial y se la somete a una operación bancaria. Desarrollar la clase cuenta con las propiedades y métodos que considere pertinentes y demuestre como cambia el estado del objeto en la medida que se le realizan depósitos, extracciones y transferencias.
+
+3. Genere una estructura de clases donde se pueda observar la herencia simple y se justifique utilizar el polimorfismo.
+
+4. Genere una estructura de clases donde se pueda observar la herencia múltiple y se justifique utilizar el polimorfismo.
+
+5. Desarrollar conjuntos de objetos reales donde para su agrupación y clasificación sea necesario aplicar la categorización conceptual, la clásica y el agrupamiento prototípico. Justifique.
+
+6. Desarrollar un programa que posea una estructura de clases donde se puedan observar dos métodos y el constructor sobrecargados.
+
+7. Desarrollar un programa que posea una estructura de clases donde se pueda observar una propiedad de solo lectura, una propiedad de solo escritura, una propiedad de escritura-lectura, una propiedad de predeterminada y una propiedad con argumentos.
