@@ -1,0 +1,151 @@
+1. Enumere y explique los aspectos más relevantes que hacen que un software de gran magnitud sea complejo.
+
+a. La complejidad del dominio del problema.
+b. La complejidad de gestionar un proyecto de desarrollo de software.
+c. La complejidad que genera la no estandarización de los componentes de software. Cabe aclarar que se avanzó en este sentido, no obstante falta mucho camino por recorrer.
+d. La complejidad resultante del cambio dinámico introducido por las constantes modificaciones en el dominio del problema y la tecnología.
+
+2. ¿Cuáles son los cinco atributos de un sistema complejo?
+
+Los cinco atributos de un sistema complejo son: 
+a. Emergencia
+b. Autoorganización
+c. Retroalimentación
+d. Sensibilidad a las condiciones iniciales 
+e. Interdependencia.
+
+3. ¿Cuáles son las dos jerarquías más importantes que consideramos en la orientación a objetos para sistemas complejos?
+
+Si bien existen muchas formas de jerarquías existen dos en particular que nos interesan:
+
+a. jerarquía estructural y se la reconoce por la forma “parte-de”.
+b. jerarquía de tipos y se la reconoce por la forma “es-un”.
+
+4. ¿Con qué podemos enfrentar a la complejidad para obtener partes cada vez más pequeñas y simplificadas del dominio del problema?
+
+La abstracción es un mecanismo que permite comprender con mayor facilidad sistemas complejos. Al analizar las características de la abstracción subyace el concepto de descomposición.
+
+5. ¿Cuáles son las dos formas de descomposición más conocidas?
+
+Las formas de descomposición más conocidas son la descomposición algorítmica y la orientada a objetos.
+
+6. ¿Explique en qué se diferencia la descomposición algorítmica y la orientada a objetos?
+
+En orientación a objetos se visualizan “objetos” del dominio del problema, se determina como se relacionan y se establecen comportamientos en términos de “responsabilidades de hacer” y “colaboraciones que espera recibir” para hacer lo que se le pide.
+
+En la orientación algorítmica se descompone en pasos lógicos un problema ordenándolo en una secuencia estructurada de manera que representen el dominio del problema.
+
+7. ¿Qué rol cumple la abstracción en la orientación a objetos?
+
+La abstracción nos ayuda a pensar en términos de "qué" hace un objeto, en lugar de "cómo" lo hace.
+
+8. ¿Qué rol cumple la jerarquía en la orientación a objetos?
+
+La jerarquía cumple el rol de organizar y dar claridad, permite también la reutilización del código.
+
+9. ¿Consideraría Ud. al diseño orientado a objetos un desarrollo evolutivo o revolucionario? Justifique.
+
+Consideraría como un desarrollo evolutivo, aunque la POO introdujo conceptos muy potentes como la abstracción, la herencia y el polimorfismo no surgió de la nada.
+Es una síntesis y mejora de ideas ya existentes. Se construyó sobre los fundamentos de la programación estructurada y modular.
+
+10. ¿Cuántos y cuáles son los modelos básicos que se manejan en el diseño orientado a objetos?
+
+Modelos:
+a. Modelo estático.
+b. Modelo dinámico.
+c. Modelo lógico.
+d. Modelo físico
+
+11. ¿Qué es la programación orientada a objetos?
+
+La Programación Orientada a Objetos (POO) es un paradigma de programación que organiza el código en torno a objetos, que son entidades que combinan datos y comportamientos.
+Se enfoca en modelar el mundo real, usando clases como planos para crear objetos. Sus principios clave (abstracción, encapsulamiento, herencia y polimorfismo) buscan simplificar la complejidad, reutilizar el código y hacer el software más modular y fácil de mantener.
+
+
+12. ¿Qué es el diseño orientado a objetos?
+
+El diseño orientado a objetos (DOO) es una disciplina que se enfoca en la planificación y la estructura de un sistema de software.
+Se basa en la idea de que un sistema puede ser modelado como una colección de objetos que interactúan entre sí.
+En lugar de centrarse en las funciones o en los procedimientos, el DOO se concentra en las entidades del negocio (los objetos), sus responsabilidades, y cómo se comunican.
+
+13. ¿Qué es el análisis orientado a objetos?
+
+El análisis orientado a objetos (AOO) es la fase inicial del desarrollo de software donde se identifican y modelan los objetos y las relaciones de un dominio de problema.
+Su objetivo es entender el "qué" del sistema, es decir, qué hace y qué requisitos tiene, desde la perspectiva del mundo real.
+A diferencia del diseño, el AOO se enfoca en crear un modelo conceptual y agnóstico de la implementación, buscando entender la esencia del problema antes de pensar en cómo se va a resolver.
+
+14. ¿Cuáles son los elementos fundamentales en el modelo de objetos?
+
+Los elementos fundamentales del modelo de objetos son cuatro: abstracción, encapsulamiento, herencia y polimorfismo.
+a. Abstracción: es simplificar la complejidad de un sistema al mostrar solo los detalles esenciales y relevantes, mientras que se ocultan los detalles de implementación innecesarios.
+b. Encapsulamiento: agrupa los datos y los métodos que operan sobre esos datos en una sola unidad, el objeto.
+c. Herencia: permite que una nueva clase (subclase o clase hija) adquiera los atributos y métodos de una clase existente (superclase o clase padre).
+d. Polimorfismo: significa "muchas formas". Permite que objetos de diferentes clases, que descienden de una misma superclase, respondan de manera diferente al mismo mensaje o método.
+
+15. ¿Cuáles son los elementos secundarios del modelo de objetos?
+
+Los elementos secundarios del modelo de objetos son los tipos, la concurrencia y la persistencia.
+a. Tipos
+b. Concurrencia
+c. Persistencia
+
+16. Explique el significado de la abstracción.
+
+Una abstracción denota las características esenciales de un objeto que lo distinguen de todos los demás tipos objetos y proporciona así fronteras conceptuales npitidamente definidas respecto a la perspectiva del observador.
+
+17. Explique el significado del encapsulamiento.
+
+Oculta los detalles de implementación de un objeto. Es el proceso de almacenar en un compartimiento los elementos de una abstracción que constituyen su estructura y su comporatamiento, sirve para separar la interfaz contractual de una abstracción y su implementación.
+
+18. Explique el significado de la modularidad.
+
+La modularidad es la propiedad que posee un sistema que ha sido descompuesto en un conjunto de módulos cohesivos y débilmente acoplados.
+
+19. Explique el significado de la jerarquía.
+
+La jerarquía es una clasificación u ordenación de abstracciones.
+
+20. Explique el significado de la tipificación.
+
+Los tipos son la puesta en vigor de la clase de los objetos, de modo que los objetos de tipos distintos no pueden intercambiarse o, como mucho, pueden intercambiarse solo de formas muy restringidas.
+
+21. Explique el significado de la concurrencia.
+
+La concurrencia permite a diferentes objetos actuar al mismo tiempo. Es la propiedad que distingue un objeto activo de uno que no está activo.
+
+22. Explique el significado de la persistencia.
+
+La persistencia es la propiedad de un objeto por la que su existencia trasciende el tiempo, es decir el objeto continúa existiendo después de que su creador deja de existir, y/o el espacio, es decir la posición del objeto varía con respecto a espacio de direcciones en el que fue creado.
+
+23. ¿Cómo se denotan las características esenciales de un objeto que lo distinguen de todos los demás tipos de objetos y proporciona así fronteras conceptuales nítidamente definidas respecto a la perspectiva del observador?
+
+La abstracción denota las características esenciales de un objeto que lo diferencian de otros, creando límites conceptuales claros desde la perspectiva del observador.  Esto permite que un programador se enfoque en lo que un objeto es y hace (su comportamiento y propiedades) sin preocuparse por los complejos detalles de cómo está implementado internamente.
+
+24. ¿A qué denominamos un objeto cliente?
+
+En el contexto del diseño orientado a objetos, un objeto cliente es un objeto que utiliza los servicios de otro objeto. Actúa como el "consumidor" de la funcionalidad de otro objeto, sin necesidad de conocer los detalles de cómo se implementan esos servicios.
+
+25. ¿A qué denominamos un objeto servidor?
+
+Un objeto servidor, o proveedor de servicios, es un objeto que ofrece servicios o funcionalidad a otros objetos, conocidos como objetos cliente. Es el encargado de realizar una tarea o gestionar datos en respuesta a un mensaje o solicitud que recibe.
+
+26. ¿A qué denomina Meyer el modelo contractual de programación?
+
+Bertrand Meyer denomina Diseño por Contrato a un modelo de programación en el que la relación entre un módulo de software y sus usuarios se define formalmente como un contrato.
+
+27. ¿Qué establece un contrato entre objetos?
+
+Un contrato entre objetos, basado en el Diseño por Contrato (DbC) de Bertrand Meyer, establece las obligaciones y garantías mutuas entre un objeto cliente (el que invoca un método) y un objeto servidor (el que lo implementa).
+Este contrato se compone de tres elementos clave: Precondiciones, Postcondiciones y Invariantes de clase.
+
+28. ¿Cómo se denomina a las formas en que un objeto puede actuar y/o reaccionar, constituyendo estas formas la visión externa completa, estática y dinámica de la abstracción?
+
+El comportamiento de un objeto es lo que define sus acciones y reacciones. Constituye la visión externa, completa y dinámica de la abstracción, ya que determina cómo un objeto interactúa con otros. En el diseño orientado a objetos, el comportamiento se implementa a través de los métodos de una clase.
+
+29. ¿Cómo se denomina al conjunto completo de operaciones que puede realizar un cliente sobre un objeto, junto con las formas de invocación u órdenes que admite?
+
+El comportamiento de un objeto es lo que define sus acciones y reacciones. Constituye la visión externa, completa y dinámica de la abstracción, ya que determina cómo un objeto interactúa con otros. En el diseño orientado a objetos, el comportamiento se implementa a través de los métodos de una clase.
+
+30. ¿A qué nos referimos cuando decimos que un concepto central de la idea de abstracción es el de invariancia?
+
+Cuando decimos que un concepto central de la abstracción es la invariancia, nos referimos a la idea de que un objeto mantiene sus propiedades esenciales o su comportamiento fundamental constante a lo largo del tiempo, a pesar de los cambios en su estado interno o en su entorno.
