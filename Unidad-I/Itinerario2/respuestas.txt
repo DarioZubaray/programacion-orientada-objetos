@@ -1,0 +1,740 @@
+31. ¿Qué se debe definir para cualquier operación asociada a un objeto?
+
+Para cualquier operación asociada a un objeto, se debe definir su comportamiento, es decir, lo que esa operación hace.
+Esto se logra especificando tres elementos clave que actúan como un contrato para la operación:
+a. Precondiciones.
+b. Postcondiciones.
+c. Exepciones.
+
+32. ¿Qué es una precondición?
+
+Una precondición es una condición que debe ser verdadera antes de que un método u operación sea ejecutado.
+Es una obligación que el objeto cliente debe cumplir.
+Si la precondición no se cumple, el método no garantiza su correcto funcionamiento.
+
+33. ¿Qué es una postcondición?
+
+Una postcondición es una condición que se garantiza que será verdadera al finalizar la ejecución de un método o una operación, siempre y cuando sus precondiciones hayan sido satisfechas.
+Es una garantía que el objeto servidor le da al objeto cliente. 
+
+34. ¿A qué se denomina excepción?
+
+Una excepción es un evento, que ocurre durante la ejecución de un programa, que interrumpe el flujo normal de las instrucciones.
+Es una forma estructurada de manejar errores o situaciones inesperadas.
+
+35. ¿A qué se denomina mensaje?
+
+Un mensaje es una solicitud de un objeto a otro para que realice una de sus operaciones.
+Es el mecanismo fundamental a través del cual los objetos interactúan y se comunican en un sistema orientado a objetos.
+Cuando un objeto cliente envía un mensaje a un objeto servidor, en realidad está invocando uno de los métodos del servidor.
+
+36. ¿El encapsulado es un concepto complementario a la abstracción? Justifique.
+
+Sí, el encapsulamiento es un concepto complementario a la abstracción.
+Actúa como el mecanismo de implementación que hace posible la abstracción.
+Mientras que la abstracción se enfoca en la visión conceptual, el encapsulamiento se enfoca en la implementación técnica de esa visión.
+
+37. ¿Cómo se denomina al elemento de un objeto que captura su vista externa?
+
+A el elemento de un objeto que captura su vista externa se le denomina interfaz.
+La interfaz es la colección de operaciones o métodos públicos que un objeto expone a otros objetos.
+Es el "contrato" que define cómo se puede interactuar con el objeto.
+
+38. ¿Cómo se denomina al elemento de un objeto que captura su vista interna la cual incluye los mecanismos que consiguen el comportamiento deseado?
+
+El elemento de un objeto que captura su vista interna se denomina implementación.
+La implementación es el conjunto de mecanismos, código y datos privados que un objeto utiliza para lograr su comportamiento.
+Mientras que la interfaz define lo que un objeto hace, la implementación define cómo lo hace.
+
+39. ¿El concepto de “ocultar los detalles de implementación” lo asociaría a “esconder los detalles de implementación” o a “evitar el uso inapropiado de los detalles de implementación”? Justifique.
+
+Lo asociaría con la idea de evitar el uso inapropiado de los detalles de implementación.
+Se trata de proteger la integridad del objeto y controlar cómo se interactúa con él.
+
+40. ¿Cuáles son los dos aspectos que hacen importante considerar a la modularidad?
+
+Los aspectos que hacen que la modularidad sea importante en el diseño de software son la composición y la descomposición.
+a. Descomposición: es el acto de dividir un problema grande y complejo en módulos más pequeños y manejables.
+b. Composición: es el proceso inverso, donde los módulos individuales se combinan para formar el sistema completo.
+
+41. ¿Para qué se utiliza la jerarquía?
+
+La jerarquía en la programación orientada a objetos se utiliza para la organización y reutilización de código a través de la herencia.
+Permite establecer relaciones "es un" entre clases, donde las subclases heredan atributos y métodos de las superclases.
+Esto promueve la polimorfismo y la modularidad, facilitando la creación de sistemas más flexibles y fáciles de mantener.
+
+42. ¿Cómo denominamos a la caracterización precisa de propiedades estructurales o de comportamiento que comparten una serie de entidades?
+
+Esa caracterización se denomina abstracción.
+En la programación orientada a objetos (POO), la abstracción es el proceso de identificar las propiedades y comportamientos esenciales que un conjunto de objetos comparten, ignorando los detalles no relevantes.
+Es la base para la creación de clases e interfaces, permitiendo modelar problemas complejos de manera más sencilla y eficiente.
+
+43. ¿Las clases implementan tipos?
+
+Sí, las clases implementan tipos.
+Una clase es una definición de un nuevo tipo de dato.
+Cuando se crea un objeto a partir de una clase, ese objeto es una instancia de ese tipo, lo que significa que el objeto puede ser tratado como el tipo definido por la clase.
+
+44. ¿Los tipos implementan clases?
+
+Los tipos no implementan clases.
+En la programación orientada a objetos, la relación de implementación es de una clase a un tipo.
+Una clase es la implementación concreta de un tipo de dato.
+
+45. ¿Cómo denominamos a los lenguajes que hacen una comprobación de tipos estricta?
+
+A los lenguajes que hacen una comprobación de tipos estricta se les denomina lenguajes de tipado fuerte y, en el contexto de la compilación, lenguajes de tipado estático.
+
+46. ¿Cómo denominamos a los lenguajes que no hacen una comprobación de tipos estricta?
+
+A los lenguajes que no hacen una comprobación de tipos estricta se les denomina lenguajes de tipado débil y lenguajes de tipado dinámico.
+
+47. ¿A qué se denomina ligadura estática (temprana)?
+
+La ligadura estática, también conocida como ligadura temprana, es el proceso en el que el compilador resuelve las llamadas a métodos o funciones en tiempo de compilación.
+Esto significa que el compilador determina exactamente qué código se ejecutará para una llamada específica antes de que el programa se ponga en marcha.
+
+48. ¿A qué se denomina ligadura dinámica (tardía)?
+
+La ligadura dinámica, o ligadura tardía, es el proceso en el que el compilador resuelve las llamadas a métodos en tiempo de ejecución. 
+Esto significa que el código a ejecutar para una llamada específica no se determina hasta que el programa se está ejecutando, lo que permite un mayor grado de flexibilidad.
+
+49. ¿Es lo mismo la comprobación estricta de tipos y la ligadura dinámica?
+
+No, la comprobación estricta de tipos y la ligadura dinámica no son lo mismo.
+Son conceptos distintos aunque a menudo se asocian con lenguajes de programación específicos.
+La ligadura se refiere a cómo el compilador o intérprete conecta una llamada a un método con la implementación de ese método.
+
+50. ¿Cómo se denomina la característica que permite a diferentes objetos actuar al mismo tiempo?
+
+La característica que permite a diferentes objetos actuar al mismo tiempo se denomina concurrencia.
+La concurrencia es la capacidad de un sistema para manejar múltiples tareas de forma simultánea.
+En el contexto de la programación orientada a objetos, esto permite que varios objetos ejecuten sus métodos o procesos de manera independiente, dando la apariencia de que están operando en paralelo.
+
+51. ¿A qué se denomina concurrencia pesada?
+
+La concurrencia pesada se refiere al uso de procesos para lograr la ejecución simultánea de tareas.
+Cada proceso tiene su propio espacio de memoria y recursos del sistema, lo que los hace completamente independientes y aislados entre sí.
+
+52. ¿A qué se denomina concurrencia ligera o liviana?
+
+La concurrencia ligera se refiere al uso de hilos (threads) para lograr la ejecución simultánea de tareas dentro de un mismo proceso.
+
+53. ¿La concurrencia es la propiedad que distingue un objeto activo de uno que no lo está?
+
+Sí, la concurrencia es la propiedad que distingue un objeto activo de uno pasivo.
+Un objeto activo tiene su propio hilo de control y puede operar de forma independiente, mientras que un objeto pasivo solo ejecuta métodos cuando es llamado por otro objeto.
+
+54. ¿Cómo se denomina la característica en orientación a objetos que permite conservar el estado de un objeto en el tiempo y el espacio?
+
+Esa característica se denomina persistencia.
+La persistencia en la programación orientada a objetos es la capacidad de un objeto de sobrevivir a la finalización del proceso que lo creó.
+En otras palabras, permite que el estado (los valores de sus atributos) de un objeto se guarde en un almacenamiento no volátil, como un archivo en disco o una base de datos, y pueda ser recuperado y reconstruido en un momento posterior o en un lugar diferente.
+
+55. ¿Qué cosas se persisten?
+
+Se persisten los objetos y su estado, es decir, los datos o la información que define al objeto mismo en un momento dado.
+
+56. Defina qué es un objeto desde la perspectiva de la cognición humana.
+
+Desde la perspectiva de la cognición humana, un objeto es una entidad mental o perceptual que nuestro cerebro reconoce como una unidad coherente y distinguible.
+
+57. ¿Un objeto es real o abstracto? Justifique.
+
+Un objeto puede ser real o abstracto, dependiendo del contexto.
+En el mundo de la programación, un objeto es una abstracción de una entidad del mundo real o de un concepto. 
+
+58. ¿Los objetos poseen límites físicos precisos o imprecisos?
+
+Los objetos poseen límites que son tanto físicamente precisos como conceptualmente imprecisos, dependiendo del contexto y de cómo los definamos.
+
+59. ¿Cuáles son las tres cosas que debe tener un objeto?
+
+Un objeto debe tener tres cosas principales: estado, comportamiento e identidad.
+a. Estado: Se refiere a las propiedades o atributos del objeto.
+b. Comportamiento: Describe las acciones que el objeto puede realizar.
+c. Identidad: Es lo que distingue a un objeto de otro, incluso si tienen el mismo estado.
+
+60. ¿Cuál es la palabra que se puede utilizar como sinónimo de objeto?
+
+Una palabra que se puede utilizar como sinónimo de objeto es instancia.
+
+61. ¿Cuál es la palabra que se puede utilizar como sinónimo de instancia?
+
+En el contexto de la Programación Orientada a Objetos, una palabra que se puede utilizar como sinónimo de instancia es objeto.
+
+62. ¿Cómo definiría el estado de un objeto?
+
+El estado de un objeto se define como el conjunto de los valores de sus atributos o propiedades en un momento dado. 
+
+63. ¿A qué definimos propiedad de un objeto?
+
+Una propiedad de un objeto se define como un atributo o característica que describe su estado.
+Es un dato encapsulado dentro del objeto que contiene un valor específico y ayuda a distinguirlo de otros objetos.
+
+64. ¿Qué es lo que distingue a “un objeto” de los “valores simples”?
+
+Lo que distingue a un objeto de un valor simple es que un objeto tiene una identidad, mientras que un valor simple no la tiene.
+
+65. ¿Cómo definiría el comportamiento de un objeto?
+
+El comportamiento de un objeto se define como el conjunto de acciones o funcionalidades que puede realizar.
+Estas acciones se implementan a través de sus métodos, que son las operaciones que un objeto puede ejecutar sobre su propio estado o sobre otros objetos.
+
+66. ¿El comportamiento de un objeto se ve afectado por el estado del mismo o bien que el comportamiento del objeto es función de su estado?
+
+El comportamiento de un objeto es función de su estado.
+El estado de un objeto, es decir, los valores de sus propiedades, determina cómo se ejecutarán sus métodos (comportamiento).
+Un mismo método puede producir resultados diferentes dependiendo del estado actual del objeto.
+
+67. ¿Algunos comportamientos pueden alterar el estado de un objeto?
+
+Sí, de hecho, la función principal de muchos comportamientos (métodos) es precisamente alterar el estado de un objeto.
+
+68. Se puede afirmar que el estado de un objeto termina siendo los resultados acumulados de su comportamiento.
+
+Sí, se puede afirmar que el estado de un objeto es el resultado acumulado de su comportamiento.
+Porque el estado de un objeto cambian a lo largo del tiempo debido a las acciones o comportamientos que el objeto realiza a través de sus métodos.
+
+69. ¿A qué definiría como operación (método/función miembro)?
+
+Una operación, también conocida como método o función miembro, es una acción o un comportamiento que un objeto puede realizar.
+Es una subrutina o un procedimiento asociado a una clase o un objeto específico.
+Los métodos definen la interfaz a través de la cual los otros objetos interactúan con él.
+
+70. ¿Cuáles son las tres operaciones más comunes?
+
+Las tres operaciones más comunes son los constructores, los consultores (getters) y los modificadores (setters).
+
+71. ¿Cuáles son las dos operaciones habituales que se utilizan para crear y destruir instancias de clases?
+
+Las dos operaciones habituales para crear y destruir instancias de clases son los constructores y los destructores.
+
+72. ¿Qué tipo de operación es el modificador?
+
+Un modificador (o setter) es una operación de cambio de estado.
+Es un método de un objeto diseñado específicamente para cambiar el valor de uno de sus atributos.
+
+73. ¿Qué tipo de operación es el selector?
+
+Un selector, o consultor (getter), es una operación de acceso al estado.
+Un selector es un método diseñado para leer o devolver el valor de un atributo de un objeto sin modificar su estado.
+
+74. ¿Qué tipo de operación es el iterador?
+
+Un iterador es una operación de acceso y recorrido.
+Es un método que permite acceder secuencialmente a los elementos de una colección u objeto compuesto sin exponer su representación interna.
+
+75. ¿Qué tipo de operación es el constructor?
+
+Un constructor es una operación de creación e inicialización.
+Es un tipo especial de método que se invoca automáticamente cuando se crea una nueva instancia de una clase.
+
+76. ¿Qué tipo de operación es el destructor?
+
+Un destructor es una operación de destrucción y liberación de recursos.
+Es un método especial que se invoca automáticamente cuando un objeto está a punto de ser eliminado de la memoria.
+
+77. ¿Cómo denominamos operaciones fuera de las clases en aquellos programas orientados a objetos que permiten colocarlas (ej. C++)?
+
+A las operaciones que se definen fuera de las clases en lenguajes como C++ se las denomina funciones libres o funciones no miembro.
+
+78. ¿Todos los métodos son operaciones?
+
+Sí, todos los métodos son operaciones, pero no todas las operaciones son métodos.
+Un método es una operación que está intrínsecamente ligada a una clase y sus instancias.
+Una operación, sin embargo, es un concepto más amplio y general que se refiere a cualquier acción o funcionalidad.
+
+79. ¿Todas las operaciones son métodos?
+
+No, no todas las operaciones son métodos.
+
+80. Dado el protocolo de un objeto (todos sus métodos y subprogramas libres asociados al objeto si el lenguaje lo permite) es conveniente dividirlo en grupos lógicos más pequeños de comportamiento?¿Por qué?
+
+Si, porque un objeto puede tener una gran cantidad de funcionalidades, y agruparlas de manera coherente mejora la comprensibilidad, el mantenimiento y la reutilización del código.
+
+81. ¿Cómo denominamos a los grupos lógicos más pequeños de comportamiento del protocolo total de un objeto?
+
+Estos grupos lógicos de comportamiento se denominan interfaces.
+Una interfaz es una colección de declaraciones de métodos que define un conjunto de funcionalidades que una clase debe implementar.
+
+82. ¿Cuáles son las dos responsabilidades más importantes que posee un objeto?
+
+Las dos responsabilidades más importantes de un objeto son guardar información (estado) y realizar acciones (comportamiento) que operan sobre esa información.
+
+83. ¿Es relevante el orden en que se invocan las operaciones de un objeto?
+
+Sí, el orden en que se invocan las operaciones de un objeto es extremadamente relevante, ya que el comportamiento de un objeto es una función de su estado, y las operaciones modifican ese estado. 
+
+84. ¿Por qué decimos que los objetos se pueden considerar como máquinas?
+
+Porque encapsulan un estado y exhiben un comportamiento que opera sobre ese estado, de una manera similar a como lo hace una máquina.
+
+85. ¿Qué es la identidad de un objeto?
+
+La identidad de un objeto es la propiedad que lo distingue de todos los demás objetos.
+Es su existencia única e inmutable, independiente de su estado o comportamiento.
+
+86. Dadas dos variable X e Y del mismo tipo ¿qué significa que ambas son iguales?
+
+Depende de si se está comparando su estado o su identidad.
+La igualdad de estado significa que el contenido o los valores de las variables son los mismos. Son instancias diferentes con iguales valores.
+La igualdad de identidad significa que las variables se refieren al mismo objeto en la memoria. Son la misma instancia.
+
+87. Dadas dos variable X e Y del mismo tipo ¿qué significa asignarle Y a X?
+
+Ddepende del tipo de dato y del lenguaje de programación.
+Cuando se trabaja con tipos de datos por valor (como enteros, caracteres o booleanos), la asignación crea una copia independiente.
+Cuando se trabaja con tipos por referencia (como objetos), la asignación copia la referencia (la dirección de memoria), no el objeto en sí.
+
+88. Dadas dos variable X e Y del mismo tipo ¿qué significa clonar X en Y?
+
+Clonar X en Y significa crear una copia nueva e independiente de X y asignársela a Y.
+
+89. ¿Qué significa realizar una clonación superficial?
+
+Realizar una clonación superficial (shallow copy) significa crear una nueva instancia de un objeto, pero en lugar de copiar los objetos a los que sus atributos hacen referencia, solo se copian las referencias a esos objetos. 
+
+90. ¿Qué significa realizar una clonación profunda?
+
+Realizar una clonación profunda (deep copy) significa crear una nueva instancia de un objeto y, además, crear nuevas copias de todos los objetos a los que sus atributos hacen referencia.
+
+91. ¿Qué es el ciclo de vida de un objeto?
+
+El ciclo de vida de un objeto son las fases por las que pasa una instancia de una clase.
+a. Creación: Un objeto se crea (instancia) a partir de su clase.
+b. Uso: El objeto está operativo.
+c. Destrucción: El objeto deja de ser útil. 
+
+92. ¿Cómo se libera el espacio ocupado por un objeto?
+
+El espacio ocupado por un objeto se libera mediante la desasignación de memoria, un proceso que devuelve los recursos al sistema operativo para que puedan ser reutilizados.
+
+93. ¿Qué tipos de relaciones existen entre los objetos?
+
+Existen cuatro tipos principales de relaciones entre objetos en la programación orientada a objetos:
+a. Asociación: Es una relación general y débil entre dos clases. Es una relación "tiene un" o "usa un".
+b. Agregación: Es una relación del tipo "todo-parte" o "tiene un", donde una clase es un todo y otra clase es una parte.
+c. Composición: Es una relación del tipo "todo-parte" donde las partes no pueden existir sin el todo.
+d. Dependencia: Es la relación más débil y temporal. Indica que un objeto utiliza a otro, pero de forma momentánea y no de manera permanente.
+
+94. ¿Cómo podemos definir al enlace entre objetos?
+
+El enlace entre objetos, también conocido como relación o asociación, es la forma en que los objetos se conectan e interactúan entre sí.
+Se define en la clase y especifica cómo una instancia de una clase se relaciona con otra instancia de la misma o de otra clase.
+
+95. ¿Cómo pueden ser los mensajes entre dos objetos en una relación de enlace?
+
+En una relación de enlace, los mensajes entre dos objetos pueden ser unidireccionales o bidireccionales.
+
+96. ¿Qué es un mensaje unidireccional?
+
+Un mensaje unidireccional es una comunicación en la que un objeto envía información o una solicitud a otro, pero no espera ni recibe una respuesta.
+
+97. ¿Qué es un mensaje bidireccional?
+
+Un mensaje bidireccional es una comunicación en la que un objeto envía un mensaje a otro y espera una respuesta.
+
+98. ¿Quién inicia el paso de un mensaje entre dos objetos en una relación de enlace?
+
+El paso de un mensaje entre dos objetos en una relación de enlace lo inicia el objeto emisor/actor o objeto cliente.
+
+99. ¿Cuáles son los roles o papeles que puede desempeñar un objeto en una relación de enlace?
+
+En una relación de enlace, un objeto puede desempeñar dos roles o papeles principales: servidor y cliente.
+a. Servidor: Es el objeto que recibe los mensajes y ejecuta las operaciones solicitadas.
+b. Cliente: Es el que tiene una referencia al objeto servidor y le envía un mensaje para que realice una operación.
+
+100. ¿Qué significa que un objeto actúe como “Actor”?
+
+Un objeto que actúa como actor es aquel que inicia una acción o un flujo de control en un sistema.
+
+101. ¿Qué significa que un objeto actúe como “Servidor”?
+
+Que un objeto actúe como "servidor" significa que proporciona un servicio a otros objetos que se lo solicitan.
+
+102. ¿Qué significa que un objeto actúe como “Agente”?
+
+Un agente es una combinación de actor (inicia acciones) y servidor (puede responder a peticiones), pero con un nivel superior de inteligencia y autonomía.
+
+103. Dados dos objetos A y B, si A le puede enviar un mensaje a B, estando ambos relacionados por enlace, decimos que B respecto de A está: ……………………………………………
+
+B está visible de A.
+La visibilidad es un concepto fundamental en la POO que describe si un objeto tiene conocimiento de otro y puede acceder a sus métodos.
+
+104. ¿Cuáles son las cuatro formas de visibilidad que puede poseer un objeto servidor respecto de un objeto cliente?
+
+Las cuatro formas principales de visibilidad que un objeto cliente puede tener hacia un objeto servidor, permitiéndole enviar mensajes son:
+a. Visibilidad por Atributo: El objeto servidor es una propiedad o atributo del objeto cliente.
+b. Visibilidad por Parámetro: El objeto servidor es pasado como argumento a uno de los métodos del cliente.
+c. Visibilidad Local: El objeto servidor se crea dentro de un método del objeto cliente.
+d. Visibilidad Global: El objeto servidor es accesible globalmente para el cliente.
+
+105. En una relación de enlace de dos objetos, cuando uno le pasa un mensaje al otro, además de adoptar roles ambos deben estar:…………………………………………………………………..
+
+visibles entre sí o, al menos, el objeto emisor debe tener visibilidad sobre el objeto receptor.
+
+106. ¿Cuáles son las posibles formas de sincronización?
+
+Las dos posibles formas de sincronización entre objetos son la sincronización serial y la sincronización concurrente.
+a. Sincronización Serial: los objetos se ejecutan en una secuencia predeterminada, uno detrás de otro.
+b. Sincronización Concurrente: permite que múltiples objetos se ejecuten simultáneamente, lo que acelera el rendimiento del sistema.
+
+107. ¿Qué significa que dados dos objetos A y B estos están secuencialmente sincronizados?
+
+Que dos objetos A y B están secuencialmente sincronizados significa que sus operaciones se ejecutan una tras otra en un orden predeterminado, sin superposición temporal
+
+108. ¿Qué significa que la forma de sincronizarse de un conjunto de objetos es vigilada?
+
+Significa que se utiliza un mecanismo de control explícito para coordinar su acceso a recursos compartidos.
+La vigilancia se logra mediante técnicas como: Semáforos y Mutexes, Monitores, Bloqueos de lecturas/escritura.
+
+109. ¿Qué significa que la forma de sincronizarse de un conjunto de objetos es síncrona?
+
+Que la forma de sincronizarse de un conjunto de objetos es síncrona significa que la ejecución de una operación en un objeto bloquea al objeto cliente hasta que la operación se completa.
+
+110. ¿El enlace es una relación de igual a igual o jerárquica?
+
+El enlace entre objetos es una relación de tipo jerárquica, no de igual a igual.
+Aunque un enlace conecta dos objetos, uno de ellos siempre actúa como cliente y el otro como servidor.
+
+111. ¿La agregación es una relación de igual a igual o jerárquica?
+
+La agregación es una relación jerárquica.
+
+112. ¿Qué tipo de jerarquía denota la agregación?
+
+La agregación denota una jerarquía de tipo todo-parte.
+En esta relación, una clase es el "todo" (el agregador), mientras que la otra es la "parte" que compone a ese todo.
+
+113. ¿Qué otros nombres recibe el “todo” en una relación de agregación?
+
+En una relación de agregación, el "todo" recibe los nombres de agregado o clase agregadora.
+
+114. ¿En una relación de agregación las “partes” forman parte del estado del “todo”?
+
+Sí, en una relación de agregación, las "partes" forman parte del estado del "todo".
+
+115. ¿Qué tipos de agregación existen?
+
+Existen dos tipos principales de agregación: la agregación compartida y la agregación por valor (o composición).
+
+116. ¿Qué caracteriza a la agregación con contención física?
+
+La agregación con contención física es un tipo de agregación en la que el objeto "todo" no solo tiene una relación con las "partes", sino que también las contiene físicamente o las aloja en su estructura.
+
+117. ¿Qué es una clase?
+
+Una clase es una plantilla o un molde para crear objetos.
+Define la estructura (atributos) y el comportamiento (métodos) que tendrán los objetos que se creen a partir de ella.
+
+118. ¿La interfaz de la clase proporciona su visión interna?
+
+No, al contrario, la interfaz es la visión externa y pública de la clase.
+
+119. ¿La implementación de la clase proporciona su visión externa?
+
+No, la implementación es la visión interna y privada de la clase.
+
+120. ¿En cuántas partes la podemos dividir una interfaz en términos de la accesibilidad o visibilidad que posee?
+
+Podemos dividir una interfaz en dos partes principales en términos de su accesibilidad o visibilidad: la interfaz pública y la interfaz privada.
+a. La interfaz pública de una clase es el conjunto de métodos, atributos y constructores que son accesibles desde fuera de la clase.
+b. La interfaz privada es el conjunto de miembros (métodos y atributos) que solo son accesibles desde dentro de la clase.
+
+121. ¿Qué tipos básicos de relaciones existen entre las clases?
+
+Existen cuatro tipos básicos de relaciones entre clases en el diseño orientado a objetos: generalización, asociación, agregación y composición.
+a. Generalización: es una relación jerárquica de tipo "es un".
+b. Asociación: es una relación estructural que describe una conexión entre dos o más clases. Es una relación general de tipo "tiene un" o "usa un"
+c. Agregación: es un tipo específico de asociación que representa una relación de todo-parte débil.
+d. Composición: es el tipo de relación todo-parte más fuerte. 
+
+122. ¿Qué relaciones entre clases se desprenden de las tres relaciones básicas?
+
+De las tres relaciones básicas entre clases (asociación, agregación y composición), se desprenden principalmente dos tipos de relaciones adicionales: la dependencia y la generalización.
+
+123. ¿La asociación denota una dependencia semántica y la dirección de esta asociación?
+
+Sí, la asociación denota tanto una dependencia semántica como la dirección de esa asociación.
+La dependencia semántica se refiere al hecho de que una clase está relacionada o conectada de manera significativa con otra.
+
+124. ¿Qué significa la cardinalidad en una relación?
+
+La cardinalidad en una relación define la cantidad de instancias de una entidad que se pueden relacionar con las instancias de otra entidad.
+Es decir, establece cuántos objetos de una clase están vinculados con cuántos objetos de otra clase.
+
+125. ¿Qué cardinalidad puede existir entre clases relacionadas por asociación?
+
+En una relación de asociación, la cardinalidad puede ser:
+a. Uno a uno (1:1): Una instancia de la clase A se relaciona con una única instancia de la clase B.
+b. Uno a muchos (1:N): Una instancia de la clase A se relaciona con múltiples instancias de la clase B.
+c. Muchos a uno (N:1): Múltiples instancias de la clase A se relacionan con una única instancia de la clase B.
+d. Muchos a muchos (N:N): Múltiples instancias de la clase A se relacionan con múltiples instancias de la clase B.
+
+126. ¿Qué es la herencia?
+
+La herencia es un mecanismo fundamental de la programación orientada a objetos que permite a una clase nueva, llamada subclase o clase hija, adquirir los atributos y comportamientos de una clase existente, llamada superclase o clase padre.
+
+127. ¿Cuántos tipos de herencia existen?
+
+Existen dos tipos principales de herencia: herencia simple y herencia múltiple.
+
+128. ¿A qué se denomina herencia simple?
+
+En la herencia simple, una clase hereda de una única superclase.
+s el tipo de herencia más común y directo, creando una relación de "es un" lineal.
+
+129. ¿A qué se denomina herencia múltiple?
+
+En la herencia múltiple, una clase hereda de dos o más superclases.
+Esta capacidad le permite combinar el comportamiento de varias clases distintas en una sola.
+
+130. ¿Cómo se denomina a la clase que no se espera tener instancias de ella y solo se utilizará para heredar a otras clases?
+
+Esa clase se denomina clase abstracta.
+Una clase abstracta es una clase que está diseñada para ser una plantilla para que otras clases pueden heredar.
+
+131. ¿Cómo se denomina a la clase que se espera tener instancias de ella y puede utilizarse para heredar a otras clases o no?
+
+Esa clase se denomina clase concreta.
+Una clase concreta es una clase de la cual se pueden crear instancias u objetos.
+
+132. ¿Cómo se denomina al método de una clase abstracta que no posee implementación y fue pensado para que sea implementado en las sub clases que lo heredan?
+
+Ese método se denomina método abstracto.
+Un método abstracto es una declaración de un método que no tiene un cuerpo o implementación.
+Es una "firma" de método que solo especifica su nombre, sus parámetros y su tipo de retorno.
+
+133. ¿Cómo se denomina a la clase más generalizada en una estructura de clases?
+
+La clase más generalizada en una estructura de clases se denomina clase base o superclase. 
+Es el punto de partida de una jerarquía de herencia.
+
+134. ¿Qué es el polimorfismo?
+
+El polimorfismo es la capacidad de un objeto de tomar múltiples formas.
+Permite que diferentes objetos respondan de manera distinta a un mismo mensaje, dependiendo de su tipo específico.
+En la práctica, significa que puedes usar un solo nombre de método para realizar acciones diferentes en clases relacionadas.
+
+135. ¿Cómo se denomina cuando una clase posee métodos que comparten el nombre y se diferencias por su firma?
+
+A esta característica se la denomina sobrecarga de métodos (method overloading).
+La firma de un método está compuesta por su nombre y la lista de sus parámetros (número, tipo y orden).
+
+136. ¿Qué sentencias de código se evitan utilizar cuando se aplica correctamente el polimorfismo?
+
+Cuando se aplica correctamente el polimorfismo, se evitan utilizar sentencias de código que dependen de la comprobación explícita del tipo de objeto en tiempo de ejecución. 
+Estas sentencias se conocen como if-else anidados o switch-case que evalúan el tipo de una variable para decidir qué acción tomar.
+
+137. ¿Qué es la agregación cómo relación entre clases?
+
+La agregación es un tipo de relación entre clases que representa una jerarquía de tipo todo-parte, donde una clase es el "todo" y otra clase es una "parte" de ese todo.
+
+138. ¿Qué formas de contención física existen en la agregación?
+
+Existen dos formas principales de contención física en la agregación: la contención por valor y la contención por referencia. 
+
+139. ¿Qué características posee la contención física por valor?
+
+La contención física por valor posee las siguientes características principales:
+Propiedad exclusiva: El objeto contenedor es el único "dueño" de la instancia de la "parte".
+Ciclo de vida compartido: El ciclo de vida de la "parte" está directamente ligado al de su "todo".
+Almacenamiento directo: La instancia de la "parte" se almacena directamente como parte del estado del "todo", en lugar de ser referenciada por un puntero.
+
+140. ¿Qué características posee la contención física por referencia?
+
+La contención física por referencia posee las siguientes características principales:
+Propiedad no exclusiva: El objeto contenedor solo guarda una referencia o un puntero a la instancia de la "parte", no a la instancia en sí.
+Ciclo de vida independiente: La "parte" no es creada ni destruida junto con el "todo".
+Almacenamiento de referencias: En lugar de almacenar la instancia de la "parte" directamente, el objeto contenedor almacena una dirección de memoria o una referencia que apunta a la ubicación de la parte.
+
+141. ¿Qué es una relación de uso?
+
+Una relación de uso es un tipo de asociación entre dos clases que indica que una clase utiliza a otra para llevar a cabo una tarea, pero no la contiene como parte de su estado.
+Es una relación débil y temporal.
+
+142. ¿Qué es la instanciación?
+
+La instanciación es el proceso de crear un objeto a partir de una clase.
+Es el acto de dar vida a la plantilla de la clase en forma de una instancia concreta, que reside en la memoria y puede ser utilizada por el programa.
+
+143. ¿Todo objeto es una instancia de una clase?
+
+Sí, todo objeto es una instancia de una clase.
+
+144. ¿Qué es una metaclase?
+
+Una metaclase es una clase cuya instancia es otra clase.
+
+145. ¿Qué métricas hay que observar para determinar la calidad de una abstracción?
+
+Para determinar la calidad de una abstracción, hay que observar varias métricas clave, principalmente relacionadas con el acoplamiento y la cohesión, la suficiencia y la compleción.
+
+146. ¿Qué es el acoplamiento?
+
+El acoplamiento mide el grado de interdependencia entre los módulos o clases.
+Una abstracción de alta calidad busca tener un acoplamiento bajo, lo que significa que los cambios en un módulo tienen un impacto mínimo en otros.
+Esto facilita el mantenimiento, la reutilización y la depuración del código.
+
+147. ¿Qué es la cohesión?
+
+La cohesión mide la fuerza de la relación entre los elementos dentro de un solo módulo o clase.
+Una abstracción de alta calidad debe tener una cohesión alta, lo que significa que todos los elementos de la abstracción trabajan juntos para realizar una única tarea bien definida.
+Esto hace que la clase o el módulo sean más fáciles de entender, gestionar y reutilizar.
+
+148. ¿Qué es la suficiencia?
+
+La suficiencia es la métrica que determina si una abstracción o clase proporciona una interfaz completa y adecuada para ser utilizada por sus clientes.
+Una abstracción es suficiente cuando ofrece todos los métodos y atributos necesarios para que sus clientes realicen sus tareas sin tener que recurrir a su implementación interna.
+
+149. ¿Qué es la compleción?
+
+La compleción es la métrica que evalúa si una abstracción o clase proporciona un conjunto de métodos suficientemente rico para ser útil en una amplia gama de contextos, no solo en un caso de uso específico.
+A diferencia de la suficiencia, que se centra en lo necesario, la compleción se enfoca en la robustez y la versatilidad de la interfaz.
+
+150. ¿Qué significa ser primitivo?
+
+Ser primitivo significa ser un tipo de dato que no está compuesto por otros tipos de datos.
+Son los elementos más básicos y fundamentales para construir datos más complejos.
+
+151. ¿Qué se debe observar al momento de decidir si una abstracción debe implementar un determinado comportamiento o no?
+
+Al decidir si una abstracción debe implementar un determinado comportamiento, debes observar principalmente tres principios: el Principio de Responsabilidad Única, la cohesión y la suficiencia.
+a. Principio de Responsabilidad Única: Este principio establece que una clase debe tener una y solo una razón para cambiar.
+Esto significa que una abstracción debe estar diseñada para realizar una única tarea o función bien definida.
+Si un comportamiento no encaja dentro de la responsabilidad principal de la clase, no debe ser implementado en ella.
+b. Cohesión: es el grado en que los elementos de una clase (sus atributos y métodos) trabajan juntos para lograr un propósito común.
+c. Suficiencia mide si la abstracción ofrece una interfaz completa y adecuada para sus clientes.
+
+152. ¿Qué formas puede adoptar el paso de un mensaje?
+
+El paso de un mensaje puede adoptar dos formas principales: el paso por valor y el paso por referencia.
+a. Paso por Valor: se envía una copia del mensaje o de los argumentos al método receptor.
+Cualquier modificación que se realice a los datos dentro del método NO afectará a los datos originales.
+b. Paso por Referencia lo que se envía al método receptor es la dirección de memoria del objeto, no una copia del objeto en sí.
+Cualquier cambio que se realice en el objeto dentro del método afectará al objeto original.
+
+153. ¿Qué características posee un mensaje síncrono?
+
+Un mensaje síncrono posee tres características clave:
+a. Bloqueo: El objeto emisor se detiene (se bloquea) y espera a que el objeto receptor termine de procesar el mensaje.
+No puede continuar su ejecución hasta que recibe una respuesta.
+b. Devolución de control: Una vez que el objeto receptor ha completado su tarea, devuelve el control al objeto emisor, lo que le permite continuar con su ejecución.
+c. Flujo de control secuencial: El flujo de control sigue un orden lineal y predecible.
+La operación del emisor y la del receptor no se superponen en el tiempo, lo que asegura que las operaciones se completen en una secuencia ordenada. .
+
+154. ¿Qué características posee un mensaje de abandono inmediato?
+
+Un mensaje de abandono inmediato es un tipo de mensaje que se envía a un objeto para solicitar su destrucción o eliminación de la memoria.
+Este tipo de mensaje se usa comúnmente en lenguajes que requieren una gestión manual de la memoria, como C++.
+Características claves:
+a. Irreversible: Una vez que el mensaje es enviado, el objeto receptor inicia su proceso de destrucción, liberando los recursos que ocupa.
+b. Sincronización: El objeto emisor suele esperar a que el objeto receptor confirme que ha sido destruido antes de continuar su ejecución.
+c. Gestión de recursos: El mensaje de abandono inmediato a menudo activa un destructor o un método de liberación de recursos en el objeto receptor.
+
+155. ¿Qué características posee un mensaje de intervalo?
+
+Un mensaje de intervalo (o diferido) es un tipo de mensaje asíncrono que se envía a un objeto para que este lo procese en un momento posterior, es decir, después de un período de tiempo predefinido.
+Características claves:
+a. Asincronía: A diferencia de los mensajes síncronos, el objeto emisor no se bloquea ni espera una respuesta.
+Envía el mensaje y continúa con su ejecución de inmediato.
+b. Temporización: El mensaje incluye una especificación de tiempo que indica cuándo el objeto receptor debe procesarlo.
+c. Independencia del emisor: El objeto receptor procesa el mensaje de manera independiente al estado actual del objeto emisor.
+
+156. ¿Qué características posee un mensaje Asíncrono?
+
+Un mensaje asíncrono posee tres características clave que lo distinguen de un mensaje síncrono:
+a. No bloqueo: El objeto emisor envía el mensaje y continúa su ejecución inmediatamente, sin esperar a que el objeto receptor lo procese.
+El emisor no se bloquea ni espera una respuesta, lo que permite un uso más eficiente de los recursos.
+b. Procesamiento en segundo plano: El objeto receptor gestiona el mensaje en segundo plano, en su propio hilo de ejecución o en un momento posterior.
+Esto es útil para tareas que requieren mucho tiempo, ya que no detienen el flujo principal del programa.
+c. Ausencia de retorno de control: No hay una devolución de control explícita al emisor.
+La comunicación es unidireccional y el emisor no tiene garantía inmediata de que el mensaje fue recibido o procesado.
+
+157. ¿Qué significa que una abstracción está accesible a otra?
+
+Que una abstracción está accesible a otra significa que la segunda puede "ver" a la primera y, por lo tanto, puede interactuar con ella, ya sea invocando sus métodos públicos o accediendo a sus atributos.
+Esta capacidad de "ver" se conoce como visibilidad y es un requisito fundamental para que dos objetos se comuniquen.
+
+158. ¿Qué expresa la ley de Demeter?
+
+La Ley de Demeter (LoD), es una guía de diseño de software que busca reducir el acoplamiento entre las clases.
+También conocida como el "Principio de la Menor Sorpresa" o "no hables con extraños".
+En esencia, la ley establece que un objeto solo debe interactuar con un conjunto limitado de otros objetos.
+
+159. ¿Cuál es la consecuencia inmediata de aplicar la ley de Demeter?
+
+La consecuencia inmediata de aplicar la Ley de Demeter es una reducción significativa del acoplamiento entre las clases de tu sistema.
+Al limitar las interacciones de un objeto solo a sus "amigos cercanos", se evita que los objetos dependan de la estructura interna de otros objetos a través de cadenas de llamadas.
+
+160. ¿Cuáles son las cuatro formas fundamentales por las cuales un objeto X puede hacerse visible a un objeto Y?
+
+Un objeto X puede hacerse visible a un objeto Y (o viceversa) de cuatro formas fundamentales: 
+a. Visibilidad por atributo: En esta forma, el objeto Y contiene una referencia permanente a un objeto X como uno de sus atributos.
+Esto significa que Y puede interactuar con X durante toda su vida.
+Es la base de relaciones como la agregación y la composición.
+b. Visibilidad por parámetro: En este caso, una instancia de X se pasa como un argumento a un método de Y.
+La visibilidad es temporal, ya que Y solo puede "ver" a X durante la ejecución de ese método.
+c. Visibilidad local: La visibilidad local ocurre cuando un objeto X se crea o se accede dentro de un método de Y como una variable local.
+La visibilidad de X es muy limitada y desaparece una vez que el método termina su ejecución.
+d. Visibilidad global: Ocurre cuando un objeto X es accesible para el objeto Y a través de una variable global.
+Esto crea un acoplamiento alto y dificulta el mantenimiento del código, ya que cualquier parte del programa puede modificar el objeto global, lo que puede causar efectos secundarios impredecibles.
+
+161. ¿Para qué sirve clasificar a los objetos?
+
+Clasificar a los objetos sirve para organizar y estructurar la información de un sistema, creando un modelo coherente y fácil de entender.
+Esta clasificación, a través de las clases, nos permite agrupar objetos con características y comportamientos similares, lo que simplifica el diseño y la implementación.
+
+162. ¿Por qué es tan difícil la clasificación de objetos?
+
+La clasificación de objetos es difícil porque no existe una única manera "correcta" de agruparlos. 
+La complejidad surge de la necesidad de equilibrar diferentes perspectivas y de modelar un mundo real que, a menudo, no tiene divisiones claras.
+
+163. ¿Cómo es el rol del observador en la clasificación de objetos?
+
+El rol del observador en la clasificación de objetos es fundamental.
+Es la persona o el equipo que analiza el dominio del problema para identificar y agrupar objetos que comparten características y comportamientos comunes.
+El observador no solo identifica las entidades, sino que también determina qué propiedades y acciones son relevantes para el propósito del sistema que se va a construir.
+
+164. ¿Cuáles son las aproximaciones generales a la clasificación?
+
+Existen tres aproximaciones generales a la clasificación de objetos: la aproximación orientada a datos, la aproximación orientada a operaciones y la aproximación orientada a responsabilidades.
+a. Aproximación Orientada a Datos  se enfoca en la estructura de los objetos.
+Los objetos se clasifican de acuerdo con sus atributos o los datos que contienen.
+La clave es identificar los sustantivos del dominio del problema para crear clases.
+b. Aproximación Orientada a Operaciones se centra en el comportamiento de los objetos.
+Los objetos se clasifican por las operaciones que pueden realizar.
+Se identifican los verbos en la descripción del problema para crear los métodos de las clases.
+c. Aproximación Orientada a Responsabilidades es la más moderna y completa.
+Combina las dos anteriores y se centra en el rol que el objeto desempeña en el sistema.
+Los objetos se clasifican por las responsabilidades que tienen, las cuales incluyen tanto los datos que necesitan para cumplir su rol como las operaciones que deben realizar.
+
+165. ¿Qué es la categorización clásica?
+
+La categorización clásica es una teoría filosófica que establece que los objetos se agrupan en categorías en base a un conjunto de características necesarias y suficientes.
+Para que un objeto pertenezca a una categoría, debe poseer todas las propiedades que definen dicha categoría.
+
+166. ¿Qué es el agrupamiento conceptual?
+
+El agrupamiento conceptual es una teoría de la clasificación que sostiene que los objetos se agrupan en categorías basándose en su semejanza a un "prototipo" o ejemplo ideal.
+
+167. ¿Qué es la teoría de prototipos?
+
+La teoría de prototipos es una teoría de la clasificación que sostiene que las categorías se definen a partir de un miembro prototípico o ideal, en lugar de un conjunto de propiedades esenciales. 
+Un objeto pertenece a una categoría si es lo suficientemente similar a su prototipo. 
+
+168. ¿Qué es una abstracción clave?
+
+Una abstracción clave es un concepto fundamental en el diseño de software que encapsula la esencia de un problema o solución de una manera simplificada y clara.
+Es la clase o el conjunto de clases más importante en un sistema que representa una idea o entidad central de manera precisa, ocultando los detalles de su implementación.
+
+169. ¿Qué son los mecanismos?
+
+Los mecanismos son las herramientas, técnicas y construcciones que los lenguajes de programación y los sistemas operativos proveen para implementar los principios y conceptos del diseño orientado a objetos.
+a. Mecanismos para la abstracción: Las clases y las interfaces son los mecanismos principales.
+Permiten a los desarrolladores definir un conjunto de atributos y comportamientos sin preocuparse por los detalles de implementación subyacentes.
+b. Mecanismos para la encapsulación: Los modificadores de acceso (public, private, protected) son los mecanismos que controlan la visibilidad de los atributos y métodos de una clase.
+Esto permite ocultar la implementación y proteger el estado interno de los objetos.
+c. Mecanismos para la herencia: La palabra clave extends o el uso de la sintaxis de herencia en el lenguaje es el mecanismo que permite a una clase heredar de otra.
+d. Mecanismos para el polimorfismo: La sobrecarga de métodos (el uso de un mismo nombre de método con diferentes parámetros) y la sobreescritura de métodos (la redefinición de un método en una subclase) son los mecanismos que permiten a un objeto responder de manera diferente a un mismo mensaje.
