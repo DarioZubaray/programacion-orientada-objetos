@@ -1,0 +1,76 @@
+170. ¿Qué es una propiedad de una clase?
+
+Una propiedad de una clase, también conocida como atributo, es un dato que define el estado o las características de los objetos que se crean a partir de esa clase.
+Las propiedades son las variables internas que almacenan la información de un objeto.
+
+171. ¿Qué tipos de propiedades existen?
+
+Existen dos tipos principales de propiedades: las propiedades de instancia y las propiedades de clase.
+a. Propiedades de instancia son las más comunes.
+Son los atributos que definen el estado de un objeto específico.
+Cada vez que se crea una nueva instancia de una clase, se le asigna su propio conjunto de propiedades de instancia, las cuales pueden tener valores diferentes de las propiedades de otras instancias de la misma clase.
+b. Propiedades de Clase, también conocidas como propiedades estáticas, pertenecen a la clase misma, no a las instancias individuales.
+Solo hay una copia de la propiedad, sin importar cuántos objetos de esa clase se hayan creado.
+Estas propiedades se utilizan para almacenar datos que son comunes a todas las instancias de la clase.
+
+172. ¿Qué ámbitos pueden tener los campos, métodos y propiedades de las clases?
+
+Los campos, métodos y propiedades de las clases pueden tener cuatro ámbitos de visibilidad o acceso principales:
+a. Público: es accesible desde cualquier lugar.Esto incluye otras clases, paquetes y módulos.
+b. Protegido: es accesible solo desde la misma clase, sus subclases (clases hijas) y, en algunos lenguajes, dentro del mismo paquete.
+c. Privado: es accesible únicamente desde el interior de la misma clase. Nadie más, ni siquiera las subclases, puede acceder a él.
+d. De paquete o interno, en algunos lenguajes como Java y C# significa que el miembro es accesible solo desde dentro del mismo paquete o ensamblado.
+
+173. ¿Qué características posee cada ámbito existente si se lo aplico a un campo, un método y una propiedad de una clase?
+
+Ámbito Público (public)
+Campos: es accesible y puede ser modificado directamente por cualquier código fuera de la clase.
+Métodos: puede ser invocado por cualquier objeto, sin importar en qué clase o paquete se encuentre.
+Propiedades: a través de getters y setters puede ser leída o modificada por cualquier otra clase.
+
+Ámbito Protegido (protected)
+Campos: puede ser accedido y modificado por la clase en la que fue declarado y por todas sus subclases, incluso si están en un paquete diferente.
+Métodos: puede ser invocado por la clase que lo declaró y por todas sus clases hijas.
+Propiedades: puede ser accedida por las mismas reglas que los campos y métodos protected.
+
+Ámbito Privado (private)
+Campos: solo es visible y modificable dentro de la misma clase en la que fue definido.
+Métodos: solo puede ser llamado por otros métodos de la misma clase.
+Propiedades: solo puede ser accedida desde dentro de la clase, generalmente a través de métodos public o protected.
+
+Ámbito de Paquete (o Interno)
+Campos: es accesible solo por clases dentro del mismo paquete (en Java) o ensamblado (en C#).
+Métodos: puede ser invocado por cualquier otra clase en el mismo paquete.
+Propiedades: puede ser accedida por cualquier clase en el mismo paquete.
+
+174. ¿A qué se denomina tiempo de vida de un objeto?
+
+El tiempo de vida de un objeto se refiere al período de tiempo durante el cual una instancia de una clase existe en la memoria de la computadora.
+Este ciclo de vida abarca desde el momento de su creación (instanciación), uso y su destrucción o eliminación.
+
+175. ¿Qué es un campo de una clase?
+
+Un campo de una clase, también conocido como variable de instancia o atributo, es un dato que define una característica o un estado de los objetos que se crean a partir de esa clase.
+Son las variables que residen dentro de un objeto y almacenan la información que lo hace único.
+
+176. ¿Qué es un método de una clase?
+
+Un método de una clase es una función o un procedimiento que define el comportamiento o las acciones que los objetos de esa clase pueden realizar.
+A diferencia de los campos que almacenan el estado, los métodos son el código que manipula ese estado y realiza operaciones.
+
+177. ¿A qué denominamos sobrecarga?
+
+La sobrecarga (overloading) es una forma de polimorfismo estático que permite que una misma clase tenga múltiples métodos con el mismo nombre, pero con firmas diferentes.
+El compilador determina qué método llamar basándose en el número, el tipo y el orden de los argumentos pasados.
+
+178. ¿Qué tipos de parámetros puede tener un método?
+
+Un método puede tener dos tipos principales de parámetros: parámetros de entrada y parámetros de salida.
+a. Entrada: se utilizan para pasar información al método, éste los utiliza para realizar sus operaciones, pero no los modifica de una manera que afecte al objeto que los envió.
+b. Salida: se utilizan para que un método devuelva información al objeto que lo llamó, y el método puede modificar directamente un parámetro de salida, y los cambios serán visibles para el objeto emisor. 
+
+179. ¿Para qué y como se usan los modificadores de parámetros in y out en los métodos?
+
+Los modificadores in y out se usan para controlar cómo se pasan los argumentos a un método.
+a. El modificador in se usa para pasar un parámetro por referencia, pero de forma que no se puede modificar dentro del método.
+b. El modificador out se usa para pasar un parámetro por referencia con el objetivo de que el método asigne un valor a dicho parámetro.
