@@ -1,0 +1,53 @@
+180. ¿Para qué se utilizan los constructores?
+
+Los constructores se utilizan para inicializar el estado de un objeto en el momento de su creación.
+Son métodos especiales que se invocan automáticamente cuando se utiliza el operador new para crear una instancia de una clase.
+
+181. ¿qué modificadores se le pueden colocar a los constructores y cómo los afecta en su funcionamiento?
+
+Los constructores pueden tener los mismos modificadores de acceso que los métodos (público, privado, protegido).
+Tienen el mismo comportamiento, controlando qué otras clases pueden instanciar la clase con constructor.
+
+182. ¿Para qué se utilizan los destructores?
+
+Los destructores se utilizan para liberar los recursos que un objeto adquirió durante su vida útil. 
+
+183. ¿Qué diferencia conceptual existe entre un finalizador y un destructor?
+
+La principal diferencia conceptual radica en quién los invoca y en su propósito.
+Un destructor es un mecanismo para la gestión manual de recursos y la liberación de memoria en lenguajes como C++.
+Un finalizador es una forma de limpieza automática que se ejecuta cuando el recolector de basura determina que un objeto ya no es necesario, lo que ocurre en lenguajes como C# o Java.
+
+184. ¿Cómo desarrollaría un finalizador?
+
+En finalizador se desarrolla sobrescribiendo el método especial de la clase Object llamado finalize() en Java o implementando el destructor de la clase en C#.
+Ejemplo en C#
+    ~MiClase() {
+        Console.WriteLine("Ejecutando Finalizador.");
+    }
+
+185. ¿Cómo desarrollaría un destructor?
+
+Un destructor se desarrolla implementando el método desconstructor en la clase.
+Ejemplo en C++
+    ~MiClase() {
+        std::cout << "Ejecutando Finalizador." << std::endl;
+    }
+
+186. ¿Quién invoca al finalizador?
+
+El finalizador es invocado por el recolector de basura (garbage collector) de la máquina virtual o del entorno de ejecución, no por el programador de forma directa.
+
+187. ¿Quién invoca al destructor?
+
+El destructor es invocado de manera determinista y explícita por el programador o por el compilador, no por un recolector de basura.
+
+188. ¿Una clase puede poseer un finalizador y un destructor?
+
+No, una clase no puede poseer un finalizador y un destructor al mismo tiempo.
+ La razón es que estos dos conceptos existen en lenguajes de programación con modelos de gestión de memoria fundamentalmente distintos.
+
+189. ¿Una clase puede tener muchos constructores?
+
+Sí, una clase puede tener muchos constructores.
+A esto se le conoce como sobrecarga de constructores.
