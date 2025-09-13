@@ -7,7 +7,7 @@ d. La complejidad resultante del cambio dinámico introducido por las constantes
 
 2. ¿Cuáles son los cinco atributos de un sistema complejo?
 
-Los cinco atributos de un sistema complejo son: 
+Los cinco atributos de un sistema complejo son:
 a. Emergencia
 b. Autoorganización
 c. Retroalimentación

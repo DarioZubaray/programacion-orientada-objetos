@@ -1,0 +1,58 @@
+1. ¿Qué son los sucesos?
+
+Los sucesos o eventos son notificaciones que un objeto envía cuando ocurre algo significativo, como una acción del usuario o un cambio en el estado del programa.
+Estos sucesos permiten que otros objetos, llamados suscriptores, puedan reaccionar a la notificación sin necesidad de conocer los detalles del objeto que la emitió.
+
+2. ¿Qué se utiliza para declarar un suceso?
+
+Para declarar un suceso en programación orientada a objetos, se utiliza un delegado y la palabra clave event.
+Un delegado es un tipo que representa referencias a métodos con una lista de parámetros y un tipo de retorno específicos.
+
+3. ¿Cómo se logra que ocurra un suceso?
+
+Un suceso ocurre cuando un objeto lo invoca.
+Cuando el evento es invocado, este a su vez llama a todos los métodos que se han suscrito a él.
+
+4. ¿Cómo se pueden atrapar los sucesos?
+
+Los sucesos se pueden atrapar mediante un proceso conocido como subscripción.
+Esto implica que un objeto (el suscriptor) se registra para recibir notificaciones cuando un evento ocurre en otro objeto.
+
+5. ¿Cómo le indica a un evento que desea cambiar el tipo del argumento que por defecto es EventArgs?
+
+Para cambiar el tipo del argumento que se pasa por defecto a un evento, el delegado que declara el evento debe especificarse con el tipo de argumento deseado.
+Por ejemplo puedo usar el tipo 'MiEventHandler' que extienda de EventHandler.
+
+6. ¿Cómo y qué cosas se pueden compartir en una clase?
+
+En una clase, se puede compartir varios tipos principales de elementos: variables de instancia y variables de clase, métodos de clase, sucesos.
+
+7. ¿Qué características poseen los campos compartidos?
+
+Los campos compartidos ienen la particularidad de pertenecer a la clase en sí y no a una instancia específica de ella.
+Esto significa que todas las instancias de una clase comparten la misma copia de un campo compartido.
+
+8. ¿Qué características poseen los métodos compartidos?
+
+Los métodos compartidos tienen la particularidad de que se invocan directamente en la clase, sin necesidad de crear una instancia de la misma.
+A diferencia de los métodos de instancia, los métodos estáticos no pueden acceder a los campos o propiedades de una instancia específica de la clase, ya que no están asociados a un objeto en particular.
+
+9. ¿Qué características poseen los sucesos compartidos?
+
+Un suceso compartido pertenece a la clase en sí, no a una instancia particular.
+Esto significa que los suscriptores se suscriben al evento en la clase, y el evento solo puede ser invocado por un método estático de esa misma clase.
+
+10. ¿Qué son y para que se pueden utilizar las clases anidadas?
+
+Las clases anidadas son clases que se definen dentro de otra clase.
+Se utilizan para agrupar clases que están lógicamente relacionadas y para controlar la visibilidad.
+
+11. ¿Qué ámbitos / modificadores de acceso existen? Explique las características de cada uno.
+
+Existen varios ámbitos o modificadores de acceso que controlan la visibilidad de las clases, métodos y campos en la programación orientada a objetos.
+
+Públicos: son accesibles desde cualquier lugar del programa.
+Protegidos: solo son accesibles desde dentro de la misma clase o desde una clase que hereda de ella.
+Privados: son los más restrictivos, solo pueden ser accedidos desde dentro de la misma clase en la que fueron declarados.
+Interno: significa que los miembros son accesibles desde cualquier lugar dentro del mismo ensamblado.
+Paquete: significa que los miembros son accesibles desde cualquier clase dentro del mismo paquete.
