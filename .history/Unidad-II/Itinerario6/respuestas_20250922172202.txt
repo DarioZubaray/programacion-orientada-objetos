@@ -1,0 +1,53 @@
+1. ¿Qué cosas se pueden heredar?
+
+Campos y propiedades: no privados (private no se hereda, aunque sigue existiendo en la clase base).
+Métodos: incluyendo los virtuales, abstractos y sobrescribibles (override).
+Eventos e indexadores: igual que métodos/properties.
+Constructores: no se heredan directamente, pero pueden invocarse con la palabra reservada 'base'.
+
+2. ¿Cómo y para qué se puede aprovechar en la práctica el polimorfismo?
+
+El polimorfismo se aprovecha para unificar el código trabajando con referencias a la clase base o a una interfaz, sin importar la clase concreta.
+
+3. ¿Cómo y para qué se utiliza la clase derived?
+
+La clase derivada (Derived) hereda de la base con la expresion ':' seguido de la clase Base.
+Sirve para extender funcionalidad de la clase base, acceder a miembros heredados (campos, métodos, propiedades) y aplicar polimorfismo si la base tiene métodos virtuales o abstractos.
+
+4. ¿Qué representa this?
+
+La palabra clave this representa a la referencia a la instancia actual de la clase o struct.
+Sirve para acceder a campos, propiedades y métodos de esa misma instancia.
+Se usa para distinguir parámetros de variables miembro cuando tienen el mismo nombre.
+También permite pasar la propia instancia como argumento.
+
+5. ¿Qué clase representa a la clase base?
+
+La clase que representa a la clase base de todas las clases es System.Object.
+Proporciona métodos básicos que están disponibles en cualquier clase: ToString, Equals, GetHashCode, GetType.
+
+6. ¿Para qué se usa una clase abstracta?
+
+Una clase abstracta se usa para definir un modelo común, agrupando atributos y comportamientos que deben compartir las subclases.
+Forzar implementación pudiendo declarar métodos abstract que las clases derivadas están obligadas a implementar.
+Evitar instanciación directa al no poder crear un objeto de una clase abstracta, solo de sus derivadas.
+Facilitar el polimorfismo permitiendo tratar distintos tipos concretos de manera uniforme.
+
+7. ¿Para qué se usa una clase sellada?
+
+Una clase sellada (sealed) se usa para evitar la herencia y que ninguna otra clase puede derivar de ella.
+Proteger diseño o lalógica cuando no tiene sentido que alguien extienda esa clase.
+
+8. ¿Qué es la sobrescritura?
+
+La sobrescritura (override) es cuando una clase derivada redefine la implementación de un método (o propiedad) heredado de una clase base.
+El método en la clase base debe estar marcado como virtual o abstract.
+Permite el polimorfismo dado que la llamada se resuelve en tiempo de ejecución según el tipo real del objeto.
+
+9. ¿Qué elementos se pueden sobrescribir?
+
+Se pueden sobrescribir métodos , propiedades, indexadores y eventos, miembros heredados que estén declarados como virtual, abstract o ya override.
+
+10. ¿A qué se denomina sombreado de métodos?
+
+El sombreado de métodos (method hiding) ocurre cuando una clase derivada declara un miembro con el mismo nombre que uno de la clase base, pero no lo sobrescribe (override), sino que lo oculta usando la palabra clave new.

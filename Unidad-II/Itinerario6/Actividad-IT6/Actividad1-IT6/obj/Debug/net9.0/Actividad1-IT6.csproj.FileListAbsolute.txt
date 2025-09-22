@@ -1,0 +1,15 @@
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\bin\Debug\net9.0\Actividad1-IT6.exe
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\bin\Debug\net9.0\Actividad1-IT6.deps.json
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\bin\Debug\net9.0\Actividad1-IT6.runtimeconfig.json
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\bin\Debug\net9.0\Actividad1-IT6.dll
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\bin\Debug\net9.0\Actividad1-IT6.pdb
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\obj\Debug\net9.0\Actividad1-IT6.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\obj\Debug\net9.0\Actividad1-IT6.AssemblyInfoInputs.cache
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\obj\Debug\net9.0\Actividad1-IT6.AssemblyInfo.cs
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\obj\Debug\net9.0\Actividad1-IT6.csproj.CoreCompileInputs.cache
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\obj\Debug\net9.0\Actividad1-IT6.sourcelink.json
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\obj\Debug\net9.0\Actividad1-IT6.dll
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\obj\Debug\net9.0\refint\Actividad1-IT6.dll
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\obj\Debug\net9.0\Actividad1-IT6.pdb
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\obj\Debug\net9.0\Actividad1-IT6.genruntimeconfig.cache
+C:\dev\Programacion\programacion-orientada-objetos\Unidad-II\Itinerario6\Actividad-IT6\Actividad1-IT6\obj\Debug\net9.0\ref\Actividad1-IT6.dll

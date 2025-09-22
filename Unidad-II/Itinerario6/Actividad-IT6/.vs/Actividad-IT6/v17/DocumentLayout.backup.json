@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\dev\\Programacion\\programacion-orientada-objetos\\Unidad-II\\Itinerario6\\Actividad-IT6\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9FF6C6B9-AAA8-4975-90CC-91576563D945}|Actividad2-IT6\\Actividad2-IT6.csproj|c:\\dev\\programacion\\programacion-orientada-objetos\\unidad-ii\\itinerario6\\actividad-it6\\actividad2-it6\\guerrero.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9FF6C6B9-AAA8-4975-90CC-91576563D945}|Actividad2-IT6\\Actividad2-IT6.csproj|solutionrelative:actividad2-it6\\guerrero.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9FF6C6B9-AAA8-4975-90CC-91576563D945}|Actividad2-IT6\\Actividad2-IT6.csproj|c:\\dev\\programacion\\programacion-orientada-objetos\\unidad-ii\\itinerario6\\actividad-it6\\actividad2-it6\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9FF6C6B9-AAA8-4975-90CC-91576563D945}|Actividad2-IT6\\Actividad2-IT6.csproj|solutionrelative:actividad2-it6\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9FF6C6B9-AAA8-4975-90CC-91576563D945}|Actividad2-IT6\\Actividad2-IT6.csproj|c:\\dev\\programacion\\programacion-orientada-objetos\\unidad-ii\\itinerario6\\actividad-it6\\actividad2-it6\\magooscuro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9FF6C6B9-AAA8-4975-90CC-91576563D945}|Actividad2-IT6\\Actividad2-IT6.csproj|solutionrelative:actividad2-it6\\magooscuro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9FF6C6B9-AAA8-4975-90CC-91576563D945}|Actividad2-IT6\\Actividad2-IT6.csproj|c:\\dev\\programacion\\programacion-orientada-objetos\\unidad-ii\\itinerario6\\actividad-it6\\actividad2-it6\\personaje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9FF6C6B9-AAA8-4975-90CC-91576563D945}|Actividad2-IT6\\Actividad2-IT6.csproj|solutionrelative:actividad2-it6\\personaje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Guerrero.cs",
+              "DocumentMoniker": "C:\\dev\\Programacion\\programacion-orientada-objetos\\Unidad-II\\Itinerario6\\Actividad-IT6\\Actividad2-IT6\\Guerrero.cs",
+              "RelativeDocumentMoniker": "Actividad2-IT6\\Guerrero.cs",
+              "ToolTip": "C:\\dev\\Programacion\\programacion-orientada-objetos\\Unidad-II\\Itinerario6\\Actividad-IT6\\Actividad2-IT6\\Guerrero.cs",
+              "RelativeToolTip": "Actividad2-IT6\\Guerrero.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T21:16:22.657Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MagoOscuro.cs",
+              "DocumentMoniker": "C:\\dev\\Programacion\\programacion-orientada-objetos\\Unidad-II\\Itinerario6\\Actividad-IT6\\Actividad2-IT6\\MagoOscuro.cs",
+              "RelativeDocumentMoniker": "Actividad2-IT6\\MagoOscuro.cs",
+              "ToolTip": "C:\\dev\\Programacion\\programacion-orientada-objetos\\Unidad-II\\Itinerario6\\Actividad-IT6\\Actividad2-IT6\\MagoOscuro.cs",
+              "RelativeToolTip": "Actividad2-IT6\\MagoOscuro.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T21:11:40.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Personaje.cs",
+              "DocumentMoniker": "C:\\dev\\Programacion\\programacion-orientada-objetos\\Unidad-II\\Itinerario6\\Actividad-IT6\\Actividad2-IT6\\Personaje.cs",
+              "RelativeDocumentMoniker": "Actividad2-IT6\\Personaje.cs",
+              "ToolTip": "C:\\dev\\Programacion\\programacion-orientada-objetos\\Unidad-II\\Itinerario6\\Actividad-IT6\\Actividad2-IT6\\Personaje.cs",
+              "RelativeToolTip": "Actividad2-IT6\\Personaje.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T21:05:09.721Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\dev\\Programacion\\programacion-orientada-objetos\\Unidad-II\\Itinerario6\\Actividad-IT6\\Actividad2-IT6\\Program.cs",
+              "RelativeDocumentMoniker": "Actividad2-IT6\\Program.cs",
+              "ToolTip": "C:\\dev\\Programacion\\programacion-orientada-objetos\\Unidad-II\\Itinerario6\\Actividad-IT6\\Actividad2-IT6\\Program.cs",
+              "RelativeToolTip": "Actividad2-IT6\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T21:04:37.02Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
