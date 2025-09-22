@@ -1,0 +1,10 @@
+is_global = true
+build_property.TargetFramework = net5.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.PublishSingleFile = 
+build_property.IncludeAllContentForSelfExtract = 
+build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
+build_property.RootNamespace = GuiaEjercicio_IT5
+build_property.ProjectDir = D:\UAI\Programacion Orientada a Objetos\POO-git\Unidad-II\Itinerario5\GuiaEjercicio-IT5\GuiaEjercicio-IT5\

@@ -1,0 +1,19 @@
+Debate
+
+Puede considerar las siguientes consignas como un punto inicial del debate.
+
+Enumere dos características que permita distinguir la agregación de la composición.
+De un ejemplo de aplicación para cada una de ellas distintos a los vistos en clase.
+
+
+Publicación:
+
+Enumere dos características que permita distinguir la agregación de la composición.
+
+Una característica es la dependencia a existir, mientras que en la agregación el objeto contenido puede vivir sin el objeto contenedor, en cambio en la composición el ciclo de vida del objeto contenido depende enteramente del objeto contenedor. Si este último se destruye, también lo hace el contenido.
+Otra característica es el acoplamiento, para la agregación se tiene una relación más débil, indica “tiene un/está formado por” pero sin dependencia total. Y para la composición se tiene una relación fuerte, los objetos forman una unidad inseparable.
+
+De un ejemplo de aplicación para cada una de ellas distintos a los vistos en clase.
+
+Para agregación: Clases Casa y Dueño. La Casa tiene un Dueño, pero el dueño puede existir sin pertenecer a esa casa.
+Para Composición: Clases Casa y Habitación. La habitación forma parte esencial de la casa. Si la casa deja de existir, esa habitación deja de tener sentido en ese contexto.
