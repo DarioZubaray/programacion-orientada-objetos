@@ -1,0 +1,53 @@
+## Build results
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+*.log
+
+## User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Code workspace
+.vscode/
+
+## NuGet packages
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+
+## Entity Framework
+Migrations/
+
+## Rider
+.idea/
+
+## Test results
+TestResults/
+*.trx
+
+## Configuration files
+*.config
+*.dbmdl
+
+## Others
+*.vs/
+*.cache
+*.pdb
+*.mdb
+*.pidb
+*.svclog
+*.sdf
+*.sqlite
+*.bak
+*.orig
+
+## Auto-generated files
+Generated_Code/
+
+## Publish output
+publish/
