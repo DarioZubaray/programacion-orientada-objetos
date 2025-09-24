@@ -53,8 +53,8 @@
                     accionAComprar.CantidadEmitida
                 );
                 float monto = accionAdquiridaAComprar.CotizacionActual * cantidad;
-                float comision = monto * PorcentajeComision;
                 ComisionesPagadas = monto * PorcentajeComision;
+                TotalGastado += monto + ComisionesPagadas;
                 accionAdquiridaAComprar.totalAdquirida = cantidad;
                 AccionesAdquiridas.Add(accionAdquiridaAComprar);
             }
@@ -70,7 +70,8 @@
                 {
                     throw new VentaAccionInvalidaException("No existen la cantidad deseada de acciones a vender.");
                 }
-
+                var monto = accionAVender.CotizacionActual * cantidad;
+                TotalGastado -= monto;
                 accionExistente.totalAdquirida -= cantidad;
                 AccionAdquirida accionAdquiridaAVender = new AccionAdquirida(
                     accionAVender.Codigo,
