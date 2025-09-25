@@ -57,7 +57,7 @@ namespace GestionMembresia.Entities
             decimal cuota = Cuota.Importe;
             cuota -= cuota * descuentoCategoria;
 
-            // Si existe, se aplica descuento de membresía
+            // Si existe, se aplica descuento de membresia
             if (Membresia != null)
                 cuota -= Membresia.Descuento;
 

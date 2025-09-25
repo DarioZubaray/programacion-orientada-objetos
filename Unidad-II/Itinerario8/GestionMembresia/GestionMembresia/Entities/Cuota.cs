@@ -6,6 +6,7 @@
 
         public Cuota(decimal importe)
         {
+            // Validacion para que el importe no sea negativo
             if (importe <= 0)
                 throw new ArgumentException("El importe de la cuota debe ser mayor a 0.");
  
@@ -14,7 +15,7 @@
 
         ~Cuota()
         {
-            // No hay recursos administrados ni colecciones estáticas que limpiar
+            // No hay recursos administrados ni colecciones estaticas que limpiar
         }
     }
 }

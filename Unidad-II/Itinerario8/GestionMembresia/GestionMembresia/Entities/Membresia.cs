@@ -20,7 +20,7 @@
 
         ~Membresia()
         {
-            // No hay recursos administrados ni colecciones estáticas que limpiar
+            // No hay recursos administrados ni colecciones estaticas que limpiar
         }
     }
 }
