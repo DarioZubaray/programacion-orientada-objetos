@@ -2,15 +2,21 @@
 {
     internal class Cuota
     {
-        public decimal Importe { get; set; }
+        public decimal ImporteOriginal { get; set; }
+        public decimal ValorConDescuento { get; set; }
 
-        public Cuota(decimal importe)
+        public Cuota(decimal importeOriginal, decimal valorConDescuento)
         {
             // Validacion para que el importe no sea negativo
-            if (importe <= 0)
+            if (importeOriginal <= 0)
                 throw new ArgumentException("El importe de la cuota debe ser mayor a 0.");
- 
-            Importe = importe;
+
+            // Validacion para que el descuento no supere al original
+            if (importeOriginal <= 0)
+                throw new ArgumentException("El importe a descontar no debe ser mayor que el importe original.");
+
+            ImporteOriginal = importeOriginal;
+            ValorConDescuento = valorConDescuento;
         }
 
         ~Cuota()

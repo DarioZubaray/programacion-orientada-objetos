@@ -2,6 +2,6 @@
 {
     internal class Avanzado : Categoria
     {
-        public override int PorcentajeDescuento { get => 3; }
+        public override decimal PorcentajeDescuento { get => 0.03m; }
     }
 }

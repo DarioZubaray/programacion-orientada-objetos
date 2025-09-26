@@ -33,8 +33,15 @@
             btnClienteBorrar = new Button();
             btnClienteModificar = new Button();
             btnClienteAgregar = new Button();
+            groupBox2 = new GroupBox();
+            btnMembresiaBorrar = new Button();
+            btnMembresiaModificar = new Button();
+            btnMembresiaAgregar = new Button();
+            dataGridViewMembresias = new DataGridView();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewClientes).BeginInit();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewMembresias).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -92,17 +99,75 @@
             btnClienteAgregar.UseVisualStyleBackColor = true;
             btnClienteAgregar.Click += btnClienteAgregar_Click;
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(dataGridViewMembresias);
+            groupBox2.Controls.Add(btnMembresiaBorrar);
+            groupBox2.Controls.Add(btnMembresiaModificar);
+            groupBox2.Controls.Add(btnMembresiaAgregar);
+            groupBox2.Location = new Point(738, 12);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(676, 360);
+            groupBox2.TabIndex = 1;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Membresias";
+            // 
+            // btnMembresiaBorrar
+            // 
+            btnMembresiaBorrar.Location = new Point(218, 26);
+            btnMembresiaBorrar.Name = "btnMembresiaBorrar";
+            btnMembresiaBorrar.Size = new Size(100, 30);
+            btnMembresiaBorrar.TabIndex = 5;
+            btnMembresiaBorrar.Text = "Borrar";
+            btnMembresiaBorrar.UseVisualStyleBackColor = true;
+            btnMembresiaBorrar.Click += btnMembresiaBorrar_Click;
+            // 
+            // btnMembresiaModificar
+            // 
+            btnMembresiaModificar.Location = new Point(112, 26);
+            btnMembresiaModificar.Name = "btnMembresiaModificar";
+            btnMembresiaModificar.Size = new Size(100, 30);
+            btnMembresiaModificar.TabIndex = 4;
+            btnMembresiaModificar.Text = "Modificar";
+            btnMembresiaModificar.UseVisualStyleBackColor = true;
+            btnMembresiaModificar.Click += btnMembresiaModificar_Click;
+            // 
+            // btnMembresiaAgregar
+            // 
+            btnMembresiaAgregar.Location = new Point(6, 26);
+            btnMembresiaAgregar.Name = "btnMembresiaAgregar";
+            btnMembresiaAgregar.Size = new Size(100, 30);
+            btnMembresiaAgregar.TabIndex = 3;
+            btnMembresiaAgregar.Text = "Agregar";
+            btnMembresiaAgregar.UseVisualStyleBackColor = true;
+            btnMembresiaAgregar.Click += btnMembresiaAgregar_Click;
+            // 
+            // dataGridViewMembresias
+            // 
+            dataGridViewMembresias.AllowUserToAddRows = false;
+            dataGridViewMembresias.AllowUserToDeleteRows = false;
+            dataGridViewMembresias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewMembresias.Location = new Point(6, 62);
+            dataGridViewMembresias.Name = "dataGridViewMembresias";
+            dataGridViewMembresias.ReadOnly = true;
+            dataGridViewMembresias.RowHeadersWidth = 51;
+            dataGridViewMembresias.Size = new Size(664, 292);
+            dataGridViewMembresias.TabIndex = 6;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1062, 673);
+            ClientSize = new Size(1426, 673);
+            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "Form1";
             Text = "Sistema de Gestion de Membresias en un Gimnasio";
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewClientes).EndInit();
+            groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewMembresias).EndInit();
             ResumeLayout(false);
         }
 
@@ -113,5 +178,10 @@
         private Button btnClienteAgregar;
         private Button btnClienteBorrar;
         private DataGridView dataGridViewClientes;
+        private GroupBox groupBox2;
+        private DataGridView dataGridViewMembresias;
+        private Button btnMembresiaBorrar;
+        private Button btnMembresiaModificar;
+        private Button btnMembresiaAgregar;
     }
 }

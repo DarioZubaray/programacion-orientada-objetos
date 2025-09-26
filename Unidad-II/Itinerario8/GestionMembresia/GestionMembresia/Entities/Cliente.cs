@@ -28,8 +28,10 @@ namespace GestionMembresia.Entities
             Apellido = apellido;
             DNI = dni;
             Categoria = categoria;
-            Cuota = new Cuota(importeCuota);
+            // La cuota se calcula como el % de 100 - descuento
+            Cuota = new Cuota(importeCuota, importeCuota * (1 - categoria.PorcentajeDescuento));
         }
+ 
         ~Cliente()
         {
             Categoria = null;
@@ -39,23 +41,31 @@ namespace GestionMembresia.Entities
         #endregion
 
         #region Metodos
-        public decimal ImporteCuota => Cuota.Importe;
+        public decimal ImporteCuota => Cuota.ValorConDescuento;
+        private decimal CuotaConDescuentoPorCategoria => Cuota.ImporteOriginal * (1 - Categoria.PorcentajeDescuento);
 
         public void AsignarMembresia(Membresia membresia)
         {
+            // Se desasigna la membresia
+            if(membresia == null)
+            {
+                Membresia = null;
+                Cuota.ValorConDescuento = CuotaConDescuentoPorCategoria;
+                return;
+            }
+
             // Validacion de descuento de membresia: este importe no puede exceder el valor de la cuota del cliente.
-            if (membresia.Descuento > Cuota.Importe)
-                throw new MembresiaException("El descuento de la membresia no puede exceder el valor de la cuota.");
+            if (membresia.Descuento >= CuotaConDescuentoPorCategoria)
+                throw new MembresiaException("El descuento de la membresia no puede exceder o alcanzar el total del valor de la cuota.");
 
             Membresia = membresia;
+            Cuota.ValorConDescuento = CalcularCuotaFinal();
         }
 
         public decimal CalcularCuotaFinal()
         {
             // Obteniendo poliformicamente el descuento por tipo de categoria
-            decimal descuentoCategoria = Categoria.PorcentajeDescuento;
-            decimal cuota = Cuota.Importe;
-            cuota -= cuota * descuentoCategoria;
+            decimal cuota = CuotaConDescuentoPorCategoria;
 
             // Si existe, se aplica descuento de membresia
             if (Membresia != null)

@@ -2,6 +2,6 @@
 {
     internal class Intermedio : Categoria
     {
-        public override int PorcentajeDescuento { get => 5; }
+        public override decimal PorcentajeDescuento { get => 0.08m; }
     }
 }

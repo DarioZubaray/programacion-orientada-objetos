@@ -2,6 +2,6 @@
 {
     internal abstract class Categoria
     {
-        public virtual int PorcentajeDescuento { get; set; }
+        public virtual decimal PorcentajeDescuento { get; set; }
     }
 }
