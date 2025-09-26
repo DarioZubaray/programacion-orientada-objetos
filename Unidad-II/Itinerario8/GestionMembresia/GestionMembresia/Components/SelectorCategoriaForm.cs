@@ -10,21 +10,13 @@ namespace GestionMembresia.Components
 
         public SelectorCategoriaForm()
         {
+            // Titulo de la ventana
             Text = "Seleccionar categoría";
             Size = new Size(300, 180);
             StartPosition = FormStartPosition.CenterParent;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-
-            // Titulo
-            var label = new Label
-            {
-                Text = "Elija el tipo de categoría:",
-                Dock = DockStyle.Top,
-                Padding = new Padding(10),
-                TextAlign = ContentAlignment.MiddleLeft
-            };
 
             // Selector
             var combo = new ComboBox
@@ -61,11 +53,10 @@ namespace GestionMembresia.Components
             var panelCentral = new Panel
             {
                 Dock = DockStyle.Fill,
-                Padding = new Padding(10)
+                Padding = new Padding(20)
             };
 
             panelCentral.Controls.Add(combo);
-            panelCentral.Controls.Add(label);
 
             Controls.Add(panelCentral);
             Controls.Add(botonAceptar);

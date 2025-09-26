@@ -4,10 +4,13 @@ namespace GestionMembresia.Entities
 {
     internal class Membresia : ICloneable
     {
+        #region Atributos
         public string CodigoUnido { get; }
         public DateTime FechaInicio { get; }
         public decimal Descuento { get; set; }
+        #endregion
 
+        #region Constructores y Desctructores
         public Membresia(string codigoPrefijo, decimal descuento)
         {
             // Validacion del codigo, no puede ser vacio o nulo y debe ser exactamente  de 4 caracteres de largo
@@ -28,8 +31,10 @@ namespace GestionMembresia.Entities
         {
             // No hay recursos administrados ni colecciones estaticas que limpiar
         }
+        #endregion
 
+        // Metodos de la interfaz IClonable y un metodo wrapper para obtener el clon tipado
         public object Clone() => this.MemberwiseClone();
-        public Membresia CloneTipado => Clone() as Membresia;
+        public Membresia CloneTipado() => Clone() as Membresia;
     }
 }

@@ -10,10 +10,14 @@ namespace GestionMembresia
 {
     public partial class Form1 : Form
     {
+        #region Atributos
         private FormularioHelper formularioHelper;
 
         private List<Cliente> _clientes;
         private List<Membresia> _membresias;
+        #endregion
+
+        #region Constructor y Evento Load
         public Form1()
         {
             InitializeComponent();
@@ -21,6 +25,7 @@ namespace GestionMembresia
             _clientes = new List<Cliente>();
             _membresias = new List<Membresia>();
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // Deshabilitar la seleccion mulitple de filas
@@ -29,6 +34,7 @@ namespace GestionMembresia
             // Modo de seleccion toda la fila, en lugar de celda por celda
             dataGridViewClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewMembresias.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
             // Deshabilitar generación automática de columnas
             dataGridViewClientes.AutoGenerateColumns = false;
 
@@ -63,11 +69,12 @@ namespace GestionMembresia
                 HeaderText = "Importe Cuota",
                 Name = "ImporteCuota"
             });
+
             dataGridViewClientes.Columns["ImporteCuota"].DefaultCellStyle.Format = "C2";
         }
+        #endregion
 
-
-        #region Boton Cliente
+        #region Botones Cliente
         private void btnClienteAgregar_Click(object sender, EventArgs e)
         {
             // Solicitar el ingreso de datos
@@ -86,9 +93,7 @@ namespace GestionMembresia
                 var form = new SelectorCategoriaForm();
                 Categoria categoriaSeleccionada = new Principiante();
                 if (form.ShowDialog() == DialogResult.OK)
-                {
                     categoriaSeleccionada = form.Resultado; // instancia de Principiante, Intermedio o Avanzado
-                }
 
                 // Solicitar le valor de la cuota del socio
                 string cuota = Interaction.InputBox("Ingrese valor de la cuota:", title, "").Trim();
@@ -106,7 +111,6 @@ namespace GestionMembresia
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void btnClienteModificar_Click(object sender, EventArgs e)
@@ -123,6 +127,18 @@ namespace GestionMembresia
                 if (clienteAModificar == null)
                     throw new ClienteInvalidoException("Ocurrió un error al modificar el cliente.");
 
+                // Validacion para cuando el cliente tenga ya una membresia
+                if (clienteAModificar.Membresia != null)
+                {
+                    var result = MessageBox.Show($"El cliente {clienteAModificar.Nombre} {clienteAModificar.Apellido} tiene una membresia, de continua se borrara, continuar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    // Si el resultado es No salimos del metodo
+                    if (result.Equals(DialogResult.No)) return;
+
+                    // El resultado es continuar: se quita la membresia de la lista y se desasgina del cliente
+                    _membresias.Remove(clienteAModificar.Membresia);
+                    clienteAModificar.AsignarMembresia(null);
+                }
+
                 // Modificacion de datos basicos
                 string title = "Modificación de cliente";
                 string nuevoNombre = Interaction.InputBox("Ingrese nombre:", title, clienteAModificar.Nombre).Trim();
@@ -137,9 +153,7 @@ namespace GestionMembresia
                 var form = new SelectorCategoriaForm();
                 Categoria categoriaSeleccionada = new Principiante();
                 if (form.ShowDialog() == DialogResult.OK)
-                {
                     categoriaSeleccionada = form.Resultado; // instancia de Principiante, Intermedio o Avanzado
-                }
 
                 // Solicitar le valor de la cuota del socio
                 string cuota = Interaction.InputBox("Ingrese valor de la cuota:", title, clienteAModificar.Cuota.ImporteOriginal.ToString()).Trim();
@@ -156,12 +170,12 @@ namespace GestionMembresia
                 // Hago una copia para evitar mandar el objeto de esta clase
                 formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes.Select(c => c.CloneTipado).ToList());
                 formularioHelper.ActualizarGrillaDetalle(dataGridViewDetalle, _clientes.Select(c => c.CloneTipado).ToList());
+                formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias.Select(m => m.CloneTipado()).ToList());
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void btnClienteBorrar_Click(object sender, EventArgs e)
@@ -178,15 +192,29 @@ namespace GestionMembresia
                 if (clienteABorrar == null)
                     throw new ClienteInvalidoException("Ocurrio un error al borrar el cliente.");
 
+                // Validacion para cuando el cliente tenga ya una membresia
+                if (clienteABorrar.Membresia != null)
+                {
+                    var resultMembresia = MessageBox.Show($"El cliente {clienteABorrar.Nombre} {clienteABorrar.Apellido} tiene una membresia, de continua se borrara tambien, continuar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    // Si el resultado es No salimos del metodo
+                    if (resultMembresia.Equals(DialogResult.No)) return;
+                }
+
                 // Confirmar que se desea borrar al cliente
                 var result = MessageBox.Show($"Seguro que quiere borrar a {clienteABorrar.Nombre} {clienteABorrar.Apellido}", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result.Equals(DialogResult.Yes))
                 {
+                    if (clienteABorrar.Membresia != null)
+                    {
+                        _membresias.Remove(clienteABorrar.Membresia);
+                        clienteABorrar.AsignarMembresia(null);
+                    }
                     // Remover cliente de la lista por objeto
                     _clientes.Remove(clienteABorrar);
                     // Hago una copia para evitar mandar el objeto de esta clase
                     formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes.Select(c => c.CloneTipado).ToList());
                     formularioHelper.ActualizarGrillaDetalle(dataGridViewDetalle, _clientes.Select(c => c.CloneTipado).ToList());
+                    formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias.Select(m => m.CloneTipado()).ToList());
                 }
             }
             catch (Exception ex)
@@ -196,7 +224,7 @@ namespace GestionMembresia
         }
         #endregion
 
-        #region Boton Membresias
+        #region Botones Membresias
         private void btnMembresiaAgregar_Click(object sender, EventArgs e)
         {
             // Validacion para que haya una fila seleccionada de la grilla de clientes
@@ -226,11 +254,10 @@ namespace GestionMembresia
                 clienteAAsociar.AsignarMembresia(nuevaMembresia);
                 _membresias.Add(nuevaMembresia);
 
-
                 // Hago una copia para evitar mandar el objeto de esta clase
                 formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes.Select(c => c.CloneTipado).ToList());
                 formularioHelper.ActualizarGrillaDetalle(dataGridViewDetalle, _clientes.Select(c => c.CloneTipado).ToList());
-                formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias);
+                formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias.Select(m => m.CloneTipado()).ToList());
             }
             catch (Exception ex)
             {
@@ -271,7 +298,7 @@ namespace GestionMembresia
                 // Hago una copia para evitar mandar el objeto de esta clase
                 formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes.Select(c => c.CloneTipado).ToList());
                 formularioHelper.ActualizarGrillaDetalle(dataGridViewDetalle, _clientes.Select(c => c.CloneTipado).ToList());
-                formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias.Select(m => m.CloneTipado).ToList());
+                formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias.Select(m => m.CloneTipado()).ToList());
             }
             catch (Exception ex)
             {
@@ -310,7 +337,7 @@ namespace GestionMembresia
                 // Hago una copia para evitar mandar el objeto de esta clase
                 formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes.Select(c => c.CloneTipado).ToList());
                 formularioHelper.ActualizarGrillaDetalle(dataGridViewDetalle, _clientes.Select(c => c.CloneTipado).ToList());
-                formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias.Select(m => m.CloneTipado).ToList());
+                formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias.Select(m => m.CloneTipado()).ToList());
             }
             catch (Exception ex)
             {

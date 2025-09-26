@@ -28,7 +28,7 @@ namespace GestionMembresia.Entities
             Apellido = apellido;
             DNI = dni;
             Categoria = categoria;
-            // La cuota se calcula como el % de 100 - descuento
+            // La cuota se calcula como el valor original de la cuota y lo multiplica por el porcentaje que el cliente realmente tiene que pagar.
             Cuota = new Cuota(importeCuota, importeCuota * (1 - categoria.PorcentajeDescuento));
         }
  
@@ -41,7 +41,9 @@ namespace GestionMembresia.Entities
         #endregion
 
         #region Metodos
+        // Atributo usado para mostrar la columna Cuota de la grilla clientes
         public decimal ImporteCuota => Cuota.ImporteOriginal;
+        // Atributo usado para computar el valor de cuota base menos el descuento por categoria
         private decimal CuotaConDescuentoPorCategoria => Cuota.ImporteOriginal * (1 - Categoria.PorcentajeDescuento);
 
         public void AsignarMembresia(Membresia membresia)
@@ -62,6 +64,7 @@ namespace GestionMembresia.Entities
             Cuota.ValorConDescuento = CalcularCuotaFinal();
         }
 
+        // Calculo de la cuota base menos el descuento por categoria, descontando membresia si corresponde
         public decimal CalcularCuotaFinal()
         {
             // Obteniendo poliformicamente el descuento por tipo de categoria
@@ -75,6 +78,7 @@ namespace GestionMembresia.Entities
             return cuota > 0 ? cuota : 0;
         }
 
+        // Metodos de la interfaz IClonable y el atributo wrapper con tipado
         public object Clone()  => this.MemberwiseClone();
         public Cliente CloneTipado => Clone() as Cliente;
         #endregion

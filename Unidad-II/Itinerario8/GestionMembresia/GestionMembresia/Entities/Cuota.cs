@@ -2,9 +2,12 @@
 {
     internal class Cuota
     {
+        #region Atributos
         public decimal ImporteOriginal { get; set; }
         public decimal ValorConDescuento { get; set; }
+        #endregion
 
+        #region Constructores y Desctructores
         public Cuota(decimal importeOriginal, decimal valorConDescuento)
         {
             // Validacion para que el importe no sea negativo
@@ -23,5 +26,6 @@
         {
             // No hay recursos administrados ni colecciones estaticas que limpiar
         }
+        #endregion
     }
 }
