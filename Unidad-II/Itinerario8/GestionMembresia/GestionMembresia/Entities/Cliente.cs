@@ -2,7 +2,7 @@
 
 namespace GestionMembresia.Entities
 {
-    internal class Cliente
+    internal class Cliente : ICloneable
     {
         #region Atributos
         public string NumeroSocio { get; }
@@ -41,7 +41,7 @@ namespace GestionMembresia.Entities
         #endregion
 
         #region Metodos
-        public decimal ImporteCuota => Cuota.ValorConDescuento;
+        public decimal ImporteCuota => Cuota.ImporteOriginal;
         private decimal CuotaConDescuentoPorCategoria => Cuota.ImporteOriginal * (1 - Categoria.PorcentajeDescuento);
 
         public void AsignarMembresia(Membresia membresia)
@@ -74,6 +74,9 @@ namespace GestionMembresia.Entities
             // Se comprueba que el valor cuota final sea positivo o cero
             return cuota > 0 ? cuota : 0;
         }
+
+        public object Clone()  => this.MemberwiseClone();
+        public Cliente CloneTipado => Clone() as Cliente;
         #endregion
     }
 }

@@ -34,14 +34,18 @@
             btnClienteModificar = new Button();
             btnClienteAgregar = new Button();
             groupBox2 = new GroupBox();
+            dataGridViewMembresias = new DataGridView();
             btnMembresiaBorrar = new Button();
             btnMembresiaModificar = new Button();
             btnMembresiaAgregar = new Button();
-            dataGridViewMembresias = new DataGridView();
+            groupBox3 = new GroupBox();
+            dataGridViewDetalle = new DataGridView();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewClientes).BeginInit();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewMembresias).BeginInit();
+            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewDetalle).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -112,6 +116,18 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Membresias";
             // 
+            // dataGridViewMembresias
+            // 
+            dataGridViewMembresias.AllowUserToAddRows = false;
+            dataGridViewMembresias.AllowUserToDeleteRows = false;
+            dataGridViewMembresias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewMembresias.Location = new Point(6, 62);
+            dataGridViewMembresias.Name = "dataGridViewMembresias";
+            dataGridViewMembresias.ReadOnly = true;
+            dataGridViewMembresias.RowHeadersWidth = 51;
+            dataGridViewMembresias.Size = new Size(664, 292);
+            dataGridViewMembresias.TabIndex = 6;
+            // 
             // btnMembresiaBorrar
             // 
             btnMembresiaBorrar.Location = new Point(218, 26);
@@ -142,23 +158,34 @@
             btnMembresiaAgregar.UseVisualStyleBackColor = true;
             btnMembresiaAgregar.Click += btnMembresiaAgregar_Click;
             // 
-            // dataGridViewMembresias
+            // groupBox3
             // 
-            dataGridViewMembresias.AllowUserToAddRows = false;
-            dataGridViewMembresias.AllowUserToDeleteRows = false;
-            dataGridViewMembresias.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewMembresias.Location = new Point(6, 62);
-            dataGridViewMembresias.Name = "dataGridViewMembresias";
-            dataGridViewMembresias.ReadOnly = true;
-            dataGridViewMembresias.RowHeadersWidth = 51;
-            dataGridViewMembresias.Size = new Size(664, 292);
-            dataGridViewMembresias.TabIndex = 6;
+            groupBox3.Controls.Add(dataGridViewDetalle);
+            groupBox3.Location = new Point(12, 378);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(1402, 283);
+            groupBox3.TabIndex = 2;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Detalle";
+            // 
+            // dataGridView1
+            // 
+            dataGridViewDetalle.AllowUserToAddRows = false;
+            dataGridViewDetalle.AllowUserToDeleteRows = false;
+            dataGridViewDetalle.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewDetalle.Location = new Point(6, 26);
+            dataGridViewDetalle.Name = "dataGridView1";
+            dataGridViewDetalle.ReadOnly = true;
+            dataGridViewDetalle.RowHeadersWidth = 51;
+            dataGridViewDetalle.Size = new Size(1390, 251);
+            dataGridViewDetalle.TabIndex = 0;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1426, 673);
+            Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "Form1";
@@ -168,6 +195,8 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewClientes).EndInit();
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewMembresias).EndInit();
+            groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewDetalle).EndInit();
             ResumeLayout(false);
         }
 
@@ -183,5 +212,7 @@
         private Button btnMembresiaBorrar;
         private Button btnMembresiaModificar;
         private Button btnMembresiaAgregar;
+        private GroupBox groupBox3;
+        private DataGridView dataGridViewDetalle;
     }
 }

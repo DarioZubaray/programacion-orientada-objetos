@@ -2,7 +2,7 @@
 
 namespace GestionMembresia.Entities
 {
-    internal class Membresia
+    internal class Membresia : ICloneable
     {
         public string CodigoUnido { get; }
         public DateTime FechaInicio { get; }
@@ -28,5 +28,8 @@ namespace GestionMembresia.Entities
         {
             // No hay recursos administrados ni colecciones estaticas que limpiar
         }
+
+        public object Clone() => this.MemberwiseClone();
+        public Membresia CloneTipado => Clone() as Membresia;
     }
 }

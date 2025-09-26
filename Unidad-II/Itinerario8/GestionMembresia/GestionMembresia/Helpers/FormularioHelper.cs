@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using GestionMembresia.Entities;
+using System.Globalization;
 
 namespace GestionMembresia.Helpers
 {
@@ -13,6 +14,23 @@ namespace GestionMembresia.Helpers
             if (pO == null) return;
             pDGV.DataSource = null;
             pDGV.DataSource = pO;
+        }
+
+        internal void ActualizarGrillaDetalle(DataGridView dataGridViewDetalle, List<Cliente> clientes)
+        {
+            var detalle = clientes.Select(a => new
+            {
+                a.NumeroSocio,
+                a.Nombre,
+                a.Apellido,
+                a.DNI,
+                Cuota = a.Cuota.ImporteOriginal,
+                ImporteDescuentoTipoCliente = $"{a.Categoria.PorcentajeDescuento * 100} %",
+                ImporteDescuentoMembresia = a.Membresia != null ? $"${a.Membresia.Descuento}" : "-",
+                NetoAbonar = a.Cuota.ValorConDescuento
+            }).ToList();
+
+            dataGridViewDetalle.DataSource = detalle;
         }
 
         internal string GenerarIdSocio()

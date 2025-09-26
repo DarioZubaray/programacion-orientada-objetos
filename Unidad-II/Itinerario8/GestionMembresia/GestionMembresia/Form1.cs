@@ -98,7 +98,9 @@ namespace GestionMembresia
                 // Crear cliente y agregarlo a la coleccion
                 var nuevoCliente = new Cliente(formularioHelper.GenerarIdSocio(), nombre, apellido, DNI, categoriaSeleccionada, FormularioHelper.ConvertirADecimal(cuota));
                 _clientes.Add(nuevoCliente);
+                // Hago una copia para evitar mandar el objeto de esta clase
                 formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes);
+                formularioHelper.ActualizarGrillaDetalle(dataGridViewDetalle, _clientes.Select(c => c.CloneTipado).ToList());
             }
             catch (Exception ex)
             {
@@ -151,7 +153,9 @@ namespace GestionMembresia
                 clienteAModificar.Categoria = categoriaSeleccionada;
                 clienteAModificar.Cuota.ImporteOriginal = FormularioHelper.ConvertirADecimal(cuota);
                 clienteAModificar.Cuota.ValorConDescuento = clienteAModificar.Cuota.ImporteOriginal * (1 - clienteAModificar.Categoria.PorcentajeDescuento);
-                formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes);
+                // Hago una copia para evitar mandar el objeto de esta clase
+                formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes.Select(c => c.CloneTipado).ToList());
+                formularioHelper.ActualizarGrillaDetalle(dataGridViewDetalle, _clientes.Select(c => c.CloneTipado).ToList());
             }
             catch (Exception ex)
             {
@@ -180,7 +184,9 @@ namespace GestionMembresia
                 {
                     // Remover cliente de la lista por objeto
                     _clientes.Remove(clienteABorrar);
-                    formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes);
+                    // Hago una copia para evitar mandar el objeto de esta clase
+                    formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes.Select(c => c.CloneTipado).ToList());
+                    formularioHelper.ActualizarGrillaDetalle(dataGridViewDetalle, _clientes.Select(c => c.CloneTipado).ToList());
                 }
             }
             catch (Exception ex)
@@ -220,7 +226,10 @@ namespace GestionMembresia
                 clienteAAsociar.AsignarMembresia(nuevaMembresia);
                 _membresias.Add(nuevaMembresia);
 
-                formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes);
+
+                // Hago una copia para evitar mandar el objeto de esta clase
+                formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes.Select(c => c.CloneTipado).ToList());
+                formularioHelper.ActualizarGrillaDetalle(dataGridViewDetalle, _clientes.Select(c => c.CloneTipado).ToList());
                 formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias);
             }
             catch (Exception ex)
@@ -259,8 +268,10 @@ namespace GestionMembresia
 
                 clienteAModificar.AsignarMembresia(nuevaMembresia);
 
-                formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes);
-                formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias);
+                // Hago una copia para evitar mandar el objeto de esta clase
+                formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes.Select(c => c.CloneTipado).ToList());
+                formularioHelper.ActualizarGrillaDetalle(dataGridViewDetalle, _clientes.Select(c => c.CloneTipado).ToList());
+                formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias.Select(m => m.CloneTipado).ToList());
             }
             catch (Exception ex)
             {
@@ -296,8 +307,10 @@ namespace GestionMembresia
                     clienteABorrar.AsignarMembresia(null);
                 }
 
-                formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes);
-                formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias);
+                // Hago una copia para evitar mandar el objeto de esta clase
+                formularioHelper.ActualizarGrilla(dataGridViewClientes, _clientes.Select(c => c.CloneTipado).ToList());
+                formularioHelper.ActualizarGrillaDetalle(dataGridViewDetalle, _clientes.Select(c => c.CloneTipado).ToList());
+                formularioHelper.ActualizarGrilla(dataGridViewMembresias, _membresias.Select(m => m.CloneTipado).ToList());
             }
             catch (Exception ex)
             {
