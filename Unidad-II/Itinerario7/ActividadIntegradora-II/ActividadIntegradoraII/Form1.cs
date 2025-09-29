@@ -91,9 +91,9 @@ namespace ActividadIntegradoraII
         private void btnInversorAgregar_Click(object sender, EventArgs e)
         {
             string title = "Registro de inversor";
-            string nombre = Interaction.InputBox("Ingrese nombre:", title, "");
-            string apellido = Interaction.InputBox("Ingrese apellido:", title, "");
-            string DNI = Interaction.InputBox("Ingrese DNI:", title, "");
+            string nombre = Interaction.InputBox("Ingrese nombre:", title, "").Trim();
+            string apellido = Interaction.InputBox("Ingrese apellido:", title, "").Trim();
+            string DNI = Interaction.InputBox("Ingrese DNI:", title, "").Trim();
 
             if (!FormularioHelper.ValidarInversor(nombre, apellido, DNI))
             {
@@ -121,9 +121,9 @@ namespace ActividadIntegradoraII
             }
 
             string title = "Modificación de inversor";
-            string nuevoNombre = Interaction.InputBox("Ingrese nombre:", title, inversorAModificar.Nombre);
-            string nuevoApellido = Interaction.InputBox("Ingrese apellido:", title, inversorAModificar.Apellido);
-            string nuevoDNI = Interaction.InputBox("Ingrese DNI:", title, inversorAModificar.DNI.ToString());
+            string nuevoNombre = Interaction.InputBox("Ingrese nombre:", title, inversorAModificar.Nombre).Trim();
+            string nuevoApellido = Interaction.InputBox("Ingrese apellido:", title, inversorAModificar.Apellido).Trim();
+            string nuevoDNI = Interaction.InputBox("Ingrese DNI:", title, inversorAModificar.DNI.ToString()).Trim();
 
             if (!FormularioHelper.ValidarInversor(nuevoNombre, nuevoApellido, nuevoDNI))
             {
@@ -205,10 +205,10 @@ namespace ActividadIntegradoraII
         private void btnAccionesAgregar_Click(object sender, EventArgs e)
         {
             string title = "Registro de acción";
-            string denominacion = Interaction.InputBox("Ingrese nombre de la empresa:", title, "");
-            string codigo = Interaction.InputBox("Ingrese código:\n(4 caracteres)", title, "");
-            string cotizacionActual = Interaction.InputBox("Ingrese la cotización actual $:", title, "");
-            string cantidadEmitida = Interaction.InputBox("Ingrese cantidad emitida:", title, "");
+            string denominacion = Interaction.InputBox("Ingrese nombre de la empresa:\n(Solo letras)", title, "").Trim();
+            string codigo = Interaction.InputBox("Ingrese código:\n(4 caracteres)", title, "").Trim();
+            string cotizacionActual = Interaction.InputBox("Ingrese la cotización actual $:", title, "").Trim();
+            string cantidadEmitida = Interaction.InputBox("Ingrese cantidad emitida:", title, "").Trim();
 
             if (!FormularioHelper.ValidarAccion(denominacion, codigo, cotizacionActual, cantidadEmitida))
             {
@@ -236,10 +236,10 @@ namespace ActividadIntegradoraII
             }
 
             string title = "Modificación de acción";
-            string denominacion = Interaction.InputBox("Ingrese nombre de la empresa:", title, accionAModificar.Denominacion);
-            string codigo = Interaction.InputBox("Ingrese código:\n(4 caracteres)", title, accionAModificar.Codigo.Substring(0, 3));
-            string cotizacionActual = Interaction.InputBox("Ingrese la cotización actual $:", title, accionAModificar.CotizacionActual.ToString());
-            string cantidadEmitida = Interaction.InputBox("Ingrese cantidad emitida:", title, accionAModificar.CantidadEmitida.ToString());
+            string denominacion = Interaction.InputBox("Ingrese nombre de la empresa:\n(Solo letras)", title, accionAModificar.Denominacion).Trim();
+            string codigo = Interaction.InputBox("Ingrese código:\n(4 caracteres)", title, accionAModificar.Codigo.Substring(0, 4)).Trim();
+            string cotizacionActual = Interaction.InputBox("Ingrese la cotización actual $:", title, accionAModificar.CotizacionActual.ToString()).Trim();
+            string cantidadEmitida = Interaction.InputBox("Ingrese cantidad emitida:", title, accionAModificar.CantidadEmitida.ToString()).Trim();
 
             if (!FormularioHelper.ValidarAccion(denominacion, codigo, cotizacionActual, cantidadEmitida))
             {
