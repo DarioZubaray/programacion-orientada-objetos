@@ -1,7 +1,4 @@
 using Microsoft.VisualBasic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ActividadIntegradoraII
 {
@@ -15,7 +12,8 @@ namespace ActividadIntegradoraII
         public Form1()
         {
             InitializeComponent();
-            _inversores = FormularioHelper.getInversoresListMock();
+            //_inversores = FormularioHelper.getInversoresListMock();
+            _inversores = new List<Inversor>();
             _legajoInversionista += _inversores.Count;
 
             var inversoresOrdenable = new SortableBindingList<Inversor>(_inversores);
@@ -23,28 +21,32 @@ namespace ActividadIntegradoraII
             dataGridViewInversores.Columns["ComisionesPagadas"].Visible = false;
             dataGridViewInversores.Columns["TotalGastado"].Visible = false;
 
-            _acciones = FormularioHelper.getAccionesListMock();
+            //_acciones = FormularioHelper.getAccionesListMock();
+            _acciones = new List<Accion>();
             var accionesOrdenable = new SortableBindingList<Accion>(_acciones);
             dataGridViewAcciones.DataSource = accionesOrdenable;
-
+            /*
             var accionista1 = _inversores[0];
             accionista1.ComprarAccion(_acciones[0], 30);
             accionista1.ComprarAccion(_acciones[2], 10);
 
             var accionista3 = _inversores[2];
             accionista3.ComprarAccion(_acciones[0], 30);
-
-            var resumen = _inversores[0].AccionesAdquiridas.Select(a => new
+            */
+            if (_inversores.Count > 0)
             {
-                a.Codigo,
-                a.Denominacion,
-                a.CotizacionActual,
-                a.CantidadEmitida,
-                a.totalAdquirida,
-                ValorInversion = a.getValorInversion()
-            }).ToList();
+                var resumen = _inversores[0]?.AccionesAdquiridas.Select(a => new
+                {
+                    a.Codigo,
+                    a.Denominacion,
+                    a.CotizacionActual,
+                    a.CantidadEmitida,
+                    a.totalAdquirida,
+                    ValorInversion = a.getValorInversion()
+                }).ToList();
 
-            dataGridViewCompraVenta.DataSource = resumen;
+                dataGridViewCompraVenta.DataSource = resumen;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -64,8 +66,8 @@ namespace ActividadIntegradoraII
         {
             if (pO == null) return;
             pDGV.DataSource = null;
-            var inversoresOrdenable = new SortableBindingList<T>(pO);
-            pDGV.DataSource = inversoresOrdenable;
+            var listaOrdenable = new SortableBindingList<T>(pO);
+            pDGV.DataSource = listaOrdenable;
         }
 
         #region Click Inversores
@@ -186,6 +188,7 @@ namespace ActividadIntegradoraII
 
             var nuevaAccion = new Accion(FormularioHelper.GenerarIdentificador(codigo), denominacion, float.Parse(cotizacionActual), int.Parse(cantidadEmitida));
             _acciones.Add(nuevaAccion);
+            ActualizarGrilla(dataGridViewInversores, _inversores);
             ActualizarGrilla(dataGridViewAcciones, _acciones);
 
         }
@@ -219,6 +222,7 @@ namespace ActividadIntegradoraII
             accionAModificar.Codigo = FormularioHelper.GenerarIdentificador(codigo);
             accionAModificar.CotizacionActual = float.Parse(cotizacionActual);
             accionAModificar.CantidadEmitida = int.Parse(cantidadEmitida);
+            ActualizarGrilla(dataGridViewInversores, _inversores);
             ActualizarGrilla(dataGridViewAcciones, _acciones);
         }
 
@@ -239,6 +243,7 @@ namespace ActividadIntegradoraII
             if (result.Equals(DialogResult.Yes))
             {
                 _acciones.Remove(accionABorrar);
+                ActualizarGrilla(dataGridViewInversores, _inversores);
                 ActualizarGrilla(dataGridViewAcciones, _acciones);
             }
         }
@@ -391,7 +396,7 @@ namespace ActividadIntegradoraII
              */
             var totalRecaudadoClienteComunes = _inversores.Where(inv => inv is InversorComun).Sum(inv => inv.TotalGastado);
             var totalRecaudadoComisionesOperacion = _inversores.OfType<InversorPremium>().Sum(inv => inv.TotalGastadoInversorComun);
-            var totalRecaudadoClientePremium = _inversores.Where(inv => inv is InversorPremium).Sum(inv => inv.TotalGastado); ;
+            var totalRecaudadoClientePremium = _inversores.Where(inv => inv is InversorPremium).Sum(inv => inv.TotalGastado);
             var totalGeneralComisiones = _inversores.Sum(inv => inv.ComisionesPagadas);
             var mensaje = $"Total por operaciones de los clientes comunes: ${totalRecaudadoClienteComunes}{Environment.NewLine}" +
                           $"Total de comisiones de los clientes premium por ingresos hasta 20.000: ${totalRecaudadoComisionesOperacion}{Environment.NewLine}" +
