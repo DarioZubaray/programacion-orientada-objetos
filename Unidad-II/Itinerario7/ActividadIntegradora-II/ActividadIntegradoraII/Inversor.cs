@@ -87,5 +87,35 @@
                 throw new VentaAccionInvalidaException("No existe la accion adquirida a vender");
             }
         }
+
+        public bool AccionSubscripta(string codigoAccion)
+        {
+            AccionAdquirida accionSubscripta = AccionesAdquiridas.Find(accadq => accadq.Codigo.Equals(codigoAccion));
+            return (accionSubscripta != null);
+
+        }
+        public void GestorAcciones_AccionModificada(object sender, AccionModificadaEventArgs e)
+        {
+            Accion accionModificada = e.AccionModificada;
+
+            AccionAdquirida accionAdquiridaModificada = AccionesAdquiridas.Find(accadq => accadq.Codigo.Equals(e.CodigoAccionAnterior));
+            if (accionAdquiridaModificada == null)
+                throw new Exception("No existe la accion adquirida a modificar");
+
+            // Modificar
+            if (e.TipoOperacion == "Modificacion")
+            {
+                accionAdquiridaModificada.Denominacion = accionModificada.Denominacion;
+                accionAdquiridaModificada.Codigo = accionModificada.Codigo;
+                accionAdquiridaModificada.CotizacionActual = accionModificada.CotizacionActual;
+                accionAdquiridaModificada.CantidadEmitida = accionModificada.CantidadEmitida;
+            }
+            // Borrar
+            else if(e.TipoOperacion == "Eliminacion")
+            {
+                AccionesAdquiridas.Remove(accionAdquiridaModificada);
+                TotalGastado -= accionAdquiridaModificada.CotizacionActual * accionAdquiridaModificada.totalAdquirida;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.VisualBasic;
+using System;
 
 namespace ActividadIntegradoraII
 {
@@ -9,22 +10,18 @@ namespace ActividadIntegradoraII
 
         private int _legajoInversionista = 1;
 
+        public event EventHandler<AccionModificadaEventArgs> AccionModificada;
+
         public Form1()
         {
             InitializeComponent();
+
             //_inversores = FormularioHelper.getInversoresListMock();
             _inversores = new List<Inversor>();
             _legajoInversionista += _inversores.Count;
 
-            var inversoresOrdenable = new SortableBindingList<Inversor>(_inversores);
-            dataGridViewInversores.DataSource = inversoresOrdenable;
-            dataGridViewInversores.Columns["ComisionesPagadas"].Visible = false;
-            dataGridViewInversores.Columns["TotalGastado"].Visible = false;
-
             //_acciones = FormularioHelper.getAccionesListMock();
             _acciones = new List<Accion>();
-            var accionesOrdenable = new SortableBindingList<Accion>(_acciones);
-            dataGridViewAcciones.DataSource = accionesOrdenable;
             /*
             var accionista1 = _inversores[0];
             accionista1.ComprarAccion(_acciones[0], 30);
@@ -33,20 +30,7 @@ namespace ActividadIntegradoraII
             var accionista3 = _inversores[2];
             accionista3.ComprarAccion(_acciones[0], 30);
             */
-            if (_inversores.Count > 0)
-            {
-                var resumen = _inversores[0]?.AccionesAdquiridas.Select(a => new
-                {
-                    a.Codigo,
-                    a.Denominacion,
-                    a.CotizacionActual,
-                    a.CantidadEmitida,
-                    a.totalAdquirida,
-                    ValorInversion = a.getValorInversion()
-                }).ToList();
-
-                dataGridViewCompraVenta.DataSource = resumen;
-            }
+            RefreshUI();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -62,12 +46,45 @@ namespace ActividadIntegradoraII
             dataGridViewCompraVenta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-        private void ActualizarGrilla<T>(DataGridView pDGV, List<T> pO)
+        private void RefreshUI()
         {
-            if (pO == null) return;
-            pDGV.DataSource = null;
-            var listaOrdenable = new SortableBindingList<T>(pO);
-            pDGV.DataSource = listaOrdenable;
+            dataGridViewInversores.DataSource = null;
+            dataGridViewAcciones.DataSource = null;
+            dataGridViewCompraVenta.DataSource = null;
+
+            var inversoresOrdenable = new SortableBindingList<Inversor>(_inversores.ToList());
+            dataGridViewInversores.DataSource = inversoresOrdenable;
+
+            dataGridViewInversores.Columns["ComisionesPagadas"].Visible = false;
+            dataGridViewInversores.Columns["TotalGastado"].Visible = false;
+
+            var accionesOrdenable = new SortableBindingList<Accion>(_acciones.ToList());
+            dataGridViewAcciones.DataSource = accionesOrdenable;
+
+            if (_inversores.Count > 0)
+            {
+                var compraVenta = _inversores[0].AccionesAdquiridas.Select(a => new
+                {
+                    a.Codigo,
+                    a.Denominacion,
+                    a.CotizacionActual,
+                    a.CantidadEmitida,
+                    a.totalAdquirida,
+                    ValorInversion = a.getValorInversion()
+                }).ToList();
+
+                dataGridViewCompraVenta.DataSource = compraVenta;
+            }
+        }
+
+        protected virtual void OnAccionModificada(string codigoAccionAnterior, Accion accion, string tipoOperacion)
+        {
+            AccionModificada?.Invoke(this, new AccionModificadaEventArgs
+            {
+                CodigoAccionAnterior = codigoAccionAnterior,
+                AccionModificada = accion,
+                TipoOperacion = tipoOperacion
+            });
         }
 
         #region Click Inversores
@@ -87,7 +104,7 @@ namespace ActividadIntegradoraII
             var nuevoInversionista = new InversorComun(_legajoInversionista++, apellido, nombre, int.Parse(DNI));
 
             _inversores.Add(nuevoInversionista);
-            ActualizarGrilla(dataGridViewInversores, _inversores);
+            RefreshUI();
         }
 
         private void btnInversorModificar_Click(object sender, EventArgs e)
@@ -117,7 +134,7 @@ namespace ActividadIntegradoraII
             inversorAModificar.Nombre = nuevoNombre;
             inversorAModificar.Apellido = nuevoApellido;
             inversorAModificar.DNI = int.Parse(nuevoDNI);
-            ActualizarGrilla(dataGridViewInversores, _inversores);
+            RefreshUI();
         }
 
         private void btnInversorBorrar_Click(object sender, EventArgs e)
@@ -133,11 +150,23 @@ namespace ActividadIntegradoraII
                 return;
             }
 
+            if (inversorABorrar.AccionesAdquiridas.Count > 0)
+            {
+                var resultInvesorConAcciones = MessageBox.Show($"Seguro que quiere borrar a {inversorABorrar.NombreCompleto()}", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (resultInvesorConAcciones.Equals(DialogResult.OK))
+                {
+                    foreach (var accionAdquirida in inversorABorrar.AccionesAdquiridas)
+                    {
+                        accionAdquirida.Vender(accionAdquirida.totalAdquirida);
+                    }
+                }
+            }
+
             var result = MessageBox.Show($"Seguro que quiere borrar a {inversorABorrar.NombreCompleto()}", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result.Equals(DialogResult.Yes))
             {
                 _inversores.Remove(inversorABorrar);
-                ActualizarGrilla(dataGridViewInversores, _inversores);
+                RefreshUI();
             }
         }
 
@@ -151,7 +180,7 @@ namespace ActividadIntegradoraII
                     float totalInversion = accionistaSeleccionado.AccionesAdquiridas.Sum(accion => accion.totalAdquirida * accion.CotizacionActual);
                     txtTotalInvertido.Text = totalInversion.ToString();
 
-                    var resumen = accionistaSeleccionado.AccionesAdquiridas.Select(a => new
+                    var compraVenta = accionistaSeleccionado.AccionesAdquiridas.Select(a => new
                     {
                         a.Codigo,
                         a.Denominacion,
@@ -160,7 +189,8 @@ namespace ActividadIntegradoraII
                         a.totalAdquirida,
                         ValorInversion = a.getValorInversion()
                     }).ToList();
-                    ActualizarGrilla(dataGridViewCompraVenta, resumen);
+
+                    dataGridViewCompraVenta.DataSource = compraVenta;
                 }
                 else
                 {
@@ -188,8 +218,7 @@ namespace ActividadIntegradoraII
 
             var nuevaAccion = new Accion(FormularioHelper.GenerarIdentificador(codigo), denominacion, float.Parse(cotizacionActual), int.Parse(cantidadEmitida));
             _acciones.Add(nuevaAccion);
-            ActualizarGrilla(dataGridViewInversores, _inversores);
-            ActualizarGrilla(dataGridViewAcciones, _acciones);
+            RefreshUI();
 
         }
 
@@ -222,8 +251,9 @@ namespace ActividadIntegradoraII
             accionAModificar.Codigo = FormularioHelper.GenerarIdentificador(codigo);
             accionAModificar.CotizacionActual = float.Parse(cotizacionActual);
             accionAModificar.CantidadEmitida = int.Parse(cantidadEmitida);
-            ActualizarGrilla(dataGridViewInversores, _inversores);
-            ActualizarGrilla(dataGridViewAcciones, _acciones);
+
+            OnAccionModificada(accionCodigoAModificar, accionAModificar, "Modificacion");
+            RefreshUI();
         }
 
         private void btnAccionesBorrar_Click(object sender, EventArgs e)
@@ -242,25 +272,35 @@ namespace ActividadIntegradoraII
             var result = MessageBox.Show($"Seguro que quiere borrar a {accionABorrar.Denominacion}", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result.Equals(DialogResult.Yes))
             {
+                OnAccionModificada(accionCodigoABorrar, accionABorrar, "Eliminacion");
                 _acciones.Remove(accionABorrar);
-                ActualizarGrilla(dataGridViewInversores, _inversores);
-                ActualizarGrilla(dataGridViewAcciones, _acciones);
+
+                 _inversores.ForEach(inversionista => {
+                     var accionSubscripta = inversionista.AccionesAdquiridas.Find(accion => accion.Codigo.Equals(accionCodigoABorrar));
+                     if(accionSubscripta != null)
+                        AccionModificada -= inversionista.GestorAcciones_AccionModificada;
+                });
+                
+                RefreshUI();
             }
         }
 
         private void dataGridViewAcciones_SelectionChanged(object sender, EventArgs e)
         {
             lblCompra.Text = String.Empty;
-            if (dataGridViewAcciones.CurrentRow != null)
+            if (dataGridViewAcciones.CurrentRow == null)
             {
-                Accion seleccionado = dataGridViewAcciones.CurrentRow.DataBoundItem as Accion;
-                if (seleccionado != null)
+                lblCompra.Text = "";
+                return;
+            }
+
+            Accion seleccionado = dataGridViewAcciones.CurrentRow.DataBoundItem as Accion;
+            if (seleccionado != null)
+            {
+                ICodigoAccionParser parser = new CodigoAccionParser();
+                foreach (var parte in parser.ObtenerPartes(seleccionado.Codigo))
                 {
-                    ICodigoAccionParser parser = new CodigoAccionParser();
-                    foreach (var parte in parser.ObtenerPartes(seleccionado.Codigo))
-                    {
-                        lblCompra.Text += parte;
-                    }
+                    lblCompra.Text += parte;
                 }
             }
         }
@@ -285,8 +325,13 @@ namespace ActividadIntegradoraII
                 var accion = _acciones.Find(ac => ac.Codigo.Equals(accionCodigoAComprar));
 
                 Inversor inversorSeleccionado = dataGridViewInversores.CurrentRow.DataBoundItem as Inversor;
+                if (inversorSeleccionado == null)
+                    throw new Exception("Ha ocurrido un error, intente mas tarde.");
 
                 inversorSeleccionado.ComprarAccion(accion, cantidad);
+                if(!inversorSeleccionado.AccionSubscripta(accionCodigoAComprar))
+                    AccionModificada += inversorSeleccionado.GestorAcciones_AccionModificada;
+
                 if (inversorSeleccionado.TotalGastado >= 20000 && inversorSeleccionado is InversorComun)
                 {
                     var nuevoPremium = new InversorPremium(inversorSeleccionado.Legajo);
@@ -298,21 +343,15 @@ namespace ActividadIntegradoraII
                                                                         .ToList();
                     nuevoPremium.TotalGastadoInversorComun = inversorSeleccionado.TotalGastado;
                     nuevoPremium.TotalGastado = inversorSeleccionado.TotalGastado;
+                    AccionModificada -= inversorSeleccionado.GestorAcciones_AccionModificada;
+                    AccionModificada += nuevoPremium.GestorAcciones_AccionModificada;
+
                     // Reemplazar en la lista
                     _inversores.Remove(inversorSeleccionado);
                     _inversores.Add(nuevoPremium);
                 }
 
-                var resumen = inversorSeleccionado.AccionesAdquiridas.Select(a => new
-                {
-                    a.Codigo,
-                    a.Denominacion,
-                    a.CotizacionActual,
-                    a.CantidadEmitida,
-                    a.totalAdquirida,
-                    ValorInversion = a.getValorInversion()
-                }).ToList();
-                ActualizarGrilla(dataGridViewCompraVenta, resumen);
+                RefreshUI();
             }
             catch (Exception ex)
             {
@@ -336,18 +375,11 @@ namespace ActividadIntegradoraII
                 string? accionCodigoAComprar = dataGridViewCompraVenta.SelectedRows[0].Cells[0]?.Value?.ToString();
                 var accionAVender = _acciones.Find(ac => ac.Codigo.Equals(accionCodigoAComprar));
                 Inversor inversorSeleccionado = dataGridViewInversores.CurrentRow.DataBoundItem as Inversor;
+                if (inversorSeleccionado == null)
+                    throw new Exception("Ha ocurrido un error, intente mas tarde.");
 
                 inversorSeleccionado.VenderAccion(accionAVender, cantidad);
-                var resumen = inversorSeleccionado.AccionesAdquiridas.Select(a => new
-                {
-                    a.Codigo,
-                    a.Denominacion,
-                    a.CotizacionActual,
-                    a.CantidadEmitida,
-                    a.totalAdquirida,
-                    ValorInversion = a.getValorInversion()
-                }).ToList();
-                ActualizarGrilla(dataGridViewCompraVenta, resumen);
+                RefreshUI();
             }
             catch (Exception ex)
             {

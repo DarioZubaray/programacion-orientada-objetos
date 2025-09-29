@@ -36,6 +36,7 @@
             btnInversorModificar = new Button();
             btnInversorAgregar = new Button();
             groupBox1 = new GroupBox();
+            btnVerConmisiones = new Button();
             btnAccionesBorrar = new Button();
             dataGridViewAcciones = new DataGridView();
             btnAccionesModificar = new Button();
@@ -49,7 +50,6 @@
             dataGridViewCompraVenta = new DataGridView();
             btnVender = new Button();
             btnComprar = new Button();
-            btnVerConmisiones = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewInversores).BeginInit();
             groupBoxInversores.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -81,7 +81,7 @@
             groupBoxInversores.Controls.Add(dataGridViewInversores);
             groupBoxInversores.Location = new Point(10, 5);
             groupBoxInversores.Name = "groupBoxInversores";
-            groupBoxInversores.Size = new Size(600, 400);
+            groupBoxInversores.Size = new Size(599, 400);
             groupBoxInversores.TabIndex = 1;
             groupBoxInversores.TabStop = false;
             groupBoxInversores.Text = "Inversores";
@@ -142,12 +142,22 @@
             groupBox1.Controls.Add(dataGridViewAcciones);
             groupBox1.Controls.Add(btnAccionesModificar);
             groupBox1.Controls.Add(btnAccionesAgregar);
-            groupBox1.Location = new Point(616, 5);
+            groupBox1.Location = new Point(615, 5);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(600, 400);
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Acciones";
+            // 
+            // btnVerConmisiones
+            // 
+            btnVerConmisiones.Location = new Point(389, 28);
+            btnVerConmisiones.Name = "btnVerConmisiones";
+            btnVerConmisiones.Size = new Size(195, 30);
+            btnVerConmisiones.TabIndex = 7;
+            btnVerConmisiones.Text = "Ver Comisiones";
+            btnVerConmisiones.UseVisualStyleBackColor = true;
+            btnVerConmisiones.Click += btnVerComisiones_Click;
             // 
             // btnAccionesBorrar
             // 
@@ -289,21 +299,11 @@
             btnComprar.UseVisualStyleBackColor = true;
             btnComprar.Click += btnComprar_Click;
             // 
-            // btnVerConmisiones
-            // 
-            btnVerConmisiones.Location = new Point(389, 28);
-            btnVerConmisiones.Name = "btnVerConmisiones";
-            btnVerConmisiones.Size = new Size(195, 30);
-            btnVerConmisiones.TabIndex = 7;
-            btnVerConmisiones.Text = "Ver Comisiones";
-            btnVerConmisiones.UseVisualStyleBackColor = true;
-            btnVerConmisiones.Click += btnVerComisiones_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1227, 739);
+            ClientSize = new Size(1220, 728);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(groupBoxInversores);

@@ -1,6 +1,6 @@
 ﻿namespace ActividadIntegradoraII
 {
-    internal class Accion
+    public class Accion
     {
         public string Codigo { get; set; }
         public string Denominacion { get; set; }
