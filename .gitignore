@@ -13,6 +13,7 @@ obj/
 
 ## Visual Studio Code workspace
 .vscode/
+.history/
 
 ## NuGet packages
 *.nupkg
