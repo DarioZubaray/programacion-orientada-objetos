@@ -1,0 +1,14 @@
+enunciado:
+Puede considerar las siguientes consignas como un punto inicial del debate.
+
+Qué ventajas posee utilizar frameworks en el desarrollo de sistemas.
+
+respuesta:
+¿Qué ventajas posee utilizar frameworks en el desarrollo de sistemas'
+
+
+
+Permiten ahorrar tiempo y esfuerzo al ofrecer estructuras y componentes reutilizables.
+Aseguran mayor organización y coherencia en el código.
+Facilitan el mantenimiento y escalabilidad del sistema.
+Promueven buenas prácticas y estándares comunes de desarrollo.
