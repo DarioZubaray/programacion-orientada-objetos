@@ -36,8 +36,8 @@
 32. ¿Cómo se solicita que el sistema llame al finalizador del objeto especificado, para el que previamente se ha llamado a “SuppressFinalize”?
 33. ¿Cómo se obtiene el número máximo de generaciones que el sistema admite en la actualidad?
 
-### Guía de ejercicios 
- 
+### Guía de ejercicios
+
 1. Desarrollar un programa que genera varias instancias (una cantidad importante),  verifique la memoria utilizada, pase el GC y vuelva a verificar el espacio de memoria. ¿Qué se observa?
 
 2. Desarrollar un programa que genere una instancia, pierda la referencia a la misma y aplicando la técnica de “resurrección de objetos” logre obtener la referencia a ese mismo objeto.
