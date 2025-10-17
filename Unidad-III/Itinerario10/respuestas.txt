@@ -1,0 +1,94 @@
+1. ¿Qué es una excepción?
+
+Una excepción es un evento o error en tiempo de ejecución que interrumpe el flujo normal del programa.
+Se usa para manejar fallos de forma controlada mediante bloques try, catch y finally.
+
+2. ¿Qué se coloca en el bloque “Catch”?
+
+En el bloque catch se coloca el código que maneja la excepción.
+Sirve para capturar el error, identificar su tipo y tomar una acción correctiva o informativa (por ejemplo, mostrar un mensaje).
+
+3. ¿Cómo construiría un objeto del tipo “Exception” personalizado?
+
+En C#, una excepción personalizada se crea heredando de Exception y agregando los constructores necesarios.
+Sin parametros, Con un parametros de tipo texto para el mensaje personalizado y con el mismo texto mas el objeto excepcion original.
+
+4. ¿Qué ocurre si en el bloque de código donde se produce la excepción el error no está siendo tratado?
+
+En C# / .NET, si una excepción no se captura en ningún nivel del código se propaga automáticamente hacia arriba en la pila de llamadas (stack).
+Si ningún bloque try-catch la maneja, el runtime de .NET la captura al final como unhandled exception.
+
+5. ¿Cuál es el objeto de mayor jerarquía para el manejo de excepciones?
+
+En C# / .NET, el objeto de mayor jerarquía para el manejo de excepciones es la clase System.Exception.
+
+6. ¿En qué namespace se encuentra la clase Exception?
+
+La clase Exception se encuentra en el namespace: System, y está disponible de forma predeterminada en cualquier proyecto C# sin necesidad de importar nada adicional.
+
+7. ¿Cuáles son las dos clases genéricas más importantes definidas en el FrameWork además de Exception?
+
+Las dos clases genéricas más importantes del .NET Framework, además de Exception, son:
+System.Collections.Generic.List<T> → representa una lista dinámica fuertemente tipada.
+System.Collections.Generic.Dictionary<TKey, TValue> → representa una colección de pares clave-valor.
+
+8. ¿Qué instrucción se utiliza para poner en práctica el control e interceptar las excepciones?
+
+En C#, la instrucción que se utiliza para controlar e interceptar excepciones es la triada: try-catch-finally
+
+9. ¿Dónde se coloca el código protegido contra excepciones si se iniciara una excepción?
+
+El código protegido contra excepciones, es decir, el que puede generar un error, se coloca dentro del bloque try.
+
+10. ¿Qué tipo de excepción se utiliza para interceptar un error de división por cero?
+
+En C#, el error de división por cero se intercepta con la excepción: System.DivideByZeroException
+
+11. ¿Qué  tipo  de  excepción  se  utiliza  para  interceptar  una  DLL  que  tiene problemas al ser cargada?
+
+En C# / .NET, cuando una DLL presenta problemas al cargarse, la excepción que se utiliza para interceptarlo es: System.DllNotFoundException
+
+12. ¿Qué colocaría dentro de una clausula “Catch” para especificar una condición adicional que el bloque “Catch” deberá evaluar como verdadero para que sea seleccionada?
+
+En C#, para agregar una condición adicional que el bloque catch debe cumplir antes de ejecutarse, se usa la cláusula when (filtro de excepciones).
+
+13. ¿Si se desea colocar código de limpieza y liberación de recursos para que se ejecute cuando una excepción se produzca, dónde lo colocaría?
+
+Ese código se debe colocar dentro del bloque finally, éste siempre se ejecuta, ocurra o no una excepción.
+
+14. ¿Qué instrucción se utiliza para provocar un error y que el mismo se adapte al mecanismo de control de excepciones?
+
+En C#, la instrucción que se utiliza para provocar (lanzar) un error y activar el mecanismo de control de excepciones es: throw.
+Ejemplo: throw new MiException("ha ocurrido un error inesperado.");
+
+15. ¿Escriba el código que permitiría provocar una excepción del tipo “ArgumentException”?
+
+El método String.Copy comprueba sus parametro lanzando ArgumentNullException (deriva de ArgumentException)
+string texto = null;
+string copia = string.Copy(texto);
+
+16. ¿Cómo construiría un objeto del tipo “Exception” personalizado?
+
+public class MiExcepcion : Exception
+{
+    public MiExcepcion() { }
+
+    public MiExcepcion(string mensaje) 
+        : base(mensaje) { }
+
+    public MiExcepcion(string mensaje, Exception inner) 
+        : base(mensaje, inner) { }
+}
+
+17. ¿Cómo armaría un “Catch” personalizado para que se ejecute cuando se de la excepción “ClienteNoExisteException”?
+
+Para capturar una excepción personalizada se declara un bloque catch específico para ese tipo:
+try
+{
+    // Código que puede lanzar ClienteNoExisteException
+    Cliente cliente = ObtenerCliente(id);
+}
+catch (ClienteNoExisteException ex)
+{
+    Console.WriteLine("Error: " + ex.Message);
+}
