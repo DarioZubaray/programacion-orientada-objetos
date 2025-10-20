@@ -1,0 +1,7 @@
+Tema de debate
+
+Puede considerar las siguientes consignas como un punto inicial del debate.
+
+Lo invitamos a reflexionar sobre las ventajas de utilizar delegados.
+Ejemplifique un escenario donde el uso de delegados aporta notablemente al desarrollo del programa.
+Qué desventajas observa en su utilización.
