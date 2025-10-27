@@ -5,3 +5,17 @@ Puede considerar las siguientes consignas como un punto inicial del debate.
 Lo invitamos a reflexionar sobre las ventajas de utilizar interfaces.
 Elabore una lista de las ventajas y justifique su elección.
 Mencione algún aspecto negativo y justifíquelo.
+
+Ventajas de utilizar interfaces:
+
+Desacoplamiento: Permiten separar la definición del comportamiento de su implementación.
+
+Reutilización y flexibilidad: Varias clases pueden implementar la misma interfaz.
+
+Mantenibilidad: Cambios en una implementación no obligan a modificar el código que usa la interfaz.
+
+Polimorfismo: Se pueden tratar distintos objetos de manera uniforme si comparten la misma interfaz.
+
+Aspecto negativo:
+
+Mayor complejidad inicial: en sistemas pequeños o simples, definir interfaces puede resultar innecesario y agregar sobrecarga conceptual o de diseño.
