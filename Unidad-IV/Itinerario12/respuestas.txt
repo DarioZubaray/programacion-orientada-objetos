@@ -1,23 +1,30 @@
 1. ¿Qué es un delegado?
 
-
+Los delegados son objetos que hacen referencia a métodos.
+Se podrían visualizar como un puntero a una función, aunque estrictamente hablando esto último no es lo más preciso.
 
 2. ¿A qué elementos se les puede delegar?
 
-
+Se puede asociar con cualquier método que posea una firma compatible y un tipo de devolución.
+Métodos estáticos o de instancia, funciones lambdas y métodos anónimos.
 
 3. ¿Qué se puede delegar?
 
-
+Se puede delegar la ejecución de un método.
 
 4. ¿Cómo construiría un delegado?
 
-
+Un delagado se contruiría en los siguientes 4 pasos:
+a. Declarar el delegado:       public delegate void MiDelegado(string mensaje);
+b. Crear un método compatible: public void MostrarMensaje(string mensaje) => Console.WriteLine(mensaje);
+c. Instanciar el delegado:     MiDelegado delegado = new MiDelegado(MostrarMensaje);
+d. Usar el delegado:           delegado("Hola desde el delegado!");
 
 5. ¿Cómo implementaría un procedimiento de devolución de llamadas?
 
-
+Un callback se implementa pasando un delegado como parámetro, y el método llamado lo ejecuta cuando necesita devolver el control o informar un resultado.
 
 6. ¿Para qué sirve la multidifusión de delegados?
 
-
+La multidifusión de delegados sirve para llamar a más de un método cuando se invocan. Para ello deben de compartir la misma firma.
+Se asigna con el operador '+=' y se desasignan con '-='
