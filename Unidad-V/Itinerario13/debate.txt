@@ -1,0 +1,5 @@
+Puede considerar las siguientes consignas como un punto inicial del debate.
+
+Lo invitamos a reflexionar sobre las ventajas de utilizar Genéricos y Linq
+Qué ventajas observa en el uso de genéricos. Justifique
+Qué ventajas observa en el uso de Linq. Justifique
