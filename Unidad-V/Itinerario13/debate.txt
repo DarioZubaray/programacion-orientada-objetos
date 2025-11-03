@@ -3,3 +3,15 @@ Puede considerar las siguientes consignas como un punto inicial del debate.
 Lo invitamos a reflexionar sobre las ventajas de utilizar Genéricos y Linq
 Qué ventajas observa en el uso de genéricos. Justifique
 Qué ventajas observa en el uso de Linq. Justifique
+
+Ventajas de los Genéricos:
+
+Permiten reutilizar código sin depender de un tipo específico.
+Aumentan la seguridad de tipo en tiempo de compilación.
+Eliminan conversiones innecesarias (casting) y mejoran el rendimiento.
+
+Ventajas de LINQ:
+
+Facilita consultar colecciones de forma declarativa y legible.
+Reduce código repetitivo y errores al filtrar u ordenar datos.
+Ofrece integración directa con C# y compatibilidad con distintos orígenes de datos (listas, XML, BD).

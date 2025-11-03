@@ -1,0 +1,28 @@
+1. ¿Qué es una expresión Lambda?
+
+Una expresión lambda es una función anónima que se puede usar para crear delegados.
+
+2. Ejemplifique cómo se puede utilizar una expresión lambda para realizar una consulta.
+
+Consulta con expresión lambda → obtener los números pares de una lista de números:
+    List<int> numeros = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    var pares = numeros.Where(n => n % 2 == 0);
+
+3. ¿Qué debo realizar para crear una expresión lambda?
+
+Para crear una expresión lambda, especifique los parámetros de entrada (si corresponde) en el lado izquierdo del operador lambda => , y coloque la expresión o el bloque de instrucciones en el otro lado.
+Por ejemplo, la expresión lambda X => X * X, especifica un parámetro que se llama X y devuelve el valor de X al cuadrado.
+
+4. ¿Indique como puede declarar un delegado utilizando Func y que significa cada elemento utilizado?
+
+Ejemplo de declaración de un delegado utilizando Func en C#:
+    Func<int, double, bool> esMayor = (x, y) => x > y;
+
+5. Crear un delegado utilizando Func que posea tres parámetros de entrada y uno de salida.
+Los parámetros de entrada son: el primero int, el segundo double y el tercero bool. El parámetro de retorno es de tipo bool.
+
+    Func<int, double, bool, bool> validarOperacion = (entero, real, estado) =>
+    {
+    // Ejemplo de lógica: devuelve true si estado es true y entero * real > 50
+    return estado && (entero * real > 50);
+    };
