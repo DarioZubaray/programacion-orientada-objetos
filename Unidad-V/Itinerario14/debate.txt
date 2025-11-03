@@ -7,8 +7,8 @@ Evalúe y enumere las ventajas más significativas al utilizar expresiones lambd
 
 Ventajas más significativas de usar expresiones lambda en C#:
 
-Código más compacto y legible → reemplazan métodos anónimos extensos.
-Facilitan el uso de LINQ y delegados (como Func<> y Action<>).
-Mejoran la claridad al expresar lógica directamente en la línea donde se usa.
-Favorecen la programación funcional, permitiendo pasar funciones como parámetros.
-Evitan código redundante, simplificando operaciones como filtrado, mapeo o ordenamiento.
+El código es más compacto y legible ya que reemplazan métodos anónimos extensos.
+Se facilita el uso de LINQ y de delegados (como Action<>, Func<> y Predicate<>).
+Se mejora la claridad al expresar lógica directamente en la línea donde se usa.
+Se favorece la programación funcional, permitiendo pasar funciones como parámetros.
+Evita el código redundante, simplificando operaciones como filtrado, mapeo o ordenamiento.
