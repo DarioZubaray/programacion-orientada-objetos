@@ -39,18 +39,60 @@ namespace EjemploServidor
 
             // Comienzo la escucha
             servidor.Escuchar();
+
+            // Grilla de clientes conectados
+            InicializarGrillaIps(dataGridView1);
+        }
+
+        public void InicializarGrillaIps(DataGridView dgv)
+        {
+            // Limpieza y configuración
+            dgv.AutoGenerateColumns = false; // Importante: evita que se creen columnas duplicadas
+            dgv.Columns.Clear();
+
+            // Configuración de la única columna
+            DataGridViewTextBoxColumn columna = new DataGridViewTextBoxColumn();
+            columna.HeaderText = "Dirección IP";
+            columna.Name = "columnaIP";
+
+            // **CLAVE:** El DataPropertyName debe coincidir con el nombre de la propiedad en el objeto anónimo.
+            columna.DataPropertyName = "IPAddress";
+
+            columna.ReadOnly = true;
+
+            dgv.Columns.Add(columna);
+
+            // Configuración de selección (para que sea seleccionable)
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.MultiSelect = false;
+            dgv.AllowUserToAddRows = false;
+        }
+
+        public void EnlazarIpsAGrilla(DataGridView dgv, List<string> listaDeIps)
+        {
+            // 1. Crear una lista de objetos anónimos con una propiedad llamada "IPAddress"
+            var dataParaMostrar = listaDeIps
+                                  .Select(ip => new { IPAddress = ip })
+                                  .ToList();
+
+            // 2. Asignar la lista mapeada al DataSource
+            dgv.DataSource = dataParaMostrar;
         }
 
         private void Servidor_NuevaConexion(object sender, ServidorEventArgs e)
         {
             //  Muestro quién se conectó
             Log($"Se ha conectado un nuevo cliente desde la IP = {e.EndPoint.Address}, Puerto = {e.EndPoint.Port}");
+
+            EnlazarIpsAGrilla(dataGridView1, servidor?.GetClientesConectados());
         }
 
         private void Servidor_ConexionTerminada(object sender, ServidorEventArgs e)
         {
             // Muestro con quién se terminó la conexión
             Log($"Se ha desconectado el cliente de la IP = {e.EndPoint.Address}, Puerto = {e.EndPoint.Port}");
+
+            EnlazarIpsAGrilla(dataGridView1, servidor?.GetClientesConectados());
         }
 
         private void Servidor_DatosRecibidos(object sender, DatosRecibidosEventArgs e)
@@ -66,6 +108,21 @@ namespace EjemploServidor
         {
             Log($"Mensaje a todos: {txtMensaje.Text}");
             servidor.EnviarDatos(txtMensaje.Text);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.RowCount == 0)
+            {
+                return;
+            }
+
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                var clienteSeleccionado = dataGridView1.SelectedRows[0].Cells[0].Value;
+
+                servidor.EnviarDatosA(txtMensaje.Text, clienteSeleccionado?.ToString());
+            }
         }
     }
 }

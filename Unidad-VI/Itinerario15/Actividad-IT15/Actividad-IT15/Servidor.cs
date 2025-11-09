@@ -53,6 +53,18 @@ namespace EjemploServidor
 
         public int PuertoDeEscucha { get; }
 
+        public List<string> GetClientesConectados()
+        {
+            List<string> clientesConectados = new List<string>();
+            foreach(var ipEndpoint in clientes.Keys)
+            {
+                var ip = ipEndpoint.Address.ToString();
+                var port = ipEndpoint.Port.ToString();
+                clientesConectados.Add(ip + ":" + port);
+            }
+            return clientesConectados;
+        }
+
         public Servidor(int puerto)
         {
             PuertoDeEscucha = puerto;
