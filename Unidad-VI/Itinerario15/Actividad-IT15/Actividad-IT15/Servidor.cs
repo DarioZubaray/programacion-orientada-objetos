@@ -99,7 +99,7 @@ namespace EjemploServidor
             foreach (var cliente in clientes.Values)
             {
                 // Busco solo el remintente seleccionado para el envio de datos
-                string remoteIp = ((System.Net.IPEndPoint)cliente.Socket.LocalEndPoint).Address.ToString() + ((System.Net.IPEndPoint)cliente.Socket.LocalEndPoint).Port.ToString();
+                string remoteIp = cliente.Socket.RemoteEndPoint.ToString();
                 if (remoteIp.Equals(remitente))
                 {
                     // Envío el mensaje codificado en UTF-8 (https://es.wikipedia.org/wiki/UTF-8)
