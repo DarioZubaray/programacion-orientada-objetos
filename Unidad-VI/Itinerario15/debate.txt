@@ -5,3 +5,9 @@ Puede considerar las siguiente consigna como un punto inicial del debate.
 Evalúe y describa un escenario donde sea necesario utilizar socket para compartir información entre un servidor y varios clientes.
 Enumere qué acciones debe poseer el servidor y cuáles el cliente para satisfacer lo propuesto en el punto anterior.
 
+Escenario:
+Varios jugadores en una red LAN se conectan a un servidor para sincronizar posiciones, acciones y puntuaciones.
+
+Acciones:
+    Servidor: mantiene el estado del juego.
+    Clientes: envían movimientos y reciben actualizaciones del entorno.

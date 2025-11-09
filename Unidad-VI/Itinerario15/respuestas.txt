@@ -1,75 +1,98 @@
 1. ¿Qué características posee un esquema cliente - servidor?
 
-
+Características del esquema cliente-servidor:
+    Divide la aplicación en dos partes: cliente (solicita) y servidor (responde).
+    Comunicación mediante peticiones y respuestas a través de una red.
+    El servidor centraliza datos y lógica, el cliente presenta la interfaz.
 
 2. ¿Qué significa pasar información batch?
 
-
+El modo batch o por lotes como su nombre lo indica, para realizar la transferencia de información previamente acumula una determinada cantidad de datos (un lote), se gestiona la conexión, luego realiza la transferencia y finalmente se desconecta hasta la transferencia del próximo lote.
 
 3. ¿Qué significa pasar información on line?
 
-
+El modo on line se gestiona la conexión y esta se mantiene, los datos se envían a medida que se producen.
 
 4. ¿Qué es un protocolo?
 
-
+Un protocolo es un conjunto de reglas que las computadoras que se comunican utilizan.
+En él se estandarizan los mensajes que se enviarán entre ambas para de esta manera poder entender lo que cada una envía.
+Las reglas que establece un protocolo permiten definir la sintaxis, la semántica y la sincronización de lo que se está transmitiendo.
 
 5. ¿Qué protocolo usa una red de área local?
 
-
+Una red de área local utiliza principalmente el protocolo TCP/IP para permitir la comunicación y el intercambio de datos entre los dispositivos conectados.
 
 6. ¿Qué protocolo usa internet?
 
-
+Internet utiliza el protocolo TCP/IP (Transmission Control Protocol / Internet Protocol), que permite la transmisión y el enrutamiento de datos entre computadoras a nivel global.
 
 7. ¿Qué hace el protocolo IP?
 
-
+IP (Internet Protocol) es un protocolo no orientado a la conexión que trabaja a nivel de red. 
+Los datos son enviados en bloques conocidos con el nombre de paquetes.
 
 8. ¿Qué ventajas tiene distribuir procesos?
 
-
+Ventajas de distribuir procesos:
+    Mejor rendimiento al repartir la carga de trabajo.
+    Mayor disponibilidad y tolerancia a fallos.
+    Escalabilidad, permite agregar más recursos según necesidad.
+    Ejecución paralela, reduciendo tiempos de respuesta.
 
 9. ¿Qué ventajas tiene distribuir almacenamientos?
 
-
+Ventajas de distribuir almacenamientos:
+    Mayor disponibilidad y redundancia de los datos.
+    Tolerancia a fallos: si un nodo falla, los datos pueden recuperarse desde otro.
+    Acceso más rápido al acercar los datos al usuario o proceso.
+    Escalabilidad, se puede ampliar la capacidad fácilmente.
+    Balanceo de carga y mejor utilización de recursos.
 
 10. ¿Qué es un socket?
 
-
+Un socket es un punto de conexión que permite la comunicación entre dos procesos a través de una red.
+Se identifica por el par formado por una dirección IP y un número de puerto, y se utiliza junto con los protocolos TCP/IP para enviar y recibir datos de forma confiable.
 
 11. ¿Qué característica posee un socket sincrónico?
 
-
+Un socket sincrónico se caracteriza porque bloquea la ejecución del programa hasta que la operación de envío o recepción de datos se complete, es decir, el proceso espera la respuesta antes de continuar.
 
 12. ¿Qué característica posee un socket asincrónico?
 
-
+Un socket asincrónico permite que las operaciones de envío y recepción se realicen sin bloquear la ejecución del programa, es decir, el proceso continúa mientras se espera la respuesta.
 
 13. ¿Qué objeto se puede utilizar para construir un navegador?
 
-
+Se puede utilizar el objeto WebBrowser en Windows Forms para construir un navegador web básico en C#.
 
 14. ¿Para qué se utilizan los puertos de la pc?
 
-
+Los puertos de la PC se utilizan para identificar y dirigir las comunicaciones entre aplicaciones o servicios dentro de una red, permitiendo que varios programas usen simultáneamente la misma dirección IP sin interferirse.
 
 15. ¿Qué puertos posee una PC?
 
-
+Una PC posee puertos físicos y puertos lógicos:
+    Puertos físicos: conectores de hardware para periféricos. (USB, HDMI/VGA, Ethernet, SATA)
+    Puertos lógicos: números usados por el sistema operativo para identificar servicios o aplicaciones de red. (80/HTTP, 443/HTTPS, 21/FTP, 25/SMTP)
 
 16. ¿Cómo funciona el puerto paralelo?
 
-
+El puerto paralelo utilizan ocho líneas de datos para transmitir un byte a la vez, y fueron utilizados hace un tiempo fundamentalmente para la conexión de impresoras.
 
 17. ¿Cómo funciona el puerto serie?
 
-
+El puerto serie envían y reciben bit a bit la información, se deben saber cuando comienza y termina una trama de datos.
+Existen varias formas de comunicación en serie: simplex, duplex, full duplex.
+    Simplex: la comunicación es unidireccional existiendo  un emisor y un receptor.
+    Duplex: ambos equipos pueden funcionar como emisor o receptor pero la información no puede fluir en ambos sentidos al mismo tiempo.
+    Full-Duplex: es igual al anterior pero la información puede fluir en ambos sentidos.
 
 18. ¿Cómo funciona el puerto USB?
 
-
+El puerto USB (Universal Serial Bus) funciona como un canal estándar de comunicación y energía entre una computadora y dispositivos externos de forma plug and play (sin necesidad de reiniciar el sistema).
 
 19. ¿Qué es la domótica?
 
-
+La domótica es el conjunto de tecnologías aplicadas al control y automatización inteligente del hogar.
+Es decir convierte una vivienda en una “casa inteligente”, capaz de gestionar sus sistemas de forma automática o remota.
