@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Collections.Concurrent;
+using System.Windows.Forms;
 
 namespace EjemploServidor
 {
@@ -92,6 +93,21 @@ namespace EjemploServidor
             }
         }
 
+        public void EnviarDatosA(string datos, string remitente)
+        {
+            // Recorro todos los clientes conectados y les envío el mensaje en el parámetro datos
+            foreach (var cliente in clientes.Values)
+            {
+                // Busco solo el remintente seleccionado para el envio de datos
+                string remoteIp = ((System.Net.IPEndPoint)cliente.Socket.LocalEndPoint).Address.ToString() + ((System.Net.IPEndPoint)cliente.Socket.LocalEndPoint).Port.ToString();
+                if (remoteIp.Equals(remitente))
+                {
+                    // Envío el mensaje codificado en UTF-8 (https://es.wikipedia.org/wiki/UTF-8)
+                    cliente.Socket.Send(Encoding.UTF8.GetBytes(datos));
+                }
+            }
+        }
+
         private void EsperarCliente()
         {
             while (true)
@@ -141,8 +157,26 @@ namespace EjemploServidor
                         // Decodifico el mensaje recibido usando UTF-8 (https://es.wikipedia.org/wiki/UTF-8)
                         var datosRecibidos = Encoding.UTF8.GetString(buffer, 0, cantidadRecibida);
 
-                        // Disparo el evento de la recepción del mensaje
-                        DatosRecibidos?.Invoke(this, new DatosRecibidosEventArgs(endPoint, datosRecibidos));
+                        if (datosRecibidos.StartsWith("BROADCAST:"))
+                        {
+                            // Disparo el evento para notificar a todos los clientes.
+                            EnviarDatos($"Mensaje nuevo [IP = {cliente.Socket.RemoteEndPoint}]" + datosRecibidos.Replace("BROADCAST:", string.Empty));
+                        }
+                        if (datosRecibidos.StartsWith("PRIVATE:"))
+                        {
+                            string[] partes = datosRecibidos.Split(":");
+                            // Accediendo a las partes:
+                            // partes[0] es "PRIVATE"
+                            // partes[1] es "127.0.0.1"
+                            // partes[2] es "8050"
+                            // partes[3] es "{mensaje recibido}"
+                            EnviarDatosA(partes[3], partes[1] + ":" + partes[2]);
+                        }
+                        else
+                        {
+                            // Disparo el evento de la recepción del mensaje
+                            DatosRecibidos?.Invoke(this, new DatosRecibidosEventArgs(endPoint, datosRecibidos));
+                        }
                     }
                     else
                     {

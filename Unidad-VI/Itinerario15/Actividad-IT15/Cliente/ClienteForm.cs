@@ -11,7 +11,7 @@ namespace EjemploCliente
         {
             InitializeComponent();
         }
-        
+
         private void Log(string texto)
         {
             // Invoke nos permite ejecutar un delegado en el tread de la UI. 
@@ -85,7 +85,15 @@ namespace EjemploCliente
                 txtIP.Enabled = txtPuerto.Enabled = btnConectar.Enabled = !cliente.Conectado;
 
                 // Habilito la posibilidad de enviar mensajes si el cliente está conectado
-                txtMensaje.Enabled = btnEnviarMensaje.Enabled = cliente.Conectado;
+                txtMensaje.Enabled = cliente.Conectado;
+                btnEnviarMensaje.Enabled = cliente.Conectado;
+                // Habilito los mensajes masivos
+                btnEnviarMensajeATodos.Enabled = cliente.Conectado;
+                btnEnviarAIp.Enabled = cliente.Conectado;
+                // Habilito los mensaje personalizados
+                txtIpPrivate.Enabled = cliente.Conectado;
+                txtPortPrivate.Enabled = cliente.Conectado;
+                btnEnviarAIp.Enabled= cliente.Conectado;
 
                 if (cliente.Conectado)
                 {
@@ -96,6 +104,16 @@ namespace EjemploCliente
                     Text = "Cliente";
                 }
             });
+        }
+
+        private void btnEnviarMensajeATodos_Click(object sender, EventArgs e)
+        {
+            cliente.EnviarDatos("BROADCAST:" + txtMensaje.Text);
+        }
+
+        private void btnEnviarAIp_Click(object sender, EventArgs e)
+        {
+            cliente.EnviarDatos("PRIVATE:" + txtIpPrivate.Text + ":" + txtPortPrivate.Text + ":" + txtMensaje.Text);
         }
     }
 }

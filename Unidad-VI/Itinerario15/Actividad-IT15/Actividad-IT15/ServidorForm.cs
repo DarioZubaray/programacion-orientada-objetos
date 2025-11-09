@@ -64,6 +64,7 @@ namespace EjemploServidor
 
         private void btnEnviarMensaje_Click(object sender, EventArgs e)
         {
+            Log($"Mensaje a todos: {txtMensaje.Text}");
             servidor.EnviarDatos(txtMensaje.Text);
         }
     }
