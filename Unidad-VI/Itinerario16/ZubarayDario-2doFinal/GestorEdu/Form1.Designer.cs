@@ -134,6 +134,7 @@
             btnInsProAsignarPrestador.TabIndex = 4;
             btnInsProAsignarPrestador.Text = "Asignar Prestador";
             btnInsProAsignarPrestador.UseVisualStyleBackColor = true;
+            btnInsProAsignarPrestador.Click += btnInsProAsignarPrestador_Click;
             // 
             // groupBox2
             // 
@@ -215,6 +216,7 @@
             btnInsProGenerarPago.TabIndex = 2;
             btnInsProGenerarPago.Text = "Generar Pago";
             btnInsProGenerarPago.UseVisualStyleBackColor = true;
+            btnInsProGenerarPago.Click += btnInsProGenerarPago_Click;
             // 
             // label1
             // 

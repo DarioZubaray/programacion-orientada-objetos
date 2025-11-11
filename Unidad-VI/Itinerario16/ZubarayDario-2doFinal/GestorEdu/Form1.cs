@@ -41,6 +41,17 @@ namespace GestorEdu
             dgv.DataSource = datasource;
         }
 
+        private void RefreshDetailDataGrids(Instituto instituto, Proveedor proveedor)
+        {
+            RefreshDataGrid(dataGridViewPrestadoresInstituto, instituto.Proveedores);
+            RefreshDataGrid(dataGridViewInstitutoProveedores,
+                _institutos.Where(ins =>
+                    ins.Proveedores.Any(p =>
+                        p.Codigo.Equals(proveedor.Codigo, StringComparison.OrdinalIgnoreCase)
+                    )
+                ).ToList());
+        }
+
         private void dataGridViewIns_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridViewIns.CurrentRow == null || dataGridViewIns.CurrentRow.Index < 0 || dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.Rows.Count == 0)
@@ -56,6 +67,8 @@ namespace GestorEdu
 
             btnInsProAsignarPrestador.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
             btnInsProGenerarPago.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
+
+            RefreshDataGrid(dataGridViewPrestadoresInstituto, institutoSeleccionado.Proveedores);
         }
 
         private void dataGridViewPro_SelectionChanged(object sender, EventArgs e)
@@ -73,6 +86,13 @@ namespace GestorEdu
 
             btnInsProAsignarPrestador.Enabled = hayInstitutoSeleccionado && true;
             btnInsProGenerarPago.Enabled = hayInstitutoSeleccionado && true;
+
+            RefreshDataGrid(dataGridViewInstitutoProveedores,
+                _institutos.Where(ins =>
+                    ins.Proveedores.Any(p =>
+                        p.Codigo.Equals(proveedorSeleccionado.Codigo, StringComparison.OrdinalIgnoreCase)
+                    )
+                ).ToList());
         }
 
 
@@ -181,7 +201,7 @@ namespace GestorEdu
                 MessageBox.Show("Ocurrió un error al intentar borrar el instituto seleccionado.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            // TODO validacion de pagos pendientes, etc
+            // TODO validar que NO posea pagos pendientes a sus prestadores
             var result = MessageBox.Show($"Seguro que quiere borrar al instituto '{institutoSeleccionado}'", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result.Equals(DialogResult.Yes))
             {
@@ -256,7 +276,7 @@ namespace GestorEdu
                 MessageBox.Show("El Código no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            bool noEsCodigoUnico = _institutos.Any(i => i.Codigo.ToLower() == codigo.ToLower());
+            bool noEsCodigoUnico = _proveedores.Any(i => i.Codigo.ToLower() == codigo.ToLower());
             if (noEsCodigoUnico)
             {
                 MessageBox.Show($"Error: El código de instituto ingresado [{codigo}] ya existe.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -294,7 +314,9 @@ namespace GestorEdu
                 MessageBox.Show("Ocurrió un error al intentar borrar el proveedor seleccionado.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            // TODO validacion de pagos pendientes, etc
+
+            // TODO validar que NO tenga institutos asignados.
+
             var result = MessageBox.Show($"Seguro que quiere borrar al proveedor '{proveedorSeleccionado}'", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result.Equals(DialogResult.Yes))
             {
@@ -313,5 +335,44 @@ namespace GestorEdu
             }
         }
         #endregion
+
+        private void btnInsProAsignarPrestador_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewIns.CurrentRow == null || dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.Rows.Count == 0 || dataGridViewIns.CurrentRow.Index < 0)
+            {
+                MessageBox.Show($"Ocurrió un error en la grilla de institutos al momento de la asignación.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (dataGridViewPro.CurrentRow == null || dataGridViewPro.SelectedRows.Count == 0 || dataGridViewPro.Rows.Count == 0 || dataGridViewPro.CurrentRow.Index < 0)
+            {
+                MessageBox.Show($"Ocurrió un error en la grilla de proveedores al momento de la asignación.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // tomar institutoSeleccionado y proveedorSeleccionado
+            var filaInstituto = dataGridViewIns.SelectedRows[0];
+            Instituto? institutoSeleccionado = filaInstituto.DataBoundItem as Instituto;
+            var filaProveedor = dataGridViewPro.SelectedRows[0];
+            Proveedor? proveedorSeleccionado = filaProveedor.DataBoundItem as Proveedor;
+
+            // Validar que NO se encuentre ya asignado
+            var yaSeEncuentraAsignado = institutoSeleccionado.Proveedores.Any(p => p.Codigo == proveedorSeleccionado.Codigo);
+            if (yaSeEncuentraAsignado)
+            {
+                MessageBox.Show($"No se puede volver a asignar el proveedor '{proveedorSeleccionado}' al instituto {institutoSeleccionado}.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // asignar
+            institutoSeleccionado.Proveedores.Add(proveedorSeleccionado);
+
+            // refrescar grillas 3 y 4
+            RefreshDetailDataGrids(institutoSeleccionado, proveedorSeleccionado);
+        }
+
+        private void btnInsProGenerarPago_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
