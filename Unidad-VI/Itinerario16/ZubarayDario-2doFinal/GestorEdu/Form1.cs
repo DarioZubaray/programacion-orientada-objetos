@@ -43,7 +43,7 @@ namespace GestorEdu
 
         private void dataGridViewIns_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewIns.CurrentRow == null || dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.Rows.Count == 0 || dataGridViewIns.CurrentRow.Index < 0)
+            if (dataGridViewIns.CurrentRow == null || dataGridViewIns.CurrentRow.Index < 0 || dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.Rows.Count == 0)
                 return;
 
             var fila = dataGridViewIns.SelectedRows[0];
@@ -60,7 +60,7 @@ namespace GestorEdu
 
         private void dataGridViewPro_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewPro.CurrentRow == null || dataGridViewPro.SelectedRows.Count == 0 || dataGridViewPro.Rows.Count == 0 || dataGridViewPro.CurrentRow.Index < 0)
+            if (dataGridViewPro.CurrentRow == null || dataGridViewPro.CurrentRow.Index < 0 || dataGridViewPro.SelectedRows.Count == 0 || dataGridViewPro.Rows.Count == 0)
                 return;
 
             btnProModificar.Enabled = true;
@@ -170,7 +170,35 @@ namespace GestorEdu
 
         private void btnInsBorrar_Click(object sender, EventArgs e)
         {
+            if (dataGridViewIns.CurrentRow == null || dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.Rows.Count == 0 || dataGridViewIns.CurrentRow.Index < 0)
+                return;
 
+            var fila = dataGridViewIns.SelectedRows[0];
+            Instituto? institutoSeleccionado = fila.DataBoundItem as Instituto;
+            string title = "Eliminación de institutos";
+            if (institutoSeleccionado == null)
+            {
+                MessageBox.Show("Ocurrió un error al intentar borrar el instituto seleccionado.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            // TODO validacion de pagos pendientes, etc
+            var result = MessageBox.Show($"Seguro que quiere borrar al instituto '{institutoSeleccionado}'", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result.Equals(DialogResult.Yes))
+            {
+                _institutos.Remove(institutoSeleccionado);
+                RefreshDataGrid(dataGridViewIns, _institutos);
+                if (dataGridViewIns.Rows.Count == 0)
+                {
+                    txtInsSeleccionado.Text = "";
+                    btnInsModificar.Enabled = false;
+                    btnInsBorrar.Enabled = false;
+                    hayInstitutoSeleccionado = false;
+
+                    btnInsProAsignarPrestador.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
+                    btnInsProGenerarPago.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
+                    return;
+                }
+            }
         }
         #endregion
 
@@ -255,7 +283,34 @@ namespace GestorEdu
 
         private void btnProBorrar_Click(object sender, EventArgs e)
         {
+            if (dataGridViewPro.CurrentRow == null || dataGridViewPro.SelectedRows.Count == 0 || dataGridViewPro.Rows.Count == 0 || dataGridViewPro.CurrentRow.Index < 0)
+                return;
 
+            var fila = dataGridViewPro.SelectedRows[0];
+            Proveedor? proveedorSeleccionado = fila.DataBoundItem as Proveedor;
+            string title = "Eliminación de proveedores";
+            if (proveedorSeleccionado == null)
+            {
+                MessageBox.Show("Ocurrió un error al intentar borrar el proveedor seleccionado.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            // TODO validacion de pagos pendientes, etc
+            var result = MessageBox.Show($"Seguro que quiere borrar al proveedor '{proveedorSeleccionado}'", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result.Equals(DialogResult.Yes))
+            {
+                _proveedores.Remove(proveedorSeleccionado);
+                RefreshDataGrid(dataGridViewPro, _proveedores);
+                if (dataGridViewPro.Rows.Count == 0)
+                {
+                    txtProSeleccionado.Text = "";
+                    btnProModificar.Enabled = false;
+                    btnProBorrar.Enabled = false;
+                    hayProveedorSeleccionado = false;
+
+                    btnInsProAsignarPrestador.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
+                    btnInsProGenerarPago.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
+                }
+            }
         }
         #endregion
     }
