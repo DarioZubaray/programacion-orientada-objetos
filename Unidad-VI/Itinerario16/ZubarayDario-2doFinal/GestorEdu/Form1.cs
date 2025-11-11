@@ -43,10 +43,7 @@ namespace GestorEdu
 
         private void dataGridViewIns_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.CurrentRow == null)
-                return;
-
-            if (dataGridViewIns.CurrentRow.Index < 0)
+            if (dataGridViewIns.CurrentRow == null || dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.Rows.Count == 0 || dataGridViewIns.CurrentRow.Index < 0)
                 return;
 
             var fila = dataGridViewIns.SelectedRows[0];
@@ -63,10 +60,7 @@ namespace GestorEdu
 
         private void dataGridViewPro_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewPro.SelectedRows.Count == 0 || dataGridViewPro.CurrentRow == null)
-                return;
-
-            if (dataGridViewPro.CurrentRow.Index < 0)
+            if (dataGridViewPro.CurrentRow == null || dataGridViewPro.SelectedRows.Count == 0 || dataGridViewPro.Rows.Count == 0 || dataGridViewPro.CurrentRow.Index < 0)
                 return;
 
             btnProModificar.Enabled = true;
@@ -86,7 +80,7 @@ namespace GestorEdu
         private void btnInsNuevo_Click(object sender, EventArgs e)
         {
             string title = "Registro de institutos";
-            string codigo = Interaction.InputBox("Ingrese Codigo:", title, "").Trim();
+            string codigo = Interaction.InputBox("Ingrese Código:", title, "").Trim();
             if (string.IsNullOrWhiteSpace(codigo))
             {
                 MessageBox.Show("El código no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -101,19 +95,19 @@ namespace GestorEdu
             string nombre = Interaction.InputBox("Ingrese Nombre:", title, "").Trim();
             if (string.IsNullOrWhiteSpace(nombre))
             {
-                MessageBox.Show("El nombre no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El Nombre no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             string telefono = Interaction.InputBox("Ingrese Teléfono:", title, "").Trim();
             if (string.IsNullOrWhiteSpace(telefono))
             {
-                MessageBox.Show("El teléfono no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El Teléfono no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             string direccion = Interaction.InputBox("Ingrese Dirección:", title, "").Trim();
             if (string.IsNullOrWhiteSpace(codigo))
             {
-                MessageBox.Show("La dirección no puede estar vacía.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("La Dirección no puede estar vacía.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -125,7 +119,53 @@ namespace GestorEdu
 
         private void btnInsModificar_Click(object sender, EventArgs e)
         {
+            if (dataGridViewIns.CurrentRow == null || dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.Rows.Count == 0 || dataGridViewIns.CurrentRow.Index < 0)
+                return;
 
+            var fila = dataGridViewIns.SelectedRows[0];
+            Instituto? institutoSeleccionado = fila.DataBoundItem as Instituto;
+            string title = "Modificación de institutos";
+            if (institutoSeleccionado == null)
+            {
+                MessageBox.Show("Ocurrió un error al modificar el instituto seleccionado.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            string codigo = Interaction.InputBox("Ingrese Código:", title, institutoSeleccionado.Codigo).Trim();
+            if (string.IsNullOrWhiteSpace(codigo))
+            {
+                MessageBox.Show("El Código no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            bool noEsCodigoUnico = _institutos.Any(i => i.Codigo.ToLower() == codigo.ToLower());
+            if (noEsCodigoUnico)
+            {
+                MessageBox.Show($"Error: El código de instituto ingresado [{codigo}] ya existe.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string nombre = Interaction.InputBox("Ingrese Nombre:", title, institutoSeleccionado.Nombre).Trim();
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                MessageBox.Show("El Nombre no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string telefono = Interaction.InputBox("Ingrese Teléfono:", title, institutoSeleccionado.Telefono).Trim();
+            if (string.IsNullOrWhiteSpace(telefono))
+            {
+                MessageBox.Show("El Teléfono no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string direccion = Interaction.InputBox("Ingrese Dirección:", title, institutoSeleccionado.Direccion).Trim();
+            if (string.IsNullOrWhiteSpace(codigo))
+            {
+                MessageBox.Show("La Dirección no puede estar vacía.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            institutoSeleccionado.Codigo = codigo;
+            institutoSeleccionado.Nombre = nombre;
+            institutoSeleccionado.Telefono = telefono;
+            institutoSeleccionado.Direccion = direccion;
+            RefreshDataGrid(dataGridViewIns, _institutos);
         }
 
         private void btnInsBorrar_Click(object sender, EventArgs e)
@@ -138,7 +178,7 @@ namespace GestorEdu
         private void btnProNuevo_Click(object sender, EventArgs e)
         {
             string title = "Registro de proveedores";
-            string codigo = Interaction.InputBox("Ingrese Codigo:", title, "").Trim();
+            string codigo = Interaction.InputBox("Ingrese Código:", title, "").Trim();
             if (string.IsNullOrWhiteSpace(codigo))
             {
                 MessageBox.Show("El código no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -147,19 +187,19 @@ namespace GestorEdu
             bool noEsCodigoUnico = _proveedores.Any(i => i.Codigo.ToLower() == codigo.ToLower());
             if (noEsCodigoUnico)
             {
-                MessageBox.Show($"Error: El código de instituto ingresado [{codigo}] ya existe.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error: El Código de instituto ingresado [{codigo}] ya existe.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            string nombre = Interaction.InputBox("Ingrese Nombre:", title, "").Trim();
+            string nombre = Interaction.InputBox("Ingrese Nombre o Razón Social:", title, "").Trim();
             if (string.IsNullOrWhiteSpace(nombre))
             {
-                MessageBox.Show("El nombre no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El Nombre no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             string telefono = Interaction.InputBox("Ingrese Teléfono:", title, "").Trim();
             if (string.IsNullOrWhiteSpace(telefono))
             {
-                MessageBox.Show("El teléfono no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El Teléfono no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -171,7 +211,46 @@ namespace GestorEdu
 
         private void btnProModificar_Click(object sender, EventArgs e)
         {
+            if (dataGridViewPro.CurrentRow == null || dataGridViewPro.SelectedRows.Count == 0 || dataGridViewPro.Rows.Count == 0 || dataGridViewPro.CurrentRow.Index < 0)
+                return;
 
+            var fila = dataGridViewPro.SelectedRows[0];
+            Proveedor? proveedorSeleccionado = fila.DataBoundItem as Proveedor;
+            string title = "Modificación de proveedores";
+            if (proveedorSeleccionado == null)
+            {
+                MessageBox.Show("Ocurrió un error al modificar el proveedor seleccionado.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            string codigo = Interaction.InputBox("Ingrese Código:", title, proveedorSeleccionado.Codigo).Trim();
+            if (string.IsNullOrWhiteSpace(codigo))
+            {
+                MessageBox.Show("El Código no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            bool noEsCodigoUnico = _institutos.Any(i => i.Codigo.ToLower() == codigo.ToLower());
+            if (noEsCodigoUnico)
+            {
+                MessageBox.Show($"Error: El código de instituto ingresado [{codigo}] ya existe.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            string nombre = Interaction.InputBox("Ingrese Nombre o Razón Social:", title, proveedorSeleccionado.NombreORazonSocial).Trim();
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                MessageBox.Show("El Nombre o Razón Social no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string telefono = Interaction.InputBox("Ingrese Teléfono:", title, proveedorSeleccionado.Telefono).Trim();
+            if (string.IsNullOrWhiteSpace(telefono))
+            {
+                MessageBox.Show("El Teléfono no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            proveedorSeleccionado.Codigo = codigo;
+            proveedorSeleccionado.NombreORazonSocial = nombre;
+            proveedorSeleccionado.Telefono = telefono;
+            RefreshDataGrid(dataGridViewPro, _proveedores);
         }
 
         private void btnProBorrar_Click(object sender, EventArgs e)
