@@ -87,11 +87,35 @@ namespace GestorEdu
         {
             string title = "Registro de institutos";
             string codigo = Interaction.InputBox("Ingrese Codigo:", title, "").Trim();
+            if (string.IsNullOrWhiteSpace(codigo))
+            {
+                MessageBox.Show("El código no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            bool noEsCodigoUnico = _institutos.Any(i => i.Codigo.ToLower() == codigo.ToLower());
+            if (noEsCodigoUnico)
+            {
+                MessageBox.Show($"Error: El código de instituto ingresado [{codigo}] ya existe.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             string nombre = Interaction.InputBox("Ingrese Nombre:", title, "").Trim();
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                MessageBox.Show("El nombre no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             string telefono = Interaction.InputBox("Ingrese Teléfono:", title, "").Trim();
-            string direccion = Interaction.InputBox("Ingrese Direccion:", title, "").Trim();
-
-            // TODO: Validaciones
+            if (string.IsNullOrWhiteSpace(telefono))
+            {
+                MessageBox.Show("El teléfono no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string direccion = Interaction.InputBox("Ingrese Dirección:", title, "").Trim();
+            if (string.IsNullOrWhiteSpace(codigo))
+            {
+                MessageBox.Show("La dirección no puede estar vacía.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             var nuevoInstituto = new Instituto(codigo, nombre, telefono, direccion);
 
@@ -115,10 +139,29 @@ namespace GestorEdu
         {
             string title = "Registro de proveedores";
             string codigo = Interaction.InputBox("Ingrese Codigo:", title, "").Trim();
+            if (string.IsNullOrWhiteSpace(codigo))
+            {
+                MessageBox.Show("El código no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            bool noEsCodigoUnico = _proveedores.Any(i => i.Codigo.ToLower() == codigo.ToLower());
+            if (noEsCodigoUnico)
+            {
+                MessageBox.Show($"Error: El código de instituto ingresado [{codigo}] ya existe.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             string nombre = Interaction.InputBox("Ingrese Nombre:", title, "").Trim();
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                MessageBox.Show("El nombre no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             string telefono = Interaction.InputBox("Ingrese Teléfono:", title, "").Trim();
-
-            // TODO: Validaciones
+            if (string.IsNullOrWhiteSpace(telefono))
+            {
+                MessageBox.Show("El teléfono no puede estar vacío.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             var nuevoProveedor = new Proveedor(codigo, nombre, telefono);
 
