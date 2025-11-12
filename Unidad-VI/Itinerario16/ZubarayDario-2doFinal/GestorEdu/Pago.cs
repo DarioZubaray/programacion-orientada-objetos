@@ -20,7 +20,7 @@
 
     public enum EstadoPago
     {
-        Cancelado = 0,
-        No_Cancelado = 1
+        No_Cancelado = 0,
+        Cancelado = 1,
     }
 }

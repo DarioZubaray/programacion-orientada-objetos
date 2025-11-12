@@ -37,7 +37,7 @@
             btnInsNuevo = new Button();
             btnInsProAsignarPrestador = new Button();
             groupBox2 = new GroupBox();
-            lblInstitutosContratantes = new Label();
+            lblInstitutosAsociados = new Label();
             dgvInstitutosAsociados = new DataGridView();
             dgvProveedores = new DataGridView();
             btnProBorrar = new Button();
@@ -92,25 +92,25 @@
             lblProveedoresAsociados.TabIndex = 5;
             lblProveedoresAsociados.Text = "Prestadores que trabajan con el instituto: ";
             // 
-            // dataGridViewPrestadoresInstituto
+            // dgvProveedoresAsociados
             // 
             dgvProveedoresAsociados.AllowUserToAddRows = false;
             dgvProveedoresAsociados.AllowUserToDeleteRows = false;
             dgvProveedoresAsociados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvProveedoresAsociados.Location = new Point(4, 416);
-            dgvProveedoresAsociados.Name = "dataGridViewPrestadoresInstituto";
+            dgvProveedoresAsociados.Name = "dgvProveedoresAsociados";
             dgvProveedoresAsociados.ReadOnly = true;
             dgvProveedoresAsociados.RowHeadersWidth = 51;
             dgvProveedoresAsociados.Size = new Size(590, 323);
             dgvProveedoresAsociados.TabIndex = 4;
             // 
-            // dataGridViewIns
+            // dgvInstitutos
             // 
             dgvInstitutos.AllowUserToAddRows = false;
             dgvInstitutos.AllowUserToDeleteRows = false;
             dgvInstitutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvInstitutos.Location = new Point(6, 67);
-            dgvInstitutos.Name = "dataGridViewIns";
+            dgvInstitutos.Name = "dgvInstitutos";
             dgvInstitutos.ReadOnly = true;
             dgvInstitutos.RowHeadersWidth = 51;
             dgvInstitutos.Size = new Size(588, 287);
@@ -162,7 +162,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(lblInstitutosContratantes);
+            groupBox2.Controls.Add(lblInstitutosAsociados);
             groupBox2.Controls.Add(dgvInstitutosAsociados);
             groupBox2.Controls.Add(dgvProveedores);
             groupBox2.Controls.Add(btnProBorrar);
@@ -175,35 +175,35 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Proveedores";
             // 
-            // lblInstitutosContratantes
+            // lblInstitutosAsociados
             // 
-            lblInstitutosContratantes.AutoSize = true;
-            lblInstitutosContratantes.Font = new Font("Segoe UI", 10F);
-            lblInstitutosContratantes.Location = new Point(6, 375);
-            lblInstitutosContratantes.Name = "lblInstitutosContratantes";
-            lblInstitutosContratantes.Size = new Size(299, 23);
-            lblInstitutosContratantes.TabIndex = 6;
-            lblInstitutosContratantes.Text = "Institutos que contratan al prestador: ";
+            lblInstitutosAsociados.AutoSize = true;
+            lblInstitutosAsociados.Font = new Font("Segoe UI", 10F);
+            lblInstitutosAsociados.Location = new Point(6, 375);
+            lblInstitutosAsociados.Name = "lblInstitutosAsociados";
+            lblInstitutosAsociados.Size = new Size(299, 23);
+            lblInstitutosAsociados.TabIndex = 6;
+            lblInstitutosAsociados.Text = "Institutos que contratan al prestador: ";
             // 
-            // dataGridViewInstitutoProveedores
+            // dgvInstitutosAsociados
             // 
             dgvInstitutosAsociados.AllowUserToAddRows = false;
             dgvInstitutosAsociados.AllowUserToDeleteRows = false;
             dgvInstitutosAsociados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvInstitutosAsociados.Location = new Point(6, 416);
-            dgvInstitutosAsociados.Name = "dataGridViewInstitutoProveedores";
+            dgvInstitutosAsociados.Name = "dgvInstitutosAsociados";
             dgvInstitutosAsociados.ReadOnly = true;
             dgvInstitutosAsociados.RowHeadersWidth = 51;
             dgvInstitutosAsociados.Size = new Size(588, 323);
             dgvInstitutosAsociados.TabIndex = 4;
             // 
-            // dataGridViewPro
+            // dgvProveedores
             // 
             dgvProveedores.AllowUserToAddRows = false;
             dgvProveedores.AllowUserToDeleteRows = false;
             dgvProveedores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvProveedores.Location = new Point(6, 67);
-            dgvProveedores.Name = "dataGridViewPro";
+            dgvProveedores.Name = "dgvProveedores";
             dgvProveedores.ReadOnly = true;
             dgvProveedores.RowHeadersWidth = 51;
             dgvProveedores.Size = new Size(588, 287);
@@ -322,25 +322,25 @@
             lblPagosInstitutoProveedor.TabIndex = 7;
             lblPagosInstitutoProveedor.Text = "Pagos del instituto y prestador";
             // 
-            // dataGridViewPagos
+            // dgvPagos
             // 
             dgvPagos.AllowUserToAddRows = false;
             dgvPagos.AllowUserToDeleteRows = false;
             dgvPagos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPagos.Location = new Point(6, 416);
-            dgvPagos.Name = "dataGridViewPagos";
+            dgvPagos.Name = "dgvPagos";
             dgvPagos.ReadOnly = true;
             dgvPagos.RowHeadersWidth = 51;
             dgvPagos.Size = new Size(588, 323);
             dgvPagos.TabIndex = 1;
             // 
-            // dataGridViewPagosInsPro
+            // dgvPagosInstitutosProveedores
             // 
             dgvPagosInstitutosProveedores.AllowUserToAddRows = false;
             dgvPagosInstitutosProveedores.AllowUserToDeleteRows = false;
             dgvPagosInstitutosProveedores.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvPagosInstitutosProveedores.Location = new Point(6, 67);
-            dgvPagosInstitutosProveedores.Name = "dataGridViewPagosInsPro";
+            dgvPagosInstitutosProveedores.Name = "dgvPagosInstitutosProveedores";
             dgvPagosInstitutosProveedores.ReadOnly = true;
             dgvPagosInstitutosProveedores.RowHeadersWidth = 51;
             dgvPagosInstitutosProveedores.Size = new Size(588, 287);
@@ -423,7 +423,7 @@
         private DataGridView dgvProveedoresAsociados;
         private DataGridView dgvInstitutosAsociados;
         private Label lblProveedoresAsociados;
-        private Label lblInstitutosContratantes;
+        private Label lblInstitutosAsociados;
         private GroupBox groupBox3;
         private DataGridView dgvPagos;
         private DataGridView dgvPagosInstitutosProveedores;

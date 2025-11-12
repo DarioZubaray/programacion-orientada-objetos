@@ -1,9 +1,12 @@
 using Microsoft.VisualBasic;
+using System.Globalization;
 
 namespace GestorEdu
 {
     public partial class Form1 : Form
     {
+        private Instituto _institutoSeleccionado;
+        private Proveedor _proveedorSeleccionado;
         private List<Instituto> _institutos;
         private List<Proveedor> _proveedores;
         private BindingSource _bsInstitutos;
@@ -47,36 +50,48 @@ namespace GestorEdu
             dgv.DataSource = datasource;
         }
 
-        private void RefreshDetailDataGrids(Instituto instituto, Proveedor proveedor)
+        private void RefreshDetailDataGrids(Instituto pInstituto, Proveedor pProveedor)
         {
-            RefreshDataGrid(dgvProveedoresAsociados, instituto.Proveedores);
+            RefreshDataGrid(dgvProveedoresAsociados, pInstituto.Proveedores);
             RefreshDataGrid(dgvInstitutosAsociados,
                 _institutos.Where(ins =>
                     ins.Proveedores.Any(p =>
-                        p.Codigo.Equals(proveedor.Codigo, StringComparison.OrdinalIgnoreCase)
+                        p.Codigo.Equals(pProveedor.Codigo, StringComparison.OrdinalIgnoreCase)
                     )
                 ).ToList());
         }
 
-        private void RefreshPagosDataGrid(Instituto instituto, Proveedor proveedor)
+        private void RefreshDataGridInstitutosProveedoresPagos()
         {
             RefreshDataGrid(dgvPagosInstitutosProveedores,
-                _institutos.Where(i => i.Codigo == instituto.Codigo)
-                            .SelectMany(i => i.Pagos)
-                            .Where(p => p.Proveedor.Codigo == proveedor.Codigo)
-                            .OrderBy(p => p.FechaPago)
-                            .Select(x => new
-                            {
-                                Instituto = x.Instituto.Nombre,
-                                Proveedor = x.Proveedor.NombreORazonSocial,
-                                Importe = x.Importe,
-                                Fecha = x.FechaPago
-                            })
-                            .ToList());
+                _institutos.Where(i => i.Codigo == _institutoSeleccionado.Codigo)
+                    .SelectMany(i => i.Pagos)
+                    .Where(p => p.Proveedor.Codigo == _proveedorSeleccionado.Codigo)
+                    .OrderBy(p => p.FechaPago)
+                    .Select(x => new
+                    {
+                        Instituto = x.Instituto.Nombre,
+                        Proveedor = x.Proveedor.NombreORazonSocial,
+                        Importe = x.Importe,
+                        Fecha = x.FechaVencimiento
+                    })
+                    .ToList());
+        }
 
+        private void RefreshPagosDataGrid()
+        {
             RefreshDataGrid(dgvPagos,
                 _institutos.SelectMany(i => i.Pagos)
                             .OrderBy(p => p.Instituto.Codigo)
+                            .Select(x => new
+                            {
+                                CodigoInstituto = x.Instituto.Codigo,
+                                NombreInstituto = x.Instituto.Nombre,
+                                NombrePrestador = x.Proveedor.NombreORazonSocial,
+                                Importe = x.Importe,
+                                Estado = x.Estado,
+                                FechaVencimiento = x.FechaVencimiento
+                            })
                             .ToList());
         }
         #endregion
@@ -88,17 +103,25 @@ namespace GestorEdu
                 return;
 
             var fila = dgvInstitutos.SelectedRows[0];
-            var institutoSeleccionado = fila.DataBoundItem as Instituto;
-            txtInsSeleccionado.Text = institutoSeleccionado?.Nombre;
+            _institutoSeleccionado = fila.DataBoundItem as Instituto;
+            if(_institutoSeleccionado == null)
+            {
+                return; // TODO informar error?
+            }
+
+            txtInsSeleccionado.Text = _institutoSeleccionado?.Nombre;
 
             btnInsModificar.Enabled = true;
             btnInsBorrar.Enabled = true;
 
-            RefreshDataGrid(dgvProveedoresAsociados, institutoSeleccionado.Proveedores);
+            RefreshDataGrid(dgvProveedoresAsociados, _institutoSeleccionado.Proveedores);
+            RefreshDataGridInstitutosProveedoresPagos();
 
-            btnInsProAsignarPrestador.Enabled = (dgvProveedores.DataSource != null && dgvProveedores.Rows.Count > 0);
-            btnInsProGenerarPago.Enabled = (dgvInstitutosAsociados.DataSource != null && dgvInstitutosAsociados.Rows.Count > 0) &&
-                                            (dgvProveedoresAsociados.DataSource != null && dgvProveedoresAsociados.Rows.Count > 0);
+            if(_proveedorSeleccionado != null)
+            {
+                btnInsProAsignarPrestador.Enabled = _institutoSeleccionado.Proveedores.Any(pro => pro.Codigo.Equals(_proveedorSeleccionado.Codigo));
+                btnInsProGenerarPago.Enabled = _institutoSeleccionado.Pagos.Any(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo));
+            }
         }
 
         private void dataGridViewPro_SelectionChanged(object sender, EventArgs e)
@@ -110,19 +133,27 @@ namespace GestorEdu
             btnProBorrar.Enabled = true;
 
             var fila = dgvProveedores.SelectedRows[0];
-            var proveedorSeleccionado = fila.DataBoundItem as Proveedor;
-            txtProSeleccionado.Text = proveedorSeleccionado?.NombreORazonSocial;
+            _proveedorSeleccionado = fila.DataBoundItem as Proveedor;
+            if(_proveedorSeleccionado == null)
+            {
+                return; // TODO informar error?
+            }
+
+            txtProSeleccionado.Text = _proveedorSeleccionado.NombreORazonSocial;
 
             RefreshDataGrid(dgvInstitutosAsociados,
                 _institutos.Where(ins =>
                     ins.Proveedores.Any(p =>
-                        p.Codigo.Equals(proveedorSeleccionado.Codigo, StringComparison.OrdinalIgnoreCase)
+                        p.Codigo.Equals(_proveedorSeleccionado.Codigo, StringComparison.OrdinalIgnoreCase)
                     )
                 ).ToList());
+            RefreshDataGridInstitutosProveedoresPagos();
 
-            btnInsProAsignarPrestador.Enabled = (dgvInstitutos.DataSource != null && dgvInstitutos.Rows.Count > 0);
-            btnInsProGenerarPago.Enabled = (dgvInstitutosAsociados.DataSource != null && dgvInstitutosAsociados.Rows.Count > 0) &&
-                                            (dgvProveedoresAsociados.DataSource != null && dgvProveedoresAsociados.Rows.Count > 0);
+            if (_institutoSeleccionado != null)
+            {
+                btnInsProAsignarPrestador.Enabled = _institutoSeleccionado.Proveedores.Any(pro => pro.Codigo.Equals(_proveedorSeleccionado.Codigo));
+                btnInsProGenerarPago.Enabled = _institutoSeleccionado.Pagos.Any(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo));
+            }
         }
         #endregion
 
@@ -231,7 +262,14 @@ namespace GestorEdu
                 MessageBox.Show("Ocurrió un error al intentar borrar el instituto seleccionado.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            // TODO validar que NO posea pagos pendientes a sus prestadores
+            // validar que NO posea pagos pendientes a sus prestadores
+            var conPagos = _institutos.Where(ins => ins.Pagos.Any(p => p.Estado == EstadoPago.No_Cancelado)).ToList();
+            if (conPagos.Count > 0)
+            {
+                MessageBox.Show($"No es posible borrar el instituto {institutoSeleccionado} seleccionado, ya que posee pagos pendientes.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             var result = MessageBox.Show($"Seguro que quiere borrar al instituto '{institutoSeleccionado}'", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result.Equals(DialogResult.Yes))
             {
@@ -400,6 +438,9 @@ namespace GestorEdu
 
             // refrescar grillas 3 y 4
             RefreshDetailDataGrids(institutoSeleccionado, proveedorSeleccionado);
+
+            // Activar como verdaro el boton de generar pago
+            btnInsProGenerarPago.Enabled = true;
         }
 
         private void btnInsProGenerarPago_Click(object sender, EventArgs e)
@@ -421,9 +462,35 @@ namespace GestorEdu
             var filaProveedor = dgvProveedores.SelectedRows[0];
             Proveedor? proveedorSeleccionado = filaProveedor.DataBoundItem as Proveedor;
 
-            //TODO ingresar los datos de pago
-            institutoSeleccionado.RegistrarPago(proveedorSeleccionado, 1m, DateTime.Parse("25/12/2025 10:30:00 AM"));
-            RefreshPagosDataGrid(institutoSeleccionado, proveedorSeleccionado);
+            // ingresar los datos de pago
+            string title = "Registro de Pagos";
+            string importe = Interaction.InputBox("Ingrese importe:", title, "").Trim().Replace('.', ',');
+            if (!decimal.TryParse(importe, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal valor))
+            {
+                MessageBox.Show($"El Número [{valor}] ingresado no es válido.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            string fechaVencimiento = Interaction.InputBox("Ingrese la fecha de vencimiento:", title, "").Trim().Replace('.', ',');
+            DateTime fecha;
+            if (!DateTime.TryParseExact(fechaVencimiento,
+                "dd/MM/yyyy",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out fecha))
+            {
+                MessageBox.Show($"La Fecha [{fechaVencimiento}] ingresada no es válida.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            // Validar que sea mayor al día de hoy
+            if (fecha <= DateTime.Today)
+            {
+                MessageBox.Show("La fecha de vencimiento debe ser posterior al día de hoy.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            institutoSeleccionado.RegistrarPago(proveedorSeleccionado, decimal.Parse(importe), fecha);
+            RefreshDataGridInstitutosProveedoresPagos();
+            RefreshPagosDataGrid();
         }
 
         private void btnPagar_Click(object sender, EventArgs e)

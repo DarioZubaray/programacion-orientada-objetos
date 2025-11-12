@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GestorEdu
 {
@@ -51,7 +50,7 @@ namespace GestorEdu
                 CodigoPago = Guid.NewGuid(),
                 FechaVencimiento = pFechaVencimiento,
                 Importe = pImporte,
-                Estado = EstadoPago.Cancelado,
+                Estado = EstadoPago.No_Cancelado,
                 FechaPago = null,
                 Instituto = this,
                 Proveedor = pProveedor,
