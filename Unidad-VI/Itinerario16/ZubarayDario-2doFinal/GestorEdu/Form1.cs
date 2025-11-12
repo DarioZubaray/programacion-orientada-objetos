@@ -8,9 +8,8 @@ namespace GestorEdu
         private List<Proveedor> _proveedores;
         private BindingSource _bsInstitutos;
         private BindingSource _bsProveedores;
-        private bool hayInstitutoSeleccionado = false;
-        private bool hayProveedorSeleccionado = false;
 
+        #region Inializacion
         public Form1()
         {
             InitializeComponent();
@@ -19,22 +18,29 @@ namespace GestorEdu
             _bsInstitutos = new BindingSource();
             _bsInstitutos = new BindingSource();
         }
+        private void ApplyDefaultGridConfiguration(DataGridView dgv)
+        {
+            dgv.MultiSelect = false;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.AllowUserToOrderColumns = true;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
-            dataGridViewIns.MultiSelect = false;
-            dataGridViewIns.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewIns.AllowUserToOrderColumns = true;
-
-            dataGridViewPro.MultiSelect = false;
-            dataGridViewPro.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewPro.AllowUserToOrderColumns = true;
+            ApplyDefaultGridConfiguration(dgvInstitutos);
+            ApplyDefaultGridConfiguration(dgvProveedores);
+            ApplyDefaultGridConfiguration(dgvProveedoresAsociados);
+            ApplyDefaultGridConfiguration(dgvInstitutosAsociados);
+            ApplyDefaultGridConfiguration(dgvPagosInstitutosProveedores);
+            ApplyDefaultGridConfiguration(dgvPagos);
 
             _bsInstitutos.DataSource = _institutos;
             _bsInstitutos.DataSource = _proveedores;
-            dataGridViewIns.DataSource = _bsInstitutos;
-            dataGridViewPro.DataSource = _bsProveedores;
+            dgvInstitutos.DataSource = _bsInstitutos;
+            dgvProveedores.DataSource = _bsProveedores;
         }
+        #endregion
 
+        #region RefresDataGrid
         private void RefreshDataGrid(DataGridView dgv, object datasource)
         {
             dgv.DataSource = null;
@@ -43,8 +49,8 @@ namespace GestorEdu
 
         private void RefreshDetailDataGrids(Instituto instituto, Proveedor proveedor)
         {
-            RefreshDataGrid(dataGridViewPrestadoresInstituto, instituto.Proveedores);
-            RefreshDataGrid(dataGridViewInstitutoProveedores,
+            RefreshDataGrid(dgvProveedoresAsociados, instituto.Proveedores);
+            RefreshDataGrid(dgvInstitutosAsociados,
                 _institutos.Where(ins =>
                     ins.Proveedores.Any(p =>
                         p.Codigo.Equals(proveedor.Codigo, StringComparison.OrdinalIgnoreCase)
@@ -52,49 +58,73 @@ namespace GestorEdu
                 ).ToList());
         }
 
+        private void RefreshPagosDataGrid(Instituto instituto, Proveedor proveedor)
+        {
+            RefreshDataGrid(dgvPagosInstitutosProveedores,
+                _institutos.Where(i => i.Codigo == instituto.Codigo)
+                            .SelectMany(i => i.Pagos)
+                            .Where(p => p.Proveedor.Codigo == proveedor.Codigo)
+                            .OrderBy(p => p.FechaPago)
+                            .Select(x => new
+                            {
+                                Instituto = x.Instituto.Nombre,
+                                Proveedor = x.Proveedor.NombreORazonSocial,
+                                Importe = x.Importe,
+                                Fecha = x.FechaPago
+                            })
+                            .ToList());
+
+            RefreshDataGrid(dgvPagos,
+                _institutos.SelectMany(i => i.Pagos)
+                            .OrderBy(p => p.Instituto.Codigo)
+                            .ToList());
+        }
+        #endregion
+
+        #region SelectionChanged
         private void dataGridViewIns_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewIns.CurrentRow == null || dataGridViewIns.CurrentRow.Index < 0 || dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.Rows.Count == 0)
+            if (dgvInstitutos.CurrentRow == null || dgvInstitutos.CurrentRow.Index < 0 || dgvInstitutos.SelectedRows.Count == 0 || dgvInstitutos.Rows.Count == 0)
                 return;
 
-            var fila = dataGridViewIns.SelectedRows[0];
+            var fila = dgvInstitutos.SelectedRows[0];
             var institutoSeleccionado = fila.DataBoundItem as Instituto;
             txtInsSeleccionado.Text = institutoSeleccionado?.Nombre;
 
             btnInsModificar.Enabled = true;
             btnInsBorrar.Enabled = true;
-            hayInstitutoSeleccionado = true;
 
-            btnInsProAsignarPrestador.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
-            btnInsProGenerarPago.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
+            RefreshDataGrid(dgvProveedoresAsociados, institutoSeleccionado.Proveedores);
 
-            RefreshDataGrid(dataGridViewPrestadoresInstituto, institutoSeleccionado.Proveedores);
+            btnInsProAsignarPrestador.Enabled = (dgvProveedores.DataSource != null && dgvProveedores.Rows.Count > 0);
+            btnInsProGenerarPago.Enabled = (dgvInstitutosAsociados.DataSource != null && dgvInstitutosAsociados.Rows.Count > 0) &&
+                                            (dgvProveedoresAsociados.DataSource != null && dgvProveedoresAsociados.Rows.Count > 0);
         }
 
         private void dataGridViewPro_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridViewPro.CurrentRow == null || dataGridViewPro.CurrentRow.Index < 0 || dataGridViewPro.SelectedRows.Count == 0 || dataGridViewPro.Rows.Count == 0)
+            if (dgvProveedores.CurrentRow == null || dgvProveedores.CurrentRow.Index < 0 || dgvProveedores.SelectedRows.Count == 0 || dgvProveedores.Rows.Count == 0)
                 return;
 
             btnProModificar.Enabled = true;
             btnProBorrar.Enabled = true;
-            hayProveedorSeleccionado = true;
 
-            var fila = dataGridViewPro.SelectedRows[0];
+            var fila = dgvProveedores.SelectedRows[0];
             var proveedorSeleccionado = fila.DataBoundItem as Proveedor;
             txtProSeleccionado.Text = proveedorSeleccionado?.NombreORazonSocial;
 
-            btnInsProAsignarPrestador.Enabled = hayInstitutoSeleccionado && true;
-            btnInsProGenerarPago.Enabled = hayInstitutoSeleccionado && true;
-
-            RefreshDataGrid(dataGridViewInstitutoProveedores,
+            RefreshDataGrid(dgvInstitutosAsociados,
                 _institutos.Where(ins =>
                     ins.Proveedores.Any(p =>
                         p.Codigo.Equals(proveedorSeleccionado.Codigo, StringComparison.OrdinalIgnoreCase)
                     )
                 ).ToList());
-        }
 
+            btnInsProAsignarPrestador.Enabled = (dgvInstitutos.DataSource != null && dgvInstitutos.Rows.Count > 0);
+            btnInsProGenerarPago.Enabled = (dgvInstitutosAsociados.DataSource != null && dgvInstitutosAsociados.Rows.Count > 0) &&
+                                            (dgvProveedoresAsociados.DataSource != null && dgvProveedoresAsociados.Rows.Count > 0);
+        }
+        #endregion
 
         #region Botones Instituto
         private void btnInsNuevo_Click(object sender, EventArgs e)
@@ -134,15 +164,15 @@ namespace GestorEdu
             var nuevoInstituto = new Instituto(codigo, nombre, telefono, direccion);
 
             _institutos.Add(nuevoInstituto);
-            RefreshDataGrid(dataGridViewIns, _institutos);
+            RefreshDataGrid(dgvInstitutos, _institutos);
         }
 
         private void btnInsModificar_Click(object sender, EventArgs e)
         {
-            if (dataGridViewIns.CurrentRow == null || dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.Rows.Count == 0 || dataGridViewIns.CurrentRow.Index < 0)
+            if (dgvInstitutos.CurrentRow == null || dgvInstitutos.SelectedRows.Count == 0 || dgvInstitutos.Rows.Count == 0 || dgvInstitutos.CurrentRow.Index < 0)
                 return;
 
-            var fila = dataGridViewIns.SelectedRows[0];
+            var fila = dgvInstitutos.SelectedRows[0];
             Instituto? institutoSeleccionado = fila.DataBoundItem as Instituto;
             string title = "Modificación de institutos";
             if (institutoSeleccionado == null)
@@ -185,15 +215,15 @@ namespace GestorEdu
             institutoSeleccionado.Nombre = nombre;
             institutoSeleccionado.Telefono = telefono;
             institutoSeleccionado.Direccion = direccion;
-            RefreshDataGrid(dataGridViewIns, _institutos);
+            RefreshDataGrid(dgvInstitutos, _institutos);
         }
 
         private void btnInsBorrar_Click(object sender, EventArgs e)
         {
-            if (dataGridViewIns.CurrentRow == null || dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.Rows.Count == 0 || dataGridViewIns.CurrentRow.Index < 0)
+            if (dgvInstitutos.CurrentRow == null || dgvInstitutos.SelectedRows.Count == 0 || dgvInstitutos.Rows.Count == 0 || dgvInstitutos.CurrentRow.Index < 0)
                 return;
 
-            var fila = dataGridViewIns.SelectedRows[0];
+            var fila = dgvInstitutos.SelectedRows[0];
             Instituto? institutoSeleccionado = fila.DataBoundItem as Instituto;
             string title = "Eliminación de institutos";
             if (institutoSeleccionado == null)
@@ -206,16 +236,14 @@ namespace GestorEdu
             if (result.Equals(DialogResult.Yes))
             {
                 _institutos.Remove(institutoSeleccionado);
-                RefreshDataGrid(dataGridViewIns, _institutos);
-                if (dataGridViewIns.Rows.Count == 0)
+                RefreshDataGrid(dgvInstitutos, _institutos);
+                if (dgvInstitutos.Rows.Count == 0)
                 {
                     txtInsSeleccionado.Text = "";
                     btnInsModificar.Enabled = false;
                     btnInsBorrar.Enabled = false;
-                    hayInstitutoSeleccionado = false;
-
-                    btnInsProAsignarPrestador.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
-                    btnInsProGenerarPago.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
+                    btnInsProAsignarPrestador.Enabled = false;
+                    btnInsProGenerarPago.Enabled = false;
                     return;
                 }
             }
@@ -254,15 +282,15 @@ namespace GestorEdu
             var nuevoProveedor = new Proveedor(codigo, nombre, telefono);
 
             _proveedores.Add(nuevoProveedor);
-            RefreshDataGrid(dataGridViewPro, _proveedores);
+            RefreshDataGrid(dgvProveedores, _proveedores);
         }
 
         private void btnProModificar_Click(object sender, EventArgs e)
         {
-            if (dataGridViewPro.CurrentRow == null || dataGridViewPro.SelectedRows.Count == 0 || dataGridViewPro.Rows.Count == 0 || dataGridViewPro.CurrentRow.Index < 0)
+            if (dgvProveedores.CurrentRow == null || dgvProveedores.SelectedRows.Count == 0 || dgvProveedores.Rows.Count == 0 || dgvProveedores.CurrentRow.Index < 0)
                 return;
 
-            var fila = dataGridViewPro.SelectedRows[0];
+            var fila = dgvProveedores.SelectedRows[0];
             Proveedor? proveedorSeleccionado = fila.DataBoundItem as Proveedor;
             string title = "Modificación de proveedores";
             if (proveedorSeleccionado == null)
@@ -298,15 +326,15 @@ namespace GestorEdu
             proveedorSeleccionado.Codigo = codigo;
             proveedorSeleccionado.NombreORazonSocial = nombre;
             proveedorSeleccionado.Telefono = telefono;
-            RefreshDataGrid(dataGridViewPro, _proveedores);
+            RefreshDataGrid(dgvProveedores, _proveedores);
         }
 
         private void btnProBorrar_Click(object sender, EventArgs e)
         {
-            if (dataGridViewPro.CurrentRow == null || dataGridViewPro.SelectedRows.Count == 0 || dataGridViewPro.Rows.Count == 0 || dataGridViewPro.CurrentRow.Index < 0)
+            if (dgvProveedores.CurrentRow == null || dgvProveedores.SelectedRows.Count == 0 || dgvProveedores.Rows.Count == 0 || dgvProveedores.CurrentRow.Index < 0)
                 return;
 
-            var fila = dataGridViewPro.SelectedRows[0];
+            var fila = dgvProveedores.SelectedRows[0];
             Proveedor? proveedorSeleccionado = fila.DataBoundItem as Proveedor;
             string title = "Eliminación de proveedores";
             if (proveedorSeleccionado == null)
@@ -315,44 +343,48 @@ namespace GestorEdu
                 return;
             }
 
-            // TODO validar que NO tenga institutos asignados.
+            // Validar que NO tenga institutos asignados
+            if (proveedorSeleccionado.Institutos.Count > 0)
+            {
+                MessageBox.Show($"El Proveedor '{proveedorSeleccionado}' no puede ser eliminado ya que cuenta con Institutos asociados.", title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             var result = MessageBox.Show($"Seguro que quiere borrar al proveedor '{proveedorSeleccionado}'", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result.Equals(DialogResult.Yes))
             {
                 _proveedores.Remove(proveedorSeleccionado);
-                RefreshDataGrid(dataGridViewPro, _proveedores);
-                if (dataGridViewPro.Rows.Count == 0)
+                RefreshDataGrid(dgvProveedores, _proveedores);
+                if (dgvProveedores.Rows.Count == 0)
                 {
                     txtProSeleccionado.Text = "";
                     btnProModificar.Enabled = false;
                     btnProBorrar.Enabled = false;
-                    hayProveedorSeleccionado = false;
-
-                    btnInsProAsignarPrestador.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
-                    btnInsProGenerarPago.Enabled = hayInstitutoSeleccionado && hayProveedorSeleccionado;
+                    btnInsProAsignarPrestador.Enabled = false;
+                    btnInsProGenerarPago.Enabled = false;
                 }
             }
         }
         #endregion
 
+        #region Asignacion
         private void btnInsProAsignarPrestador_Click(object sender, EventArgs e)
         {
-            if (dataGridViewIns.CurrentRow == null || dataGridViewIns.SelectedRows.Count == 0 || dataGridViewIns.Rows.Count == 0 || dataGridViewIns.CurrentRow.Index < 0)
+            if (dgvInstitutos.CurrentRow == null || dgvInstitutos.SelectedRows.Count == 0 || dgvInstitutos.Rows.Count == 0 || dgvInstitutos.CurrentRow.Index < 0)
             {
                 MessageBox.Show($"Ocurrió un error en la grilla de institutos al momento de la asignación.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            if (dataGridViewPro.CurrentRow == null || dataGridViewPro.SelectedRows.Count == 0 || dataGridViewPro.Rows.Count == 0 || dataGridViewPro.CurrentRow.Index < 0)
+            if (dgvProveedores.CurrentRow == null || dgvProveedores.SelectedRows.Count == 0 || dgvProveedores.Rows.Count == 0 || dgvProveedores.CurrentRow.Index < 0)
             {
                 MessageBox.Show($"Ocurrió un error en la grilla de proveedores al momento de la asignación.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             // tomar institutoSeleccionado y proveedorSeleccionado
-            var filaInstituto = dataGridViewIns.SelectedRows[0];
+            var filaInstituto = dgvInstitutos.SelectedRows[0];
             Instituto? institutoSeleccionado = filaInstituto.DataBoundItem as Instituto;
-            var filaProveedor = dataGridViewPro.SelectedRows[0];
+            var filaProveedor = dgvProveedores.SelectedRows[0];
             Proveedor? proveedorSeleccionado = filaProveedor.DataBoundItem as Proveedor;
 
             // Validar que NO se encuentre ya asignado
@@ -364,7 +396,7 @@ namespace GestorEdu
             }
 
             // asignar
-            institutoSeleccionado.Proveedores.Add(proveedorSeleccionado);
+            institutoSeleccionado.AsignarProveedor(proveedorSeleccionado);
 
             // refrescar grillas 3 y 4
             RefreshDetailDataGrids(institutoSeleccionado, proveedorSeleccionado);
@@ -372,7 +404,32 @@ namespace GestorEdu
 
         private void btnInsProGenerarPago_Click(object sender, EventArgs e)
         {
+            if (dgvInstitutos.CurrentRow == null || dgvInstitutos.SelectedRows.Count == 0 || dgvInstitutos.Rows.Count == 0 || dgvInstitutos.CurrentRow.Index < 0)
+            {
+                MessageBox.Show($"Ocurrió un error en la grilla de institutos al momento de la generación de un nuevo pago.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (dgvProveedores.CurrentRow == null || dgvProveedores.SelectedRows.Count == 0 || dgvProveedores.Rows.Count == 0 || dgvProveedores.CurrentRow.Index < 0)
+            {
+                MessageBox.Show($"Ocurrió un error en la grilla de proveedores al momento de la generación de un nuevo pago.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // tomar institutoSeleccionado y proveedorSeleccionado
+            var filaInstituto = dgvInstitutos.SelectedRows[0];
+            Instituto? institutoSeleccionado = filaInstituto.DataBoundItem as Instituto;
+            var filaProveedor = dgvProveedores.SelectedRows[0];
+            Proveedor? proveedorSeleccionado = filaProveedor.DataBoundItem as Proveedor;
+
+            //TODO ingresar los datos de pago
+            institutoSeleccionado.RegistrarPago(proveedorSeleccionado, 1m, DateTime.Parse("25/12/2025 10:30:00 AM"));
+            RefreshPagosDataGrid(institutoSeleccionado, proveedorSeleccionado);
+        }
+
+        private void btnPagar_Click(object sender, EventArgs e)
+        {
 
         }
+        #endregion
     }
 }
