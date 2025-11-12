@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            lblInstitutoSeleccionado1 = new Label();
             lblProveedoresAsociados = new Label();
             dgvProveedoresAsociados = new DataGridView();
             dgvInstitutos = new DataGridView();
@@ -37,6 +38,7 @@
             btnInsNuevo = new Button();
             btnInsProAsignarPrestador = new Button();
             groupBox2 = new GroupBox();
+            lblProveedorSeleccionado1 = new Label();
             lblInstitutosAsociados = new Label();
             dgvInstitutosAsociados = new DataGridView();
             dgvProveedores = new DataGridView();
@@ -69,6 +71,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(lblInstitutoSeleccionado1);
             groupBox1.Controls.Add(lblProveedoresAsociados);
             groupBox1.Controls.Add(dgvProveedoresAsociados);
             groupBox1.Controls.Add(dgvInstitutos);
@@ -81,6 +84,14 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Institutos";
+            // 
+            // lblInstitutoSeleccionado1
+            // 
+            lblInstitutoSeleccionado1.AutoSize = true;
+            lblInstitutoSeleccionado1.Location = new Point(330, 378);
+            lblInstitutoSeleccionado1.Name = "lblInstitutoSeleccionado1";
+            lblInstitutoSeleccionado1.Size = new Size(0, 20);
+            lblInstitutoSeleccionado1.TabIndex = 6;
             // 
             // lblProveedoresAsociados
             // 
@@ -162,6 +173,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(lblProveedorSeleccionado1);
             groupBox2.Controls.Add(lblInstitutosAsociados);
             groupBox2.Controls.Add(dgvInstitutosAsociados);
             groupBox2.Controls.Add(dgvProveedores);
@@ -174,6 +186,14 @@
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Proveedores";
+            // 
+            // lblProveedorSeleccionado1
+            // 
+            lblProveedorSeleccionado1.AutoSize = true;
+            lblProveedorSeleccionado1.Location = new Point(300, 378);
+            lblProveedorSeleccionado1.Name = "lblProveedorSeleccionado1";
+            lblProveedorSeleccionado1.Size = new Size(0, 20);
+            lblProveedorSeleccionado1.TabIndex = 7;
             // 
             // lblInstitutosAsociados
             // 
@@ -318,9 +338,9 @@
             lblPagosInstitutoProveedor.Font = new Font("Segoe UI", 10F);
             lblPagosInstitutoProveedor.Location = new Point(6, 31);
             lblPagosInstitutoProveedor.Name = "lblPagosInstitutoProveedor";
-            lblPagosInstitutoProveedor.Size = new Size(242, 23);
+            lblPagosInstitutoProveedor.Size = new Size(246, 23);
             lblPagosInstitutoProveedor.TabIndex = 7;
-            lblPagosInstitutoProveedor.Text = "Pagos del instituto y prestador";
+            lblPagosInstitutoProveedor.Text = "Pagos del instituto y prestador:";
             // 
             // dgvPagos
             // 
@@ -431,5 +451,7 @@
         private Label lblPagosInstitutoProveedor;
         private Label lblPagos;
         private Button btnPagar;
+        private Label lblInstitutoSeleccionado1;
+        private Label lblProveedorSeleccionado1;
     }
 }

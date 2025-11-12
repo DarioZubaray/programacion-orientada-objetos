@@ -16,6 +16,11 @@
 
         // Método abstracto para lógica específica futura (Polimorfismo)
         public abstract void ProcesarPago();
+
+        public virtual bool ValidarFechaVencida()
+        {
+            return FechaVencimiento <= DateTime.Today;
+        }
     }
 
     public enum EstadoPago

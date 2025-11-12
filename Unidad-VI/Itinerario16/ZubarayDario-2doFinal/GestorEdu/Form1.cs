@@ -106,10 +106,18 @@ namespace GestorEdu
             _institutoSeleccionado = fila.DataBoundItem as Instituto;
             if(_institutoSeleccionado == null)
             {
+                btnInsModificar.Enabled = false;
+                btnInsBorrar.Enabled = false;
+                btnInsProAsignarPrestador.Enabled = false;
+                btnInsProGenerarPago.Enabled = false;
+                btnPagar.Enabled = false;
                 return; // TODO informar error?
             }
 
-            txtInsSeleccionado.Text = _institutoSeleccionado?.Nombre;
+            lblInstitutoSeleccionado1.Text = _institutoSeleccionado.Nombre;
+            txtInsSeleccionado.Text = _institutoSeleccionado.Nombre;
+            var labelInstitutoProveedor = lblPagosInstitutoProveedor.Text;
+            lblPagosInstitutoProveedor.Text = $"Pagos del instituto [{_institutoSeleccionado?.Nombre}] y prestador [{_proveedorSeleccionado?.NombreORazonSocial}]:";
 
             btnInsModificar.Enabled = true;
             btnInsBorrar.Enabled = true;
@@ -119,8 +127,28 @@ namespace GestorEdu
 
             if(_proveedorSeleccionado != null)
             {
-                btnInsProAsignarPrestador.Enabled = _institutoSeleccionado.Proveedores.Any(pro => pro.Codigo.Equals(_proveedorSeleccionado.Codigo));
-                btnInsProGenerarPago.Enabled = _institutoSeleccionado.Pagos.Any(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo));
+                bool isProovedorAsigned = _institutoSeleccionado.Proveedores.Any(pro => pro.Codigo.Equals(_proveedorSeleccionado.Codigo));
+                btnInsProAsignarPrestador.Enabled = !isProovedorAsigned;
+
+                var pagoEfectuado = _institutoSeleccionado.Pagos.Find(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo) &&
+                                                                                pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo));
+                if (pagoEfectuado != null)
+                {
+                    btnInsProGenerarPago.Enabled = !_institutoSeleccionado.Pagos.Any(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo) &&
+                                                                                pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo));
+                    btnPagar.Enabled = pagoEfectuado.Estado.Equals(EstadoPago.No_Cancelado);
+                }
+                else
+                {
+                    btnInsProGenerarPago.Enabled = isProovedorAsigned;
+                    btnPagar.Enabled = false;
+                }
+            }
+            else
+            {
+                btnInsProAsignarPrestador.Enabled = false;
+                btnInsProGenerarPago.Enabled = false;
+                btnPagar.Enabled = false;
             }
         }
 
@@ -129,17 +157,25 @@ namespace GestorEdu
             if (dgvProveedores.CurrentRow == null || dgvProveedores.CurrentRow.Index < 0 || dgvProveedores.SelectedRows.Count == 0 || dgvProveedores.Rows.Count == 0)
                 return;
 
-            btnProModificar.Enabled = true;
-            btnProBorrar.Enabled = true;
-
             var fila = dgvProveedores.SelectedRows[0];
             _proveedorSeleccionado = fila.DataBoundItem as Proveedor;
             if(_proveedorSeleccionado == null)
             {
+                btnProModificar.Enabled = false;
+                btnProBorrar.Enabled = false;
+                btnInsProAsignarPrestador.Enabled = false;
+                btnInsProGenerarPago.Enabled = false;
+                btnPagar.Enabled = false;
                 return; // TODO informar error?
             }
 
+            btnProModificar.Enabled = true;
+            btnProBorrar.Enabled = true;
+
+            lblProveedorSeleccionado1.Text = _proveedorSeleccionado.NombreORazonSocial;
             txtProSeleccionado.Text = _proveedorSeleccionado.NombreORazonSocial;
+            var labelInstitutoProveedor = lblPagosInstitutoProveedor.Text;
+            lblPagosInstitutoProveedor.Text = $"Pagos del instituto [{_institutoSeleccionado?.Nombre}] y prestador [{_proveedorSeleccionado?.NombreORazonSocial}]:";
 
             RefreshDataGrid(dgvInstitutosAsociados,
                 _institutos.Where(ins =>
@@ -151,8 +187,28 @@ namespace GestorEdu
 
             if (_institutoSeleccionado != null)
             {
-                btnInsProAsignarPrestador.Enabled = _institutoSeleccionado.Proveedores.Any(pro => pro.Codigo.Equals(_proveedorSeleccionado.Codigo));
-                btnInsProGenerarPago.Enabled = _institutoSeleccionado.Pagos.Any(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo));
+                bool isInstitutoAsigned = _proveedorSeleccionado.Institutos.Any(ins => ins.Codigo.Equals(_institutoSeleccionado.Codigo));
+                btnInsProAsignarPrestador.Enabled = !isInstitutoAsigned;
+
+                var pagoEfectuado = _proveedorSeleccionado.Pagos.Find(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo) &&
+                                                                                pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo));
+                if (pagoEfectuado != null)
+                {
+                    btnInsProGenerarPago.Enabled = !_proveedorSeleccionado.Pagos.Any(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo) &&
+                                                                                pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo));
+                    btnPagar.Enabled = pagoEfectuado.Estado.Equals(EstadoPago.No_Cancelado);
+                }
+                else
+                {
+                    btnInsProGenerarPago.Enabled = isInstitutoAsigned;
+                    btnPagar.Enabled = false;
+                }
+            }
+            else
+            {
+                btnInsProAsignarPrestador.Enabled = false;
+                btnInsProGenerarPago.Enabled = false;
+                btnPagar.Enabled = false;
             }
         }
         #endregion
@@ -282,7 +338,7 @@ namespace GestorEdu
                     btnInsBorrar.Enabled = false;
                     btnInsProAsignarPrestador.Enabled = false;
                     btnInsProGenerarPago.Enabled = false;
-                    return;
+                    btnInsNuevo.Focus();
                 }
             }
         }
@@ -400,6 +456,7 @@ namespace GestorEdu
                     btnProBorrar.Enabled = false;
                     btnInsProAsignarPrestador.Enabled = false;
                     btnInsProGenerarPago.Enabled = false;
+                    btnProNuevo.Focus();
                 }
             }
         }
@@ -421,26 +478,33 @@ namespace GestorEdu
 
             // tomar institutoSeleccionado y proveedorSeleccionado
             var filaInstituto = dgvInstitutos.SelectedRows[0];
-            Instituto? institutoSeleccionado = filaInstituto.DataBoundItem as Instituto;
+            _institutoSeleccionado = filaInstituto.DataBoundItem as Instituto;
             var filaProveedor = dgvProveedores.SelectedRows[0];
-            Proveedor? proveedorSeleccionado = filaProveedor.DataBoundItem as Proveedor;
+            _proveedorSeleccionado = filaProveedor.DataBoundItem as Proveedor;
+            if(_institutoSeleccionado == null || _proveedorSeleccionado == null)
+            {
+                MessageBox.Show("Ocurrió un error al intentar asignar el proveedor al instituo, Intente más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             // Validar que NO se encuentre ya asignado
-            var yaSeEncuentraAsignado = institutoSeleccionado.Proveedores.Any(p => p.Codigo == proveedorSeleccionado.Codigo);
+            var yaSeEncuentraAsignado = _institutoSeleccionado.Proveedores.Any(p => p.Codigo == _proveedorSeleccionado.Codigo);
             if (yaSeEncuentraAsignado)
             {
-                MessageBox.Show($"No se puede volver a asignar el proveedor '{proveedorSeleccionado}' al instituto {institutoSeleccionado}.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"No se puede volver a asignar el proveedor '{_proveedorSeleccionado}' al instituto {_institutoSeleccionado}.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             // asignar
-            institutoSeleccionado.AsignarProveedor(proveedorSeleccionado);
+            _institutoSeleccionado.AsignarProveedor(_proveedorSeleccionado);
 
             // refrescar grillas 3 y 4
-            RefreshDetailDataGrids(institutoSeleccionado, proveedorSeleccionado);
+            RefreshDetailDataGrids(_institutoSeleccionado, _proveedorSeleccionado);
 
-            // Activar como verdaro el boton de generar pago
+            // Activar como verdaro el boton de generar pago y deshabilitar el mismo
+            btnInsProAsignarPrestador.Enabled = false;
             btnInsProGenerarPago.Enabled = true;
+            btnInsProGenerarPago.Focus();
         }
 
         private void btnInsProGenerarPago_Click(object sender, EventArgs e)
@@ -458,9 +522,14 @@ namespace GestorEdu
 
             // tomar institutoSeleccionado y proveedorSeleccionado
             var filaInstituto = dgvInstitutos.SelectedRows[0];
-            Instituto? institutoSeleccionado = filaInstituto.DataBoundItem as Instituto;
+            _institutoSeleccionado = filaInstituto.DataBoundItem as Instituto;
             var filaProveedor = dgvProveedores.SelectedRows[0];
-            Proveedor? proveedorSeleccionado = filaProveedor.DataBoundItem as Proveedor;
+            _proveedorSeleccionado = filaProveedor.DataBoundItem as Proveedor;
+            if (_institutoSeleccionado == null || _proveedorSeleccionado == null)
+            {
+                MessageBox.Show("Ocurrió un error al intentar asignar el proveedor al instituo, Intente más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             // ingresar los datos de pago
             string title = "Registro de Pagos";
@@ -481,21 +550,55 @@ namespace GestorEdu
                 MessageBox.Show($"La Fecha [{fechaVencimiento}] ingresada no es válida.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            // Validar que sea mayor al día de hoy
-            if (fecha <= DateTime.Today)
-            {
-                MessageBox.Show("La fecha de vencimiento debe ser posterior al día de hoy.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
 
-            institutoSeleccionado.RegistrarPago(proveedorSeleccionado, decimal.Parse(importe), fecha);
+            // TODO determinar tipo de pago
+            _institutoSeleccionado.RegistrarPago(_proveedorSeleccionado, decimal.Parse(importe), fecha);
             RefreshDataGridInstitutosProveedoresPagos();
             RefreshPagosDataGrid();
+
+            // Activar como verdaro el boton de pagar y deshabilitar el mismo
+            btnInsProGenerarPago.Enabled = false;
+            btnPagar.Enabled = true;
+            btnPagar.Focus();
         }
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
+            if (dgvInstitutos.CurrentRow == null || dgvInstitutos.SelectedRows.Count == 0 || dgvInstitutos.Rows.Count == 0 || dgvInstitutos.CurrentRow.Index < 0)
+            {
+                MessageBox.Show($"Ocurrió un error en la grilla de institutos al momento de realizar el pago.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (dgvProveedores.CurrentRow == null || dgvProveedores.SelectedRows.Count == 0 || dgvProveedores.Rows.Count == 0 || dgvProveedores.CurrentRow.Index < 0)
+            {
+                MessageBox.Show($"Ocurrió un error en la grilla de proveedores al momento de realizar el pago.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            // tomar institutoSeleccionado y proveedorSeleccionado
+            var filaInstituto = dgvInstitutos.SelectedRows[0];
+            _institutoSeleccionado = filaInstituto.DataBoundItem as Instituto;
+            var filaProveedor = dgvProveedores.SelectedRows[0];
+            _proveedorSeleccionado = filaProveedor.DataBoundItem as Proveedor;
+            if (_institutoSeleccionado == null || _proveedorSeleccionado == null)
+            {
+                MessageBox.Show("Ocurrió un error al intentar obtener el proveedor y el instituo, Intente más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            Pago? pagoAsignado = _institutoSeleccionado.Pagos.Find(pago => pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo) &&
+                                                     pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo));
+            if (pagoAsignado != null)
+            {
+                pagoAsignado.Estado = EstadoPago.Cancelado;
+                pagoAsignado.ProcesarPago();
+                RefreshPagosDataGrid();
+
+                // Activar como verdaro el boton de nuevo instituto y deshabilitar el mismo
+                btnPagar.Enabled = false;
+                btnInsNuevo.Enabled = true;
+                btnInsNuevo.Focus();
+            }
         }
         #endregion
     }

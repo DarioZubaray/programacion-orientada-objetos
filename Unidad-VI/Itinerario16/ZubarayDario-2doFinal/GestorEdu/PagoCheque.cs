@@ -8,7 +8,16 @@
         // Lógica de procesamiento específica
         public override void ProcesarPago()
         {
-            Console.WriteLine("Procesando pago por cheque. Calculando recargo.");
+            if(ValidarFechaVencida())
+            {
+                this.Importe = Recargo;
+            }
+
+            if(Importe > 15000m)
+            {
+                // Desencadenar evento
+                MessageBox.Show("El importe ha superado el techo de $15.000,00.-", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
