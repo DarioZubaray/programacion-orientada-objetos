@@ -1,4 +1,4 @@
-﻿namespace GestorEdu
+﻿namespace GestorEdu.Entities
 {
     internal abstract class Pago
     {
@@ -28,4 +28,5 @@
         No_Cancelado = 0,
         Cancelado = 1,
     }
+
 }

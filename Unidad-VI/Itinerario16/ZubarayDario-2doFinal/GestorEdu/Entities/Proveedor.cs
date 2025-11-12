@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace GestorEdu
+namespace GestorEdu.Entities
 {
     internal class Proveedor
     {
@@ -15,11 +15,11 @@ namespace GestorEdu
 
         public Proveedor(string pCodigo, string pNombreORazonSocial, string pTelefono)
         {
-            this.Codigo = pCodigo;
-            this.NombreORazonSocial = pNombreORazonSocial;
-            this.Telefono = pTelefono;
-            this.Institutos = new();
-            this.Pagos = new();
+            Codigo = pCodigo;
+            NombreORazonSocial = pNombreORazonSocial;
+            Telefono = pTelefono;
+            Institutos = new();
+            Pagos = new();
         }
 
         public override string ToString()

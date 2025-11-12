@@ -1,7 +1,8 @@
-﻿namespace GestorEdu
+﻿namespace GestorEdu.Entities
 {
     internal class PagoCheque : Pago
     {
+        public const string TIPO = "Cheque";
         // El recargo específico para para pagos con cheque
         public override decimal Recargo => Importe * 0.05m; // 5% de recargo
 
@@ -10,7 +11,7 @@
         {
             if(ValidarFechaVencida())
             {
-                this.Importe = Recargo;
+                Importe = Recargo;
             }
 
             if(Importe > 15000m)

@@ -1,3 +1,5 @@
+using GestorEdu.Components;
+using GestorEdu.Entities;
 using Microsoft.VisualBasic;
 using System.Globalization;
 
@@ -72,6 +74,7 @@ namespace GestorEdu
                     {
                         Instituto = x.Instituto.Nombre,
                         Proveedor = x.Proveedor.NombreORazonSocial,
+                        Tipo = x.GetType().Name,
                         Importe = x.Importe,
                         Fecha = x.FechaVencimiento
                     })
@@ -88,6 +91,7 @@ namespace GestorEdu
                                 CodigoInstituto = x.Instituto.Codigo,
                                 NombreInstituto = x.Instituto.Nombre,
                                 NombrePrestador = x.Proveedor.NombreORazonSocial,
+                                Tipo = x.GetType().Name,
                                 Importe = x.Importe,
                                 Estado = x.Estado,
                                 FechaVencimiento = x.FechaVencimiento
@@ -551,8 +555,17 @@ namespace GestorEdu
                 return;
             }
 
-            // TODO determinar tipo de pago
-            _institutoSeleccionado.RegistrarPago(_proveedorSeleccionado, decimal.Parse(importe), fecha);
+            // determinar tipo de pago
+            string tipoPago = PagoTransferencia.TIPO;
+            using (var form = new FormTipoPago())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    tipoPago = form.TipoPagoSeleccionado;
+                }
+            }
+
+            _institutoSeleccionado.RegistrarPago(_proveedorSeleccionado, tipoPago, decimal.Parse(importe), fecha);
             RefreshDataGridInstitutosProveedoresPagos();
             RefreshPagosDataGrid();
 
@@ -598,6 +611,11 @@ namespace GestorEdu
                 btnPagar.Enabled = false;
                 btnInsNuevo.Enabled = true;
                 btnInsNuevo.Focus();
+            }
+            else
+            {
+                MessageBox.Show("Ocurrió un error al intentar obtener el pago asociado, Intente más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
         }
         #endregion
