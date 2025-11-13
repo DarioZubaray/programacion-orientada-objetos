@@ -19,7 +19,7 @@
 
         public virtual bool ValidarFechaVencida()
         {
-            return FechaVencimiento <= DateTime.Today;
+            return FechaVencimiento < DateTime.Today;
         }
     }
 
