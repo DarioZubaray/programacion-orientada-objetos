@@ -73,13 +73,15 @@ namespace GestorEdu
                     .SelectMany(i => i.Pagos)
                     .Where(p => p.Proveedor.Codigo == _proveedorSeleccionado.Codigo)
                     .OrderBy(p => p.FechaPago)
-                    .Select(x => new
+                    .Select(x => new PagosView
                     {
-                        Instituto = x.Instituto.Nombre,
-                        Proveedor = x.Proveedor.NombreORazonSocial,
-                        Tipo = x.GetType().Name,
-                        Importe = x.Importe,
-                        Fecha = x.FechaVencimiento
+                        InstitutoCodigo = x.Instituto.Codigo,
+                        InstitutoNombre = x.Instituto.Nombre,
+                        ProveedorCodigo = x.Proveedor.Codigo,
+                        ProveedorNombre = x.Proveedor.NombreORazonSocial,
+                        TipoPago = x.GetType().Name,
+                        Importe = x.Importe.ToString(),
+                        FechaVencimiento = x.FechaVencimiento.ToString()
                     })
                     .ToList());
         }
@@ -142,20 +144,9 @@ namespace GestorEdu
             {
                 bool isProovedorAsigned = _institutoSeleccionado.Proveedores.Any(pro => pro.Codigo.Equals(_proveedorSeleccionado.Codigo));
                 btnInsProAsignarPrestador.Enabled = !isProovedorAsigned;
+                btnInsProGenerarPago.Enabled = isProovedorAsigned;
 
-                var pagoEfectuado = _institutoSeleccionado.Pagos.Find(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo) &&
-                                                                                pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo));
-                if (pagoEfectuado != null)
-                {
-                    btnInsProGenerarPago.Enabled = !_institutoSeleccionado.Pagos.Any(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo) &&
-                                                                                pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo));
-                    btnPagar.Enabled = pagoEfectuado.Estado.Equals(EstadoPago.No_Cancelado);
-                }
-                else
-                {
-                    btnInsProGenerarPago.Enabled = isProovedorAsigned;
-                    btnPagar.Enabled = false;
-                }
+                btnPagar.Enabled = dgvPagos.SelectedRows.Count > 0;
             }
             else
             {
@@ -208,20 +199,9 @@ namespace GestorEdu
             {
                 bool isInstitutoAsigned = _proveedorSeleccionado.Institutos.Any(ins => ins.Codigo.Equals(_institutoSeleccionado.Codigo));
                 btnInsProAsignarPrestador.Enabled = !isInstitutoAsigned;
+                btnInsProGenerarPago.Enabled = isInstitutoAsigned;
 
-                var pagoEfectuado = _proveedorSeleccionado.Pagos.Find(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo) &&
-                                                                                pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo));
-                if (pagoEfectuado != null)
-                {
-                    btnInsProGenerarPago.Enabled = !_proveedorSeleccionado.Pagos.Any(pago => pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo) &&
-                                                                                pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo));
-                    btnPagar.Enabled = pagoEfectuado.Estado.Equals(EstadoPago.No_Cancelado);
-                }
-                else
-                {
-                    btnInsProGenerarPago.Enabled = isInstitutoAsigned;
-                    btnPagar.Enabled = false;
-                }
+                btnPagar.Enabled = dgvPagos.SelectedRows.Count > 0;
             }
             else
             {
@@ -569,55 +549,57 @@ namespace GestorEdu
             RefreshDataGridInstitutosProveedoresPagos();
             RefreshPagosDataGrid();
 
-            // Activar como verdaro el boton de pagar y deshabilitar el mismo
-            btnInsProGenerarPago.Enabled = false;
             btnPagar.Enabled = true;
             btnPagar.Focus();
         }
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
-            if (dgvInstitutos.CurrentRow == null || dgvInstitutos.SelectedRows.Count == 0 || dgvInstitutos.Rows.Count == 0 || dgvInstitutos.CurrentRow.Index < 0)
+            try
             {
-                MessageBox.Show($"Ocurrió un error en la grilla de institutos al momento de realizar el pago.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                if (dgvPagosInstitutosProveedores.SelectedRows.Count < 0)
+                {
+                    throw new Exception("Ocurrió un error al intentar obtener el pago asociado, Intente más tarde.");
+                }
+                var fila = dgvPagosInstitutosProveedores.SelectedRows[0];
+                PagosView pagoSeleccionado = fila.DataBoundItem as PagosView;
+                if (pagoSeleccionado == null)
+                {
+                    throw new Exception("Ocurrió un error al intentar obtener el pago asociado.");
+                }
+
+                // cargar institutoSeleccionado y proveedorSeleccionado
+                _institutoSeleccionado = _institutos.Find(ins => ins.Codigo.Equals(pagoSeleccionado.InstitutoCodigo));
+                _proveedorSeleccionado = _proveedores.Find(pro => pro.Codigo.Equals(pagoSeleccionado.ProveedorCodigo));
+                if (_institutoSeleccionado == null || _proveedorSeleccionado == null)
+                {
+                    throw new Exception("Ocurrió un error al intentar obtener el proveedor y el instituo, Intente más tarde.");
+                }
+
+                Pago? pagoAsignado = _institutoSeleccionado.Pagos.Find(pago => pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo) &&
+                                                         pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo));
+                if (pagoAsignado != null && pagoAsignado.Estado.Equals(EstadoPago.No_Cancelado))
+                {
+                    pagoAsignado.Estado = EstadoPago.Cancelado;
+                    pagoAsignado.ProcesarPago();
+                    // Actualizando los datos de las Grillas 5 y 6
+                    RefreshDataGridInstitutosProveedoresPagos();
+                    RefreshPagosDataGrid();
+
+                    MessageBox.Show("El pago se efectuado con éxito.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (pagoAsignado != null && pagoAsignado.Estado.Equals(EstadoPago.Cancelado))
+                    return;
+                else
+                {
+                    throw new Exception("Ocurrió un error al intentar obtener el pago asociado, Intente más tarde.");
+                }
             }
-            if (dgvProveedores.CurrentRow == null || dgvProveedores.SelectedRows.Count == 0 || dgvProveedores.Rows.Count == 0 || dgvProveedores.CurrentRow.Index < 0)
+            catch (Exception ex)
             {
-                MessageBox.Show($"Ocurrió un error en la grilla de proveedores al momento de realizar el pago.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            // tomar institutoSeleccionado y proveedorSeleccionado
-            var filaInstituto = dgvInstitutos.SelectedRows[0];
-            _institutoSeleccionado = filaInstituto.DataBoundItem as Instituto;
-            var filaProveedor = dgvProveedores.SelectedRows[0];
-            _proveedorSeleccionado = filaProveedor.DataBoundItem as Proveedor;
-            if (_institutoSeleccionado == null || _proveedorSeleccionado == null)
-            {
-                MessageBox.Show("Ocurrió un error al intentar obtener el proveedor y el instituo, Intente más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            Pago? pagoAsignado = _institutoSeleccionado.Pagos.Find(pago => pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo) &&
-                                                     pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo));
-            if (pagoAsignado != null)
-            {
-                pagoAsignado.Estado = EstadoPago.Cancelado;
-                pagoAsignado.ProcesarPago();
-                RefreshPagosDataGrid();
-
-                // Activar como verdaro el boton de nuevo instituto y deshabilitar el mismo
-                btnPagar.Enabled = false;
-                btnInsNuevo.Enabled = true;
-                btnInsNuevo.Focus();
-                MessageBox.Show("El pago se efectuado con éxito.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("Ocurrió un error al intentar obtener el pago asociado, Intente más tarde.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
         }
         #endregion
     }

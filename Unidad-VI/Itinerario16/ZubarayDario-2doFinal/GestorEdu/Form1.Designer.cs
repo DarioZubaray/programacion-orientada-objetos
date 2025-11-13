@@ -265,7 +265,7 @@
             // btnInsProGenerarPago
             // 
             btnInsProGenerarPago.Enabled = false;
-            btnInsProGenerarPago.Location = new Point(283, 111);
+            btnInsProGenerarPago.Location = new Point(442, 111);
             btnInsProGenerarPago.Name = "btnInsProGenerarPago";
             btnInsProGenerarPago.Size = new Size(158, 35);
             btnInsProGenerarPago.TabIndex = 2;
@@ -311,6 +311,7 @@
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(btnPagar);
             groupBox3.Controls.Add(lblPagos);
             groupBox3.Controls.Add(lblPagosInstitutoProveedor);
             groupBox3.Controls.Add(dgvPagos);
@@ -368,7 +369,6 @@
             // 
             // groupBox4
             // 
-            groupBox4.Controls.Add(btnPagar);
             groupBox4.Controls.Add(txtInsSeleccionado);
             groupBox4.Controls.Add(btnInsProGenerarPago);
             groupBox4.Controls.Add(btnInsProAsignarPrestador);
@@ -385,7 +385,7 @@
             // btnPagar
             // 
             btnPagar.Enabled = false;
-            btnPagar.Location = new Point(447, 111);
+            btnPagar.Location = new Point(441, 26);
             btnPagar.Name = "btnPagar";
             btnPagar.Size = new Size(153, 35);
             btnPagar.TabIndex = 7;
