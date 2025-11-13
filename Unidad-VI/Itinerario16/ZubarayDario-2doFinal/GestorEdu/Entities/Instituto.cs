@@ -1,8 +1,9 @@
-﻿using System.ComponentModel;
+﻿using GestorEdu.Exceptions;
+using System.ComponentModel;
 
 namespace GestorEdu.Entities
 {
-    internal class Instituto : IComparable<Instituto>
+    internal class Instituto
     {
         [DisplayName("Código")]
         public string Codigo { get; set; }
@@ -29,11 +30,6 @@ namespace GestorEdu.Entities
             return Nombre;
         }
 
-        public int CompareTo(Instituto? other)
-        {
-            return string.Compare(Nombre, other.Nombre, StringComparison.OrdinalIgnoreCase);
-        }
-
         public void AsignarProveedor(Proveedor proveedor)
         {
             if (!Proveedores.Contains(proveedor))
@@ -45,8 +41,9 @@ namespace GestorEdu.Entities
 
         public void RegistrarPago(Proveedor pProveedor, string pTipoPago, decimal pImporte, DateTime pFechaVencimiento)
         {
-            Pago pago = null;
+            Pago? pago = null;
             if (pTipoPago == PagoTransferencia.TIPO)
+            {
                 pago = new PagoTransferencia
                 {
                     CodigoPago = Guid.NewGuid(),
@@ -57,7 +54,9 @@ namespace GestorEdu.Entities
                     Instituto = this,
                     Proveedor = pProveedor,
                 };
+            }
             else if (pTipoPago == PagoCheque.TIPO)
+            {
                 pago = new PagoCheque
                 {
                     CodigoPago = Guid.NewGuid(),
@@ -68,6 +67,12 @@ namespace GestorEdu.Entities
                     Instituto = this,
                     Proveedor = pProveedor,
                 };
+            }
+            else
+            {
+                throw new PagoException("No se pudo identificar el tipo de pago a registrar.");
+            }
+
             Pagos.Add(pago);
             pProveedor.Pagos.Add(pago);
         }

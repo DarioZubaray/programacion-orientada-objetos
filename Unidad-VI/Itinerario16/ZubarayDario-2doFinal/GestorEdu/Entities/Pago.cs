@@ -1,4 +1,6 @@
-﻿namespace GestorEdu.Entities
+﻿using System.ComponentModel;
+
+namespace GestorEdu.Entities
 {
     internal abstract class Pago
     {
@@ -10,16 +12,27 @@
 
         // Propiedad que debe ser implementada por las subclases
         public abstract decimal Recargo { get; }
-        public decimal TotalAbonado => Importe + Recargo;
-        public Instituto Instituto { get; set; }
-        public Proveedor Proveedor { get; set; }
+        public Instituto? Instituto { get; set; }
+        public Proveedor? Proveedor { get; set; }
 
-        // Método abstracto para lógica específica futura (Polimorfismo)
-        public abstract void ProcesarPago();
-
-        public virtual bool ValidarFechaVencida()
+        public virtual decimal TotalAbonado()
         {
-            return FechaVencimiento < DateTime.Today;
+            if (FechaVencimiento < DateTime.Today)
+            {
+                return Importe + Recargo;
+            }
+            return Importe;
+        }
+
+        public virtual void ProcesarPago()
+        {
+            FechaPago = DateTime.Now;
+
+            if (TotalAbonado() > 15000m)
+            {
+                // Desencadenar evento de aviso
+                MessageBox.Show("El importe ha superado el techo de $15.000,00.-", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
     }
 

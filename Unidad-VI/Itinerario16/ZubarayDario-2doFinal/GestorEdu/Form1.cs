@@ -7,8 +7,8 @@ namespace GestorEdu
 {
     public partial class Form1 : Form
     {
-        private Instituto _institutoSeleccionado;
-        private Proveedor _proveedorSeleccionado;
+        private Instituto? _institutoSeleccionado;
+        private Proveedor? _proveedorSeleccionado;
         private List<Instituto> _institutos;
         private List<Proveedor> _proveedores;
         private BindingSource _bsInstitutos;
@@ -21,7 +21,7 @@ namespace GestorEdu
             _institutos = new List<Instituto>();
             _proveedores = new List<Proveedor>();
             _bsInstitutos = new BindingSource();
-            _bsInstitutos = new BindingSource();
+            _bsProveedores = new BindingSource();
         }
         private void ApplyDefaultGridConfiguration(DataGridView dgv)
         {
@@ -42,7 +42,7 @@ namespace GestorEdu
             ApplyDefaultGridConfiguration(dgvPagos);
 
             _bsInstitutos.DataSource = _institutos;
-            _bsInstitutos.DataSource = _proveedores;
+            _bsProveedores.DataSource = _proveedores;
             dgvInstitutos.DataSource = _bsInstitutos;
             dgvProveedores.DataSource = _bsProveedores;
         }
@@ -55,33 +55,42 @@ namespace GestorEdu
             dgv.DataSource = datasource;
         }
 
-        private void RefreshDetailDataGrids(Instituto pInstituto, Proveedor pProveedor)
+        private void RefreshDetailDataGrids()
         {
-            RefreshDataGrid(dgvProveedoresAsociados, pInstituto.Proveedores);
+
+            if (_institutoSeleccionado == null || _proveedorSeleccionado == null)
+                return;
+
+            RefreshDataGrid(dgvProveedoresAsociados, _institutoSeleccionado.Proveedores);
             RefreshDataGrid(dgvInstitutosAsociados,
                 _institutos.Where(ins =>
                     ins.Proveedores.Any(p =>
-                        p.Codigo.Equals(pProveedor.Codigo, StringComparison.OrdinalIgnoreCase)
+                        p.Codigo.Equals(_proveedorSeleccionado.Codigo, StringComparison.OrdinalIgnoreCase)
                     )
                 ).ToList());
         }
 
         private void RefreshDataGridInstitutosProveedoresPagos()
         {
+            if(_institutoSeleccionado == null || _proveedorSeleccionado == null)
+                return;
+
             RefreshDataGrid(dgvPagosInstitutosProveedores,
                 _institutos.Where(i => i.Codigo == _institutoSeleccionado.Codigo)
                     .SelectMany(i => i.Pagos)
                     .Where(p => p.Proveedor.Codigo == _proveedorSeleccionado.Codigo)
-                    .OrderBy(p => p.FechaPago)
+                    .OrderBy(p => p.FechaVencimiento)
                     .Select(x => new PagosView
                     {
+                        CodigoPago = x.CodigoPago,
                         InstitutoCodigo = x.Instituto.Codigo,
                         InstitutoNombre = x.Instituto.Nombre,
                         ProveedorCodigo = x.Proveedor.Codigo,
                         ProveedorNombre = x.Proveedor.NombreORazonSocial,
-                        TipoPago = x.GetType().Name,
                         Importe = x.Importe.ToString(),
-                        FechaVencimiento = x.FechaVencimiento.ToString()
+                        FechaVencimiento = x.FechaVencimiento.ToString("dd/MM/yyyy"),
+                        EstadoPago = x.Estado.ToString(),
+                        TipoPago = x.GetType().Name,
                     })
                     .ToList());
         }
@@ -98,6 +107,7 @@ namespace GestorEdu
                                 NombrePrestador = x.Proveedor.NombreORazonSocial,
                                 Tipo = x.GetType().Name,
                                 Importe = x.Importe,
+                                Total = x.TotalAbonado(),
                                 Estado = x.Estado,
                                 FechaVencimiento = x.FechaVencimiento
                             })
@@ -319,7 +329,20 @@ namespace GestorEdu
             if (result.Equals(DialogResult.Yes))
             {
                 _institutos.Remove(_institutoSeleccionado);
+                // remover el instituo del proveedor
+                _proveedores.ForEach(p =>
+                {
+                    if (p.Institutos != null)
+                    {
+                        p.Institutos.RemoveAll(inst =>
+                            inst != null && inst.Codigo.Equals(_institutoSeleccionado.Codigo)
+                        );
+                    }
+                });
+
                 RefreshDataGrid(dgvInstitutos, _institutos);
+                RefreshDetailDataGrids();
+
                 if (dgvInstitutos.Rows.Count == 0)
                 {
                     txtInsSeleccionado.Text = "";
@@ -483,7 +506,7 @@ namespace GestorEdu
             _institutoSeleccionado.AsignarProveedor(_proveedorSeleccionado);
 
             // refrescar grillas 3 y 4
-            RefreshDetailDataGrids(_institutoSeleccionado, _proveedorSeleccionado);
+            RefreshDetailDataGrids();
 
             // Activar como verdaro el boton de generar pago y deshabilitar el mismo
             btnInsProAsignarPrestador.Enabled = false;
@@ -523,7 +546,7 @@ namespace GestorEdu
                 MessageBox.Show($"El Número [{valor}] ingresado no es válido.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            string fechaVencimiento = Interaction.InputBox("Ingrese la fecha de vencimiento:", title, "").Trim().Replace('.', ',');
+            string fechaVencimiento = Interaction.InputBox($"Ingrese la fecha de vencimiento:{Environment.NewLine}(En formato dd/mm/yyyy)", title, "").Trim().Replace('.', ',');
             DateTime fecha;
             if (!DateTime.TryParseExact(fechaVencimiento,
                 "dd/MM/yyyy",
@@ -545,12 +568,19 @@ namespace GestorEdu
                 }
             }
 
-            _institutoSeleccionado.RegistrarPago(_proveedorSeleccionado, tipoPago, decimal.Parse(importe), fecha);
-            RefreshDataGridInstitutosProveedoresPagos();
-            RefreshPagosDataGrid();
+            try
+            {
+                _institutoSeleccionado.RegistrarPago(_proveedorSeleccionado, tipoPago, decimal.Parse(importe), fecha);
+                RefreshDataGridInstitutosProveedoresPagos();
+                RefreshPagosDataGrid();
 
-            btnPagar.Enabled = true;
-            btnPagar.Focus();
+                btnPagar.Enabled = true;
+                btnPagar.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnPagar_Click(object sender, EventArgs e)
@@ -562,7 +592,7 @@ namespace GestorEdu
                     throw new Exception("Ocurrió un error al intentar obtener el pago asociado, Intente más tarde.");
                 }
                 var fila = dgvPagosInstitutosProveedores.SelectedRows[0];
-                PagosView pagoSeleccionado = fila.DataBoundItem as PagosView;
+                PagosView? pagoSeleccionado = fila.DataBoundItem as PagosView;
                 if (pagoSeleccionado == null)
                 {
                     throw new Exception("Ocurrió un error al intentar obtener el pago asociado.");
@@ -577,7 +607,8 @@ namespace GestorEdu
                 }
 
                 Pago? pagoAsignado = _institutoSeleccionado.Pagos.Find(pago => pago.Instituto.Codigo.Equals(_institutoSeleccionado.Codigo) &&
-                                                         pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo));
+                                                         pago.Proveedor.Codigo.Equals(_proveedorSeleccionado.Codigo) &&
+                                                         pago.CodigoPago.Equals(pagoSeleccionado.CodigoPago));
                 if (pagoAsignado != null && pagoAsignado.Estado.Equals(EstadoPago.No_Cancelado))
                 {
                     pagoAsignado.Estado = EstadoPago.Cancelado;

@@ -8,8 +8,10 @@ namespace GestorEdu.Components
         public FormTipoPago()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterParent;
             cmbTipoPago.Items.AddRange(new[] { PagoTransferencia.TIPO, PagoCheque.TIPO });
             cmbTipoPago.SelectedIndex = 0;
+            btnAceptar.Focus();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
