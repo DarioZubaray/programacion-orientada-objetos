@@ -31,7 +31,8 @@ namespace CalculadoraDelegado
             operacion = MiSuma;
 
             // 5- Utilizo el delgado
-            MessageBox.Show(operacion(num1, num2) + "");
+            var resultado = operacion(num1, num2);
+            MessageBox.Show(resultado + "");
         }
     }
 }
