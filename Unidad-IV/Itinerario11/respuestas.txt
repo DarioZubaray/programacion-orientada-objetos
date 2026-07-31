@@ -1,35 +1,47 @@
 1. ¿Para qué se utilizan las interfaces?
 
-
+Las interfaces se utilizan para poder definir propiedades, métodos y eventos que luego deberán implementar aquellas clases que implementen la interfaz.
 
 2. ¿Cómo se implementa una interfaz?
 
-
+Las clases que implementan una misma interfaz, deban implementar todo aquello que esté definido en la interfaz implementada.
+Esto impleca que tendrán las propiedades, métodos y eventos que la interfaz tenga definida y por lo tanto coincidirán en las firmas de estos miembros.
 
 3. ¿Se pueden heredar las interfaces?
 
-
+Si, una interfaz puede extender de otra, heredando sus métodos sin implementación, creando jerarquías y contratos más específicos.
 
 4. ¿Se puede implementar un tipo de polimorfismo peculiar por medio de interfaces?
 
-
+Si, las interfaces permiten un tipo de polimorfismo por contrato, donde distintas clases implementan la misma interfaz y pueden ser tratadas de forma uniforme.
 
 5. ¿Para qué se utiliza la interfaz IComparable?
 
-
+La interfaz Icomparable se utiliza, entre otras cosas, para poder interactuar con el método "Sort" de la clase "Array" y lograr que un "Array" de un determinado tipo pueda ser ordenado por un criterio peculiar.
+Se debe impletar el método:
+public int CompareTo(T other)
 
 6. ¿Para qué se utiliza la interfaz IComparer?
 
-
+La interfaz IComparer permite ordenar una lista según distintos criterios sin modificar la clase original.
+Se debe impletar el método:
+public int Compare(T x, T y)
 
 7. ¿Para qué se utiliza la interfaz ICloneable?
 
-
+La interfaz Icloneable permite realizar la clonación de objetos. Crea una nueva instancia de una clase con el mismo estado de una instancia existente.
 
 8. ¿Para qué se utiliza la interfaz IEnumerable?
 
-
+La interfaz IEnumerable expone un enumerador, que admite una iteración simple sobre una colección.
+Esta interfaz propone que se implemente el método GetEnumerator el que retorna un objeto de tipo IEnumerator.
 
 9. ¿Para qué se utiliza la interfaz IEnumerator?
 
+La interfaz IEnumerator obliga a implementar en la clase que la implementa, la siguiente propiedad y los dos métodos que a continuación se exponen:
 
+Current: Propiedad de solo lectura. Retorna el elemento que se está recorriendo.
+
+Reset Método: Se inicializan valores que se utilizan en la iteración.
+
+Move Método: Determina que elemento se va a colocar en Current y retorna verdadero. Si ya no hay nada por recorrer debe retornar falso.

@@ -1,0 +1,29 @@
+# Actividades asincrónicas
+
+### Guía de preguntas de repaso conceptual
+
+1. ¿Qué son y para qué se usan los tipos genéricos?
+2. ¿A partir de que versión de c# se pueden utilizar?
+3. Enumere las ventajas de utilizar genéricos.
+4. ¿A qué elementos se le pueden aplicar genericos?
+5. ¿Cuáles son los usos más comunes de los genéricos?
+6. ¿Qué aspectos trascendentes se deben considerar al crear clases genéricas? 
+7. ¿Cués es la diferencia entre heredar de una clase genérica abierta y una clase genérica cerrada?
+8. ¿Por qué es importante colocar restricciones en los parámetros de tipo?
+9. ¿Cuáles son los tipos de restricciones que se le pueden colocar a un parámetro de tipo?
+10. ¿Ejemplifique cómo crearía un método genérico con un parámetro de tipo?
+11. ¿Qué es LinQ?
+12. ¿Qué orígenes de datos se pueden consultar con LinQ?
+13. ¿Cuáles son las partes básicas de una consulta LinQ?
+14. ¿Qué especifica la consulta en una estructura de LinQ?
+15. Mencione al menos tres clausulas (las más importantes) que se usan en una expresión de consulta LinQ.
+16. Explique que hace cada cláusula enumarada en la pregunta anterior
+17. Dado que una expreseión de consulta genera un Ienumerable, enumere y explique los métodos de extensión que posee Ienumerable. (p.e Count) 
+18. ¿Qué utilizaría para ordenar en una expresión LinQ?
+19. ¿Qué utilizaría para lograr una unión entre dos origenes de datos en una expresión LinQ?
+20. ¿Cómo se pueden generar nuevos tipos utilizando LinQ?
+
+### Trabajos Prácticos
+
+1. Desarrollar un programa que aplique el concepto genéricos a nivel de clase y en al menos dos métodos.
+2. Desarrollar un programa que utilice Linq para realizar consultas.

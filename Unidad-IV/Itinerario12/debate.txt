@@ -5,3 +5,17 @@ Puede considerar las siguientes consignas como un punto inicial del debate.
 Lo invitamos a reflexionar sobre las ventajas de utilizar delegados.
 Ejemplifique un escenario donde el uso de delegados aporta notablemente al desarrollo del programa.
 Qué desventajas observa en su utilización.
+
+Ventajas de utilizar delegados:
+
+Flexibilidad en la ejecución de métodos:
+Permiten pasar métodos como parámetros, el comportamiento de una función puede modificarse dinámicamente sin reescribir código.
+
+Desacoplamiento entre componentes:
+El emisor no necesita conocer qué método se ejecutará, mejora la modularidad y facilita la extensión del sistema.
+
+Facilitan la programación de eventos:
+Son la base del modelo de eventos en C#, permiten que un objeto notifique a otros cuando ocurre algo, sin depender directamente de ellos.
+
+Reutilización de código:
+Un mismo delegado puede invocar distintos métodos con la misma firma, se evita duplicar lógica y se mejora la claridad del programa.
